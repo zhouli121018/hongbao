@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2020年的你</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        body {
+            background: #000;
+            background:rgba(0,0,0,.8);
+            padding:0;
+            margin:0;
+        }
+        html,body{
+            /* height:100%; */
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .center_box {
+            background: url('img/bg_2.png') 100% 100% no-repeat #FCEADB;
+            background-size: 100% 100%;
+            border-radius: 0.2rem;
+            padding: 0.2rem 0 0.2rem;
+        }
+
+        .hf_box {
+            background: url('img/hf.png') no-repeat;
+            background-size: 100% 100%;
+            /* height: .91rem; */
+            line-height:.9rem;
+            width:4.83rem;
+            text-align: center;
+            /* padding-top: .1rem; */
+            font-size: .38rem;
+            color: #FCEADB;
+        }
+
+        .desc_1 {
+            font-size: .32rem;
+            /* font-family: Alibaba PuHuiTi; */
+            font-weight: bold;
+            color: rgba(51, 51, 51, 1);
+            padding-left: .25rem;
+            padding-top: .1rem;
+        }
+
+        .desc_2 {
+            padding: .1rem 0 .1rem .25rem;
+            font-size: .24rem;
+            /* font-family: Alibaba PuHuiTi; */
+            font-weight: 400;
+            color: rgba(128, 108, 91, 1);
+        }
+
+        .share_box {
+            padding: .1rem 0 .2rem;
+            text-align: center;
+            width: 100%;
+            font-size: .4rem;
+            /* font-family: Alibaba PuHuiTi; */
+            font-weight: 400;
+            color: rgba(254, 254, 254, 1);
+        }
+    </style>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/html2canvas.js"></script>
+    <script>
+
+        //引入该flexible.min.js
+!function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+</head>
+<body>
+    <div style="box-sizing:border-box;height:100%;padding:.2rem .4rem .01rem;" id="login">
+        <div id="black_box" style="font-size:0;">
+            <div style="box-sizing:border-box;position: relative;;left:-150%;" id="img_box">
+                <div class="center_box">
+                <div class="flex">
+                    <div style="padding:0.20rem 0.66rem 0.01rem;">
+                        <img id="head_img" src="img/user.png" style="width:1.28rem;border-radius:50%;" alt />
+                        <div style="text-align:center;white-space: nowrap;"><b id="nickname" style="font-size:0.26rem;font-family: Arial, Helvetica, sans-serif;"></b></div>
+                    </div>
+                    <div
+                    class="flex_grow_1"
+                    style="text-align:right;padding-right:0.52rem;"
+                    >
+                    <img src="img/2020.png" style="width:98%;" alt />
+                    </div>
+                </div>
+    
+                <div style="padding:0 .4rem;font-size:0;">
+                    <img src="img/xian.png" alt style="width:100%;" />
+                </div>
+                <div class="flex" style="padding:0 .1rem;position:relative;padding-bottom:.1rem;">
+                    <img src="img/bp_l.png" alt style="width:1.01rem" />
+                    <div class="flex_grow_1 hf_box" >
+                    <!-- <img src="~@/assets/img/hf.png" style="width:100%;" /> -->
+                    <span style="position:relative;top:-.1rem;">￥<span id="money" ></span></span>
+                    
+                    </div>
+                    <img src="img/bp_r.png" alt style="width:1.01rem" />
+                    
+                </div>
+                <div   style="color:#FFAB27;text-align:center;position:relative;top:-.5rem;">
+                    <span id="money_wan" style="font-size:1.63rem;font-weight:bold;"></span>
+                    <span style="font-size:0.79rem;">万</span>
+                </div>
+               
+                
+                <div style="padding: 0 .4rem 0;font-size:0;">
+                    <img src="img/xian.png" alt style="width:100%;" />
+                </div>
+                <div class="flex">
+                    <div class="flex_grow_1" style="padding-left:.3rem;">
+                    <div class="desc_1">长按识别右边二维码</div>
+                    <div class="desc_2">看看你2020年能赚多少钱</div>
+                    <img src="img/bp.png" style="width:3.38rem;" alt />
+                    </div>
+                    <div style="padding-right:.64rem;">
+                    <img id="barcode" src="img/waleqrcode.png" style="width:1.5rem;" alt />
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- <img v-if="!no_img" :src="dataURL" alt="" style="width:100%;" /> -->
+            
+        </div>
+        <div class="share_box" >
+            长按图片保存后，可分享
+        </div>
+    </div>
+
+    
+    <script>
+        $(function(){
+            // setTimeout(() => {
+            //     $('body,html').animate({'scrollTop':0},0,function(){
+            //         var t_img; // 定时器
+            //         var isLoad = true; // 控制变量
+            //         // 判断图片加载的函数
+            //         function isImgLoad(callback){
+            //             // 注意我的图片类名都是cover，因为我只需要处理cover。其它图片可以不管。
+            //             // 查找所有封面图，迭代处理
+            //             $('img').each(function(){
+            //                 // 找到为0就将isLoad设为false，并退出each
+            //                 console.log(this.height)
+            //                 if(this.height === 0){
+            //                     isLoad = false;
+            //                     return false;
+            //                 }
+            //             });
+            //             // 为true，没有发现为0的。加载完毕
+            //             if(isLoad){
+            //             clearTimeout(t_img); // 清除定时器
+            //             // 回调函数
+            //             callback();
+            //             // 为false，因为找到了没有加载完成的图，将调用定时器递归
+            //             }else{
+            //                 isLoad = true;
+            //                 t_img = setTimeout(function(){
+            //                     isImgLoad(callback); // 递归扫描
+            //                 },500); // 我这里设置的是500毫秒就扫描一次，可以自己调整
+            //             }
+            //         }
+            //         function callback(){
+            //             html2canvas(document.querySelector("#img_box"),{ 
+            //                 background:'#000',
+            //                 useCORS: true,
+            //                 width:$('#img_box').width(),//设置canvas尺寸与所截图尺寸相同，防止白边
+            //                 height:$('#img_box').height(),//防止白边
+            //             }).then(canvas => {
+            //                 $('#black_box').html('<img src="'+canvas.toDataURL()+'" style="width:100%;border-radius:.2rem;">')
+            //             });
+            //         }
+            //         // 判断图片加载状况，加载完成后回调
+            //         isImgLoad(callback);
+                    
+            //     });
+                
+            // }, 500);
+            let device ;
+            let u = navigator.userAgent, app = navigator.appVersion;
+            let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+            let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if (isAndroid) {
+                device = 0
+            }
+            if (isIOS) {
+                device = 1
+            }
+            var search = location.search;
+            var arr = search.slice(1).split('&');
+            var arr2 = [];
+            for(var i=0;i<arr.length;i++){
+                var o = arr[i];
+                var c = o.indexOf('=')
+                if(c>0){
+                    arr2[o.slice(0,c)] = o.slice(c+1)
+                }
+            }
+            if(arr2['code']){
+                let now = new Date();
+                let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                $.ajax({
+                    url:'getranddata.php',
+                    type:'POST',
+                    data:{
+                        code:arr2['code'],
+                        device:device,
+                        pid:arr2['state'],
+                        token:now.getTime(),
+                        data:md5_data
+                    },
+                    success:function(json){
+                        var data = JSON.parse(json)
+                        if(data.message){
+                            $('body').html('<h3>'+data.message+'</h3>')
+                            // alert(data.message);
+                            return;
+                        }
+                        if(data.errorcode == 0){
+                            $('#head_img').attr('src',data.headimgurl);
+                            $('#nickname').html(data.username);
+                            $('#money').html(data.money);
+                            $('#money_wan').html(data.money_wan);
+                            $('#barcode').attr('src',data.barcode);
+                        }
+                        setTimeout(() => {
+                            // html2canvas(document.querySelector("#img_box"),{ background:'#000',useCORS: true}).then(canvas => {
+                            //     $('#black_box').html('<img src="'+canvas.toDataURL("image/png")+'" style="width:100%;border-radius:.2rem;">')
+                            // });
+                            $('body,html').animate({'scrollTop':0},0,function(){
+                                
+                                var t_img; // 定时器
+                                var isLoad = true; // 控制变量
+                                // 判断图片加载的函数
+                                function isImgLoad(callback){
+                                    // 注意我的图片类名都是cover，因为我只需要处理cover。其它图片可以不管。
+                                    // 查找所有封面图，迭代处理
+                                    $('img').each(function(){
+                                        // 找到为0就将isLoad设为false，并退出each
+                                        console.log(this.height)
+                                        if(this.height === 0){
+                                            isLoad = false;
+                                            return false;
+                                        }
+                                    });
+                                    // 为true，没有发现为0的。加载完毕
+                                    if(isLoad){
+                                    clearTimeout(t_img); // 清除定时器
+                                    // 回调函数
+                                    callback();
+                                    // 为false，因为找到了没有加载完成的图，将调用定时器递归
+                                    }else{
+                                        isLoad = true;
+                                        t_img = setTimeout(function(){
+                                            isImgLoad(callback); // 递归扫描
+                                        },500); // 我这里设置的是500毫秒就扫描一次，可以自己调整
+                                    }
+                                }
+                                function callback(){
+                                    html2canvas(document.querySelector("#img_box"),{ 
+                                        background:'#000',
+                                        useCORS: true,
+                                        width:$('#img_box').width(),//设置canvas尺寸与所截图尺寸相同，防止白边
+                                        height:$('#img_box').height(),//防止白边
+                                    }).then(canvas => {
+                                        $('#black_box').html('<img src="'+canvas.toDataURL()+'" style="width:100%;border-radius:.2rem;">')
+                                    });
+                                }
+                                // 判断图片加载状况，加载完成后回调
+                                isImgLoad(callback);  
+                                
+                            });
+                        }, 500);
+                        
+                    }
+                })
+            }
+        })
+        
+        
+        
+        
+    </script>
+</body>
+</html>

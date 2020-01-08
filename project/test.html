@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2020年的你</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        body {
+            background: #fceadb;
+            padding:0;
+            margin:0;
+        }
+		.btn{
+			border: 0;
+			color: #fff;
+			background-color: #BB051D;
+			outline: none;
+			width: 90%;
+			text-align: center;
+			cursor: pointer;
+			font-weight: bold;
+			padding:.2rem .1rem;
+			font-size:.4rem;
+			border-radius:.2rem;
+			letter-spacing: .1rem;
+			margin:0 .1rem;
+		}
+    </style>
+    <script src="js/jquery-1.11.3.js"></script>
+    <!-- <script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script> -->
+    <script>
+
+            //引入该flexible.min.js
+    !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+</head>
+<body>
+    <div id="login">
+        <div style="padding:.5rem .14rem 0;font-size:0;">
+            <img src="img/bg_1.png" alt style="width:100%;" />
+        </div>
+        <div class="flex" style="padding:0 .06rem;">
+            <img src="img/dl_1.png" alt style="width:.72rem" />
+            <div class="flex_grow_1 flex" >
+                <img src="img/dash.png" style="width:1.02rem;height:.02rem;" />
+				<!-- <img id="go_test_btn" src="img/btn.png"  alt style="width:100%;cursor:pointer;" /> -->
+                <button type="button" class="flex_grow_1 btn" onclick="go_test()" style="">
+					前往测试
+                </button> 
+                <img src="img/dash.png" style="width:1.02rem;height:.02rem;" />
+            </div>
+            <img src="img/dl_2.png" alt style="width:.72rem" />
+        </div>
+    </div>
+    
+    <script>
+		function go_test(){
+            var search = location.search;
+            var arr = search.slice(1).split('&');
+            var arr2 = [];
+            console.log(arr)
+            for(var i=0;i<arr.length;i++){
+                var o = arr[i];
+                var c = o.indexOf('=')
+                if(c>0){
+                    arr2[o.slice(0,c)] = o.slice(c+1)
+                }
+            }
+            let pid = '';
+            if(arr2['pid']){
+                pid = arr2['pid']
+            }
+            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8ce28a0960fe3a35&redirect_uri=http%3a%2f%2fwww.sscby.com%2fmp&response_type=code&scope=snsapi_userinfo&state='+pid+'#wechat_redirect'
+            
+        }
+    </script>
+</body>
+</html>
