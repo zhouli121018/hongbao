@@ -54,10 +54,177 @@
         }
         
     </script>
+    <style>
+        .dikuang{
+            background:url(img/loadhb/dikuang.png);
+            background-size:100% 100%;
+            min-height:7rem;
+            padding:.4rem .2rem .2rem;
+            margin-bottom:.2rem;
+        }
+        .box{
+            padding:0 .3rem;
+        }
+        .xiao_dik{
+            background:url(img/loadhb/xiao_dik.png);
+            background-size:100% 100%;
+            padding:.28rem .45rem;
+            font-size:0.3rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            color:rgba(169,23,26,1);
+            margin-bottom:.18rem;
+        }
+        .text{
+            width:1.3rem;
+            text-align:right;
+        }
+        .down{
+            background:url(img/loadhb/down.png);
+            background-size:100% 100%;
+            width:.22rem;
+            height:.13rem;
+        }
+        .load_input{
+            text-align: right;
+            text-align: end;
+            width: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            font-size:0.3rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            /* color:rgba(217,189,129,1); */
+        }
+        ::-webkit-input-placeholder {
+            color:rgba(217,189,129,1);
+        }
+        .xiao_dik .flex_grow_1{
+            padding:0 .2rem;
+        }
+        .desc{
+            font-size:0.22rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            color:rgba(221,197,147,1);
+            text-align:center;
+            padding: 0 0 .2rem 0;
+        }
+        .btn{
+            width:2.74rem;
+            height:.83rem;
+            border: none;
+            outline: none;
+            padding: 0;
+            font-size:0.3rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            color:rgba(255,255,255,1);
+            background-color:none;
+        }
+        .btn_1{
+            background:url(img/loadhb/btn_bg1.png);
+            background-size:100% 100%;
+        }
+        .btn_2{
+            background:url(img/loadhb/btn_bg2.png);
+            background-size:100% 100%;
+        }
+        .text_center{
+            text-align:center;
+        }
+        .bottom_desc{
+            font-size:0.24rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            color:rgba(169,23,26,1);
+            line-height:0.4rem;
+        }
+        .normal_quest{
+            color:#FF2D27;
+            font-size:0.28rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            text-decoration:underline;
+            padding-top:.2rem;
+        }
+        .wenhao{
+            display:inline-block;
+            border-radius:50%;
+            width:.36rem;
+            height:.36rem;
+            color:#fff;
+            background:red;
+            text-align:center;
+            line-height:.36rem;
+            margin-right:.12rem;
+        }
+    </style>
 </head>
 <body>
     
-    <div id="box">
+    <div>
+        <img src="img/loadhb/bg.png" alt="" style="width:100%;">
+        <div class="box">
+            <div class="dikuang">
+                <div class="xiao_dik flex">
+                    <div class="text">祝福语:</div>
+                    <div class="flex_grow_1"></div>
+                    <div class="down"></div>
+                </div>
+                <div class="xiao_dik flex">
+                    <div class="text">横批:</div>
+                    <div class="flex_grow_1"></div>
+                    <div class="down"></div>
+                </div>
+                <div class="xiao_dik flex">
+                    <div class="text">上联:</div>
+                    <div class="flex_grow_1"></div>
+                </div>
+                <div class="xiao_dik flex">
+                    <div class="text">下联:</div>
+                    <div class="flex_grow_1"></div>
+                </div>
+                <div class="xiao_dik flex">
+                    <div class="text">总金额:</div>
+                    <div class="flex_grow_1">
+                        <input type="text" placeholder="请输入金额..." class="load_input">
+                    </div>
+                    <div>元</div>
+                </div>
+                <div class="xiao_dik flex">
+                    <div class="text">红包个数:</div>
+                    <div class="flex_grow_1">
+                        <input type="text" placeholder="请输入个数..." class="load_input">
+                    </div>
+                    <div>个</div>
+                </div>
+
+                <div class="desc">手续费按输入金额的2%收取</div>
+                <div class="flex">
+                    <div class="flex_grow_1 text_center">
+                        <button type="button" class="btn btn_1">录音祝福语</button>
+                    </div>
+                    <div class="flex_grow_1 text_center">
+                        <button type="button" class="btn btn_2">塞钱进红包</button>
+                    </div>
+                </div>
+
+                <div class="flex bottom_desc" style="padding:.5rem .2rem .1rem;">
+                    <div class="flex_grow_1">
+                        <div>好友将抢到随机金额红包</div>
+                        <div>长按扫码关注公众号可取回无人认领红包</div>
+                        <div class="normal_quest" ><span class="wenhao">?</span>常见问题></div>
+                    </div>
+                    <div>
+                        <img  src="img/qrcode_ex.png" alt="" style="width:1.34rem;">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
         
     </div>
 
@@ -66,7 +233,7 @@
             wx.config({
                 debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                 appId: '', // 必填，公众号的唯一标识
-                timestamp: , // 必填，生成签名的时间戳
+                timestamp: '', // 必填，生成签名的时间戳
                 nonceStr: '', // 必填，生成签名的随机串
                 signature: '',// 必填，签名，见附录1
                 jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，这里只写支付的
@@ -102,7 +269,9 @@
                 });
             }
 
-       
+            $('.btn_2').click(function(){
+                location.href = 'sharehongbao.html'
+            })
         })
             
     
