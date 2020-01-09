@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新年祝福对联红包</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        html,body {
+            padding:0;
+            margin:0;
+            font-family: STZhongsong ,kaiTi;
+        }
+    </style>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <!-- <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> -->
+    <script>
+            //引入该flexible.min.js
+    !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+    <script>
+        var search = location.search;
+        var arr = search.slice(1).split('&');
+        var arr2 = [];
+        for(var i=0;i<arr.length;i++){
+            var o = arr[i];
+            var c = o.indexOf('=')
+            if(c>0){
+                arr2[o.slice(0,c)] = o.slice(c+1)
+            }
+        }
+        
+        if(localStorage['openid']){
+
+        }else{
+            let pid = '';
+            let hbid = '';
+            if(arr2['pid']){
+                pid = arr2['pid']
+            }
+            if(arr2['hbid']){
+                pid = arr2['hbid']
+            }
+            // location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
+        }
+        
+    </script>
+</head>
+<body>
+    
+    <div id="box">
+        
+    </div>
+
+    <script>
+        $(function(){
+            wx.config({
+                debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: '', // 必填，公众号的唯一标识
+                timestamp: , // 必填，生成签名的时间戳
+                nonceStr: '', // 必填，生成签名的随机串
+                signature: '',// 必填，签名，见附录1
+                jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，这里只写支付的
+            });
+
+            function startWxPay() {
+                $.ajax({
+                    type: "POST",
+                    url: "submitduilian",
+                    data: { code: code, openid: openid },
+                    beforeSend: function () {
+                        $("#btnPay").attr({ "disabled": "disabled" });
+                    },
+                    success: function (res) {
+                        $("#btnPay").removeAttr("disabled");
+                        if (res.openid != null && res.openid != undefined && res.openid != "") {
+                            window.localStorage.setItem("openid", res.openid);
+                        }
+                        wx.chooseWXPay({
+                            timestamp: res.data.timeStamp, // 支付签名时间戳
+                            nonceStr: res.data.nonceStr, // 支付签名随机串，不长于32 位
+                            package: res.data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                            signType: "MD5", // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                            paySign: res.data.paysign, // 支付签名
+                            success: function (res) {
+                                //支付成功
+                            },
+                            cancel: function (res) {
+                                //支付取消
+                            }
+                        });
+                    }
+                });
+            }
+
+       
+        })
+            
+    
+    </script>
+    
+    
+</body>
+</html>
