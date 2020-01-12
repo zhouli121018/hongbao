@@ -140,6 +140,32 @@
             font-weight:500;
             color:rgba(206,187,145,1);
         }
+        .text_center{
+            text-align:center;
+        }
+        .tixian_btn{
+            background:url(img/des/btn.png);
+            background-size:100% 100%;
+            width:3.94rem;
+            height:.83rem;
+            background-color:transparent;
+            border:none;
+            outline: none;
+            color:#fff;
+            font-size:0.3rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+        }
+        .btn_box{
+            padding-top:.84rem;
+        }
+        .desc{
+            font-size:0.22rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            color:rgba(190,161,100,1);
+            padding-top:.18rem;
+        }
     </style>
     <script src="js/jquery-1.11.3.js"></script>
     <script src="js/md5.js"></script>
@@ -164,7 +190,7 @@
                             <img src="img/des/detail.png" style="width:.28rem;" alt="">
                         </div>
                         
-                        <div class="detail">提现明细</div>
+                        <div class="detail" id="go_despositlist">提现明细</div>
 
                     </div>
                     <div class="xiao_dik flex">
@@ -176,7 +202,6 @@
                             <span class="wx_lq">微信零钱</span>
                             <span class="daozhang">(1-5个工作日到账)</span>
                         </div>
-                            
                     </div>
                     <div class="xiao_dik bg2">
                         <div class="left_font">提现金额:</div>
@@ -188,6 +213,14 @@
                             <div class="all">全部</div>
                         </div>
                     </div>
+
+                    <div class="text_center btn_box">
+                        <button class="tixian_btn" type="button">提现</button>
+                    </div>
+                    <div class="desc text_center">
+                        单次提现至少1元，最多200
+                    </div>
+
                 </div>
             </div>
             
@@ -197,6 +230,9 @@
     
     <script>
 		$(function(){
+            $('#go_despositlist').click(function(){
+                location.href = 'despositlist.html'
+            })
             var search = location.search;
             var arr = search.slice(1).split('&');
             var arr2 = [];
