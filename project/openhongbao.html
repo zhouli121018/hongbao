@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>打开红包</title>
     <style>
@@ -151,21 +152,12 @@
                 arr2[o.slice(0,c)] = o.slice(c+1)
             }
         }
-        
         if(localStorage['openid']){
 
         }else{
-            let pid = '';
-            let hbid = '';
-            if(arr2['pid']){
-                pid = arr2['pid']
-            }
-            if(arr2['hbid']){
-                pid = arr2['hbid']
-            }
-            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
+
         }
-        
+        alert(location.href)
     </script>
 </head>
 <body>
@@ -241,6 +233,7 @@
 
     <script>
         $(function(){
+            alert(arr2['code'])
             var isstart = false;
             var voicetime = 0;
             wx.config({
@@ -288,11 +281,14 @@
                 if(localStorage.getItem('openid')){
                     obj.openid = localStorage.getItem('openid');
                 }
+                
+                alert(JSON.stringify(obj))
                 $.ajax({
                     url:'gethongbaodata.php',
                     type:'POST',
                     data:obj,
                     success:function(json){
+                        alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
                             $('#head_img').attr('src',data.headimg);
@@ -329,6 +325,17 @@
                         }
                     }
                 })
+            }else{
+                let pid = '';
+                let hbid = '';
+                if(arr2['pid']){
+                    pid = arr2['pid']
+                }
+                if(arr2['hbid']){
+                    pid = arr2['hbid']
+                }
+                location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
+        
             }
 
             $('#serverid').click(function(){
