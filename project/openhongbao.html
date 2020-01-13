@@ -163,7 +163,7 @@
             if(arr2['hbid']){
                 pid = arr2['hbid']
             }
-            // location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
+            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
         }
         
     </script>
@@ -215,7 +215,7 @@
             <button type="button" class="voice_btn" id="serverid" data_id="">
                 <img src="img/start.png" alt="" style="width:.42rem;height:.42rem;">
                 <img src="img/voice.png" alt="" style="width:60%;margin-left:.1rem;">
-                <span class="listen_long flex_grow_1" style="text-align:right;padding-right:.1rem;">9s</span>
+                <span class="listen_long flex_grow_1" style="text-align:right;padding-right:.1rem;" id="voicetime"></span>
             </button>
             <div class="flex">
                 <div class="flex_grow_1" style="text-align:right;">
@@ -242,6 +242,7 @@
     <script>
         $(function(){
             var isstart = false;
+            var voicetime = 0;
             wx.config({
 			    debug: false,
 			    appId: 'wx13665daee96a688b',
@@ -303,6 +304,8 @@
                             $('#hengfu').html(data.hengfu);
                             $('#shanglian').html(data.shanglian);
                             $('#xialian').html(data.xialian);
+                            $('#voicetime').html(data.voicetime);
+                            voicetime = parseFloat(data.voicetime)*1000;
                             if(data.openid){
                                 localStorage.setItem('openid',data.openid);
                             }
@@ -342,11 +345,12 @@
                         wx.playVoice({
                             localId: id // 需要播放的音频的本地ID，由stopRecord接口获得
                         });
-                        wx.onVoicePlayEnd({
-                            success: function (res) {
+                        if(voicetime>0){
+                            setTimeout(function(){
                                 isstart = false;
-                            }
-                        });
+                            },voicetime)
+                        }
+                        
                     }
                 }
             })

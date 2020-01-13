@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>红包记录</title>
+    <title>提现明细</title>
     <style>
         .flex{
             display: flex;
@@ -17,6 +17,28 @@
             padding:0;
             margin:0;
         }
+        .fir{
+            width:.8rem;
+            padding-right:.2rem;
+        }
+        .item_list{
+            border-bottom:1px solid #EBEBEB;
+            padding:.28rem 0;
+            font-size:0.26rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            color:#333;
+        }
+        .item_list .time {
+            color:#999999;
+            font-size:0.24rem;
+            font-family:PingFang SC;
+            font-weight:500;
+            padding-top:.2rem;
+        }
+        .item_list .right_top{
+            align-self: start;
+        }
     </style>
     <script src="js/jquery-1.11.3.js"></script>
     <script src="js/md5.js"></script>
@@ -26,27 +48,15 @@
     </script>
 </head>
 <body>
-    <div >
+    <div style="padding:0.2rem .3rem;" class="box">
         
     </div>
     
     <script>
 		$(function(){
-            var search = location.search;
-            var arr = search.slice(1).split('&');
-            var arr2 = [];
-            for(var i=0;i<arr.length;i++){
-                var o = arr[i];
-                var c = o.indexOf('=')
-                if(c>0){
-                    arr2[o.slice(0,c)] = o.slice(c+1)
-                }
-            }
-
             let now = new Date();
             let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
             let obj = {
-                hbid:arr2['hbid'],
                 token:now.getTime(),
                 data:md5_data
             }
@@ -55,27 +65,26 @@
             }
             $.ajax({
                 type: "POST",
-                url: "getluckdata.php",
+                url: "desposit_list.php",
                 data: obj,
                 success: function (json) {
                     var data = JSON.parse(json)
                     if(data.errorcode == 0){
-                        $('#hongbao').html(data.hongbao);
-                        $('#hongbao_weiling').html(data.hongbao_weiling);
-                        $('#headimg').attr('src',data.headimg);
                         let html = ''
                         for(var i=0;i<data.list.length;i++){
                             var o = data.list[i]
-                            html += `<div class="xiao_dik flex">
-                                        <img src="${o.headimg}" alt="" style="width:.76rem;">
-                                        <div style="padding-left:.16rem;">${o.username}</div>
-                                        <div class="text_right flex_grow_1">
-                                            <div>${o.createtime}</div>
-                                            <div style="font-size:.34rem;padding-top:.1rem;">${o.hongbao}元</div>
+                            html += `<div class="flex item_list">
+                                        <div class="fir"><img src="img/des/dep_list.png" alt="" style="width:.8rem;"></div>
+                                        <div class="flex_grow_1">
+                                            <div>${o.status}</div>
+                                            <div class="time">
+                                                ${o.createtime}
+                                            </div>
                                         </div>
+                                        <div class="right_top">${o.hongbao}</div>
                                     </div>`
                         }
-                        $('.dikuang').html(html);
+                        $('.box').html(html);
                     }
                 }
             });
