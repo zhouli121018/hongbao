@@ -28,9 +28,10 @@
         .title_img_box{
             background:url(img/lucky/toux.png);
             background-size:100% 100%;
-            width:1.4rem;
-            height:1.4rem;
+            width:1.3rem;
+            height:1.3rem;
             margin: 0 auto;
+            padding:.1rem;
         }
         .center_font{
             font-size:0.6rem;
@@ -92,7 +93,7 @@
     <div id="login">
         <div class="top_title">
             <div class="title_img_box">
-
+                <img class="headimg" src="" alt="" style="width:1.3rem;border-radius:50%;">
             </div>
             <div class="center_font">
                 <span id="hongbao">33.2</span>元
@@ -157,7 +158,7 @@
                     if(data.errorcode == 0){
                         $('#hongbao').html(data.hongbao);
                         $('#hongbao_weiling').html(data.hongbao_weiling);
-                        $('#headimg').attr('src',data.headimg);
+                        $('.headimg').attr('src',data.headimg);
                         let html = ''
                         for(var i=0;i<data.list.length;i++){
                             var o = data.list[i]
