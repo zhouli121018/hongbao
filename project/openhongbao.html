@@ -389,8 +389,9 @@
             
 
             $('#hbid').click(function(){
-                console.log('抢红包')
+                alert('抢红包')
                 let id = $(this).attr('data_id');
+                alert(id)
                 if(id){
                     let now = new Date();
                     let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
