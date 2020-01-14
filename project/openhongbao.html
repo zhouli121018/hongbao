@@ -394,20 +394,22 @@
                 if(id){
                     let now = new Date();
                     let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                    let obj = {
+                        token:now.getTime(),
+                        data:md5_data,
+                        hbid:id,
+                        openid:localStorage.getItem('openid')
+                    }
+                    alert(JSON.stringify(obj))
                     $.ajax({
                         url:'qianghongbao.php',
                         type:'POST',
-                        data:{
-                            token:now.getTime(),
-                            data:md5_data,
-                            hbid:id,
-                            openid:localStorage.getItem('openid')
-                        },
+                        data: obj,
                         success:function(json){
                             alert(json)
                             var data = JSON.parse(json)
                             if(data.errorcode == 0){
-                                
+
                             }else{
                                 
                             }
