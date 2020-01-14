@@ -394,6 +394,7 @@
                 location.href = 'hongbaolist.html'
             })
 
+
             let device ;
             let u = navigator.userAgent, app = navigator.appVersion;
             let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
@@ -462,6 +463,7 @@
                                     success:function(set){
                                         alert(set)
                                         var data = JSON.parse(set);
+                                        return;
                                         if(data.errorcode == 0){
                                             wx.config({
                                                 debug: false,
