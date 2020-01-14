@@ -99,16 +99,16 @@
             <div class="red"><span id="hongbao">20.1</span>元</div>
         </div>
         <div class="flex text_center title_box">
-            <div class="flex_grow_1 active send">
-                <div>我发出的</div>
-                <img src="img/hongbaolist/1.png" alt="" style="width:.6rem;">
-            </div>
-            <div class="flex_grow_1 recive">
+            <div class="flex_grow_1 recive active">
                 <div>我收到的</div>
                 <img src="img/hongbaolist/1.png" alt="" style="width:.6rem;">
             </div>
+            <div class="flex_grow_1 send">
+                <div>我发出的</div>
+                <img src="img/hongbaolist/1.png" alt="" style="width:.6rem;">
+            </div>
         </div>
-        <div class="content_box send_content active">
+        <div class="content_box send_content">
             <div class="item_list flex">
                 <div>
                     19年12月30日 9:22
@@ -128,7 +128,7 @@
                 </div>
             </div>
         </div>
-        <div class="content_box recive_content">
+        <div class="content_box recive_content active">
                 <div class="item_list flex">
                     <img src="img/lucky/xiaotoux.png" alt="" style="width:.76rem;">
                     <div style="padding-left:.16rem;">Linan</div>
@@ -183,6 +183,7 @@
                     url: "gethongbao_fa.php",
                     data: obj,
                     success: function (json) {
+                        alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
                             $('#hongbao').html(data.hongbao);
@@ -224,6 +225,7 @@
                     url: "gethongbao_shou.php",
                     data: obj,
                     success: function (json) {
+                        alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
                             $('#hongbao').html(data.hongbao);
@@ -258,7 +260,7 @@
             $('.recive').click(function(){
                 gethongbao_shou()
             })
-            gethongbao_fa();
+            gethongbao_shou();
         })
     </script>
 </body>
