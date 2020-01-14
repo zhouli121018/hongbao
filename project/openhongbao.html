@@ -286,8 +286,8 @@
         <div class="voice_box">
             <div class="listen flex">
                 听听
-                <div style="padding:.06rem;width:.6rem;height:.6rem;background:url(img/listen_img.png);background-size:100% 100%;margin-top:.1rem;">
-                    <img class="head_img" src="" alt="" style="width:.6rem;border-radius:50%;">
+                <div style="padding:.06rem;width:.5rem;height:.5rem;background:url(img/listen_img.png);background-size:100% 100%;margin-top:.1rem;">
+                    <img class="head_img" src="" alt="" style="width:.5rem;border-radius:50%;">
                 </div>
                 的祝福
             </div>
@@ -386,7 +386,7 @@
                 location.href = 'loadhongbao.html'
             })
             $('#go_lucky').click(function(){
-                location.href = 'lucky.html'
+                location.href = 'lucky.html?hbid='+$('#hbid').attr('data_id')
             })
             $('#go_hongbaolist').click(function(){
                 location.href = 'hongbaolist.html'
