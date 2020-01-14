@@ -267,6 +267,14 @@
             if (isIOS) {
                 device = 1
             }
+            let pid = '';
+            let hbid = '';
+            if(arr2['pid']){
+                pid = arr2['pid']
+            }
+            if(arr2['hbid']){
+                hbid = arr2['hbid']
+            }
             if(arr2['code']){
                 let now = new Date();
                 let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
@@ -326,14 +334,7 @@
                     }
                 })
             }else{
-                let pid = '';
-                let hbid = '';
-                if(arr2['pid']){
-                    pid = arr2['pid']
-                }
-                if(arr2['hbid']){
-                    pid = arr2['hbid']
-                }
+                
                 location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
         
             }
