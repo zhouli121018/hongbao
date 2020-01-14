@@ -234,26 +234,7 @@
         $(function(){
             var isstart = false;
             var voicetime = 0;
-            wx.config({
-			    debug: false,
-			    appId: 'wx13665daee96a688b',
-			    jsApiList: [
-			      // 所有要调用的 API 都要加到这个列表中
-			      'startRecord',
-			      'stopRecord',
-			      'onVoiceRecordEnd',
-			      'playVoice',
-			      'pauseVoice',
-			      'stopVoice',
-			      'onVoicePlayEnd',
-			      'uploadVoice',
-			      'chooseImage',
-			      'uploadImage',
-                  'downloadImage',
-                  'downloadVoice',
-			      'onMenuShareAppMessage'
-			    ]
-			});
+            
 
             let device ;
             let u = navigator.userAgent, app = navigator.appVersion;
@@ -307,20 +288,88 @@
                             $('#hengfu').html(data.hengfu);
                             $('#shanglian').html(data.shanglian);
                             $('#xialian').html(data.xialian);
-                            $('#voicetime').html(data.voicetime+' s');
+                            $('#voicetime').html(data.voicetime+'s');
                             voicetime = parseFloat(data.voicetime)*1000;
                             if(data.openid){
                                 localStorage.setItem('openid',data.openid);
                             }
                             if(data.serverid){
-                                wx.downloadVoice({
-                                    serverId: '', // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-                                    isShowProgressTips: 0, // 默认为1，显示进度提示
-                                    success: function (res) {
-                                        var localId = res.localId; // 返回音频的本地ID
-                                        $('#serverid').attr('data_id',res.localId);
+                                var ser_id = data.serverid;
+                                // 获取JS-API配置项数据getjsapiconfig.php 
+                                let now_1 = new Date();
+                                let md5_data_1 = md5('token=' + now_1.getTime() + '&key=lldu43d98382');
+                                $.ajax({
+                                    url:'getjsapiconfig.php',
+                                    type:'POST',
+                                    data:{token:now_1.getTime(),data:md5_data_1},
+                                    success:function(set){
+                                        var data = JSON.parse(set);
+                                        if(data.errorcode == 0){
+                                            wx.config({
+                                                debug: false,
+                                                appId: data.appid, // 必填，getjsapiconfig.php返回
+                                                timestamp: data.timestamp, // 必填，getjsapiconfig.php返回
+                                                nonceStr: data.noncestr, // 必填，getjsapiconfig.php返回
+                                                signature: data.signature,// 必填getjsapiconfig.php返回
+                                                jsApiList: [
+                                                // 所有要调用的 API 都要加到这个列表中
+                                                // 'startRecord',
+                                                // 'stopRecord',
+                                                // 'onVoiceRecordEnd',
+                                                'playVoice',
+                                                // 'pauseVoice',
+                                                'stopVoice',
+                                                // 'onVoicePlayEnd',
+                                                // 'uploadVoice',
+                                                // 'chooseImage',
+                                                // 'uploadImage',
+                                                // 'downloadImage',
+                                                'downloadVoice',
+                                                // 'onMenuShareAppMessage'
+                                                ]
+                                            });
+
+                                            wx.downloadVoice({
+                                                serverId: ser_id, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                                                isShowProgressTips: 0, // 默认为1，显示进度提示
+                                                success: function (res) {
+                                                    var localId = res.localId; // 返回音频的本地ID
+                                                    $('#serverid').attr('data_id',res.localId);
+
+                                                    $('#serverid').click(function(){
+                                                        console.log('听语音')
+                                                        let id = $(this).attr('data_id');
+                                                        if(id){
+                                                            if(isstart){
+                                                                alert('停止播放')
+                                                                wx.stopVoice({
+                                                                    localId: id // 需要停止的音频的本地ID，由stopRecord接口获得
+                                                                });
+                                                                isstart = false;
+                                                            }else{
+                                                                isstart = true;
+                                                                alert('开始播放')
+                                                                wx.playVoice({
+                                                                    localId: id // 需要播放的音频的本地ID，由stopRecord接口获得
+                                                                });
+                                                                if(voicetime>0){
+                                                                    setTimeout(function(){
+                                                                        isstart = false;
+                                                                    },voicetime)
+                                                                }
+                                                                
+                                                            }
+                                                        }
+                                                    })
+
+                                                }
+                                            });
+                                            
+                                        }
                                     }
-                                });
+
+                                })
+                                
                             }
                             $('#box').css('display','block');
                         }else{
@@ -337,29 +386,7 @@
         
             }
 
-            $('#serverid').click(function(){
-                console.log('听语音')
-                let id = $(this).attr('data_id');
-                if(id){
-                    if(isstart){
-                        wx.stopVoice({
-                            localId: id // 需要停止的音频的本地ID，由stopRecord接口获得
-                        });
-                        isstart = false;
-                    }else{
-                        isstart = true;
-                        wx.playVoice({
-                            localId: id // 需要播放的音频的本地ID，由stopRecord接口获得
-                        });
-                        if(voicetime>0){
-                            setTimeout(function(){
-                                isstart = false;
-                            },voicetime)
-                        }
-                        
-                    }
-                }
-            })
+            
 
             $('#hbid').click(function(){
                 console.log('抢红包')
