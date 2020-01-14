@@ -426,13 +426,11 @@
                     obj.openid = localStorage.getItem('openid');
                 }
                 
-                alert(JSON.stringify(obj))
                 $.ajax({
                     url:'gethongbaodata.php',
                     type:'POST',
                     data:obj,
                     success:function(json){
-                        alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
                             $('.head_img').attr('src',data.headimg);
