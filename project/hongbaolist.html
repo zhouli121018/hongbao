@@ -178,6 +178,8 @@
                 $('.send_content').html('加载中...');
                 $('.recive_content').removeClass('active');
                 $('.send_content').addClass('active');
+                alert('gethongbao_fa.php')
+                alert(JSON.stringify(obj))
                 $.ajax({
                     type: "POST",
                     url: "gethongbao_fa.php",
@@ -220,6 +222,8 @@
                 $('.recive_content').html('加载中...');
                 $('.send_content').removeClass('active');
                 $('.recive_content').addClass('active');
+                alert('gethongbao_shou.php')
+                alert(JSON.stringify(obj))
                 $.ajax({
                     type: "POST",
                     url: "gethongbao_shou.php",
