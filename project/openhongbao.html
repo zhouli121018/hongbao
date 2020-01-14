@@ -157,7 +157,6 @@
         }else{
 
         }
-        alert(location.href)
     </script>
 </head>
 <body>
@@ -166,8 +165,8 @@
         <!-- <img src="img/open_hb_bg.png" alt="" style="width:100%;"> -->
         <div style="padding-top:.1rem;">
             <div class="flex">
-                <div style="width:1rem;height:1rem;background:url(img/circle_bg.png);background-size:100% 100%;margin:0 .2rem;">
-                    <img id="head_img" src="" alt="" style="width:1.12rem;border-radius:50%;">
+                <div style="padding:.08rem;width:.82rem;height:0.82rem;background:url(img/circle_bg.png);background-size:100% 100%;margin:0 .2rem;">
+                    <img class="head_img" src="" alt="" style="width:.82rem;border-radius:50%;">
                 </div>
                 <div class="top_font" id="zhufutitle">
                     祝您2020年幸福安康
@@ -199,8 +198,8 @@
         <div class="voice_box">
             <div class="listen flex">
                 听听
-                <div style="width:.6rem;height:.6rem;background:url(img/listen_img.png);background-size:100% 100%;margin-top:.1rem;">
-                    
+                <div style="padding:.06rem;width:.6rem;height:.6rem;background:url(img/listen_img.png);background-size:100% 100%;margin-top:.1rem;">
+                    <img class="head_img" src="" alt="" style="width:.6rem;border-radius:50%;">
                 </div>
                 的祝福
             </div>
@@ -233,7 +232,6 @@
 
     <script>
         $(function(){
-            alert(arr2['code'])
             var isstart = false;
             var voicetime = 0;
             wx.config({
@@ -276,13 +274,14 @@
                 hbid = arr2['hbid']
             }
             if(arr2['code']){
+                let state = decodeURIComponent(arr2['state']).split(',')
                 let now = new Date();
                 let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
                 let obj = {
                     code:arr2['code'],
                     device:device,
-                    pid:arr2['pid'],
-                    hbid:arr2['hbid'],
+                    pid:state[0],
+                    hbid:state[1],
                     token:now.getTime(),
                     data:md5_data
                 }
@@ -299,7 +298,7 @@
                         alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
-                            $('#head_img').attr('src',data.headimg);
+                            $('.head_img').attr('src',data.headimg);
                             $('#gongzhonghao').attr('src',data.gongzhonghao);
                             $('#myhongbao').html(data.myhongbao);
                             $('#hongbao').html(data.hongbao);
@@ -308,7 +307,7 @@
                             $('#hengfu').html(data.hengfu);
                             $('#shanglian').html(data.shanglian);
                             $('#xialian').html(data.xialian);
-                            $('#voicetime').html(data.voicetime);
+                            $('#voicetime').html(data.voicetime+' s');
                             voicetime = parseFloat(data.voicetime)*1000;
                             if(data.openid){
                                 localStorage.setItem('openid',data.openid);
@@ -333,8 +332,7 @@
                         }
                     }
                 })
-            }else{
-                
+            }else{    
                 location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
         
             }
