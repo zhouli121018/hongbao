@@ -168,7 +168,7 @@
             position: relative;
             width:auto;
             margin: 10px;
-            margin-top:2rem;
+            margin-top:1.6rem;
 
         }
         .modal-content {
@@ -340,7 +340,6 @@
             var voicetime = 0;
             $('#hbid').click(function(){
                 let id = $(this).attr('data_id');
-                alert(id)
                 if(id){
                     let now = new Date();
                     let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
@@ -352,13 +351,11 @@
                     if(localStorage.getItem('openid')){
                         obj.openid = localStorage.getItem('openid');
                     }
-                    alert(JSON.stringify(obj))
                     $.ajax({
                         url:'qianghongbao.php',
                         type:'POST',
                         data: obj,
                         success:function(json){
-                            alert(json)
                             var data = JSON.parse(json)
                             if(data.errorcode == 0){
                                 if(data.ishit==1){
@@ -435,7 +432,6 @@
                     type:'POST',
                     data:obj,
                     success:function(json){
-                        alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
                             $('.head_img').attr('src',data.headimg);
@@ -462,7 +458,6 @@
                                     type:'POST',
                                     data:{token:now_1.getTime(),data:md5_data_1},
                                     success:function(set){
-                                        alert(set)
                                         var data = JSON.parse(set);
                                         if(data.errorcode == 0){
                                             wx.config({
@@ -501,14 +496,12 @@
                                                         let id = $(this).attr('data_id');
                                                         if(id){
                                                             if(isstart){
-                                                                alert('停止播放')
                                                                 wx.stopVoice({
                                                                     localId: id // 需要停止的音频的本地ID，由stopRecord接口获得
                                                                 });
                                                                 isstart = false;
                                                             }else{
                                                                 isstart = true;
-                                                                alert('开始播放')
                                                                 wx.playVoice({
                                                                     localId: id // 需要播放的音频的本地ID，由stopRecord接口获得
                                                                 });
