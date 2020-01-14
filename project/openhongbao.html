@@ -339,6 +339,8 @@
             
             $('#hbid').click(function(){
                 let id = $(this).attr('data_id');
+                alert(1)
+                alert(id)
                 if(id){
                     let now = new Date();
                     let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
@@ -431,6 +433,7 @@
                     type:'POST',
                     data:obj,
                     success:function(json){
+                        alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
                             $('.head_img').attr('src',data.headimg);
