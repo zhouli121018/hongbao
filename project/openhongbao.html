@@ -235,6 +235,48 @@
             var isstart = false;
             var voicetime = 0;
             
+            $('#hbid').click(function(){
+                alert('抢红包')
+                let id = $(this).attr('data_id');
+                alert(id)
+                if(id){
+                    let now = new Date();
+                    let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                    let obj = {
+                        token:now.getTime(),
+                        data:md5_data,
+                        hbid:id,
+                    }
+                    if(localStorage.getItem('openid')){
+                        obj.openid = localStorage.getItem('openid');
+                    }
+                    alert(JSON.stringify(obj))
+                    $.ajax({
+                        url:'qianghongbao.php',
+                        type:'POST',
+                        data: obj,
+                        success:function(json){
+                            alert(json)
+                            var data = JSON.parse(json)
+                            if(data.errorcode == 0){
+
+                            }else{
+                                
+                            }
+                        }
+                    })
+                }
+            })
+       
+            $('#go_loadhongbao').click(function(){
+                location.href = 'loadhongbao.html'
+            })
+            $('#go_lucky').click(function(){
+                location.href = 'lucky.html'
+            })
+            $('#go_hongbaolist').click(function(){
+                location.href = 'hongbaolist.html'
+            })
 
             let device ;
             let u = navigator.userAgent, app = navigator.appVersion;
@@ -303,6 +345,7 @@
                                     type:'POST',
                                     data:{token:now_1.getTime(),data:md5_data_1},
                                     success:function(set){
+                                        alert(set)
                                         var data = JSON.parse(set);
                                         if(data.errorcode == 0){
                                             wx.config({
@@ -388,46 +431,7 @@
 
             
 
-            $('#hbid').click(function(){
-                alert('抢红包')
-                let id = $(this).attr('data_id');
-                alert(id)
-                if(id){
-                    let now = new Date();
-                    let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
-                    let obj = {
-                        token:now.getTime(),
-                        data:md5_data,
-                        hbid:id,
-                        openid:localStorage.getItem('openid')
-                    }
-                    alert(JSON.stringify(obj))
-                    $.ajax({
-                        url:'qianghongbao.php',
-                        type:'POST',
-                        data: obj,
-                        success:function(json){
-                            alert(json)
-                            var data = JSON.parse(json)
-                            if(data.errorcode == 0){
-
-                            }else{
-                                
-                            }
-                        }
-                    })
-                }
-            })
-       
-            $('#go_loadhongbao').click(function(){
-                location.href = 'loadhongbao.html'
-            })
-            $('#go_lucky').click(function(){
-                location.href = 'lucky.html'
-            })
-            $('#go_hongbaolist').click(function(){
-                location.href = 'hongbaolist.html'
-            })
+            
         })
             
     
