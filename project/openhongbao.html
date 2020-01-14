@@ -142,9 +142,11 @@
             z-index: 1040;
             background-color: #000;
             opacity:0;
+            display:none;
         }
         .modal-backdrop.fade{
             opacity:.8;
+            display:block;
         }
         .modal {
             position: fixed;
@@ -336,10 +338,8 @@
         $(function(){
             var isstart = false;
             var voicetime = 0;
-            alert(1234)
             $('#hbid').click(function(){
                 let id = $(this).attr('data_id');
-                alert(1)
                 alert(id)
                 if(id){
                     let now = new Date();
@@ -376,7 +376,7 @@
                     })
                 }
             })
-            alert(234)
+            
             $('.close_btn').click(function(){
                 $('.modal-backdrop').removeClass('fade');
                 $('.modal').removeClass('in');
