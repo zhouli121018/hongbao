@@ -392,17 +392,22 @@
                 console.log('抢红包')
                 let id = $(this).attr('data_id');
                 if(id){
+                    let now = new Date();
+                    let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
                     $.ajax({
                         url:'qianghongbao.php',
                         type:'POST',
                         data:{
+                            token:now.getTime(),
+                            data:md5_data,
                             hbid:id,
                             openid:localStorage.getItem('openid')
                         },
                         success:function(json){
+                            alert(json)
                             var data = JSON.parse(json)
                             if(data.errorcode == 0){
-
+                                
                             }else{
                                 
                             }
