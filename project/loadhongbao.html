@@ -231,11 +231,6 @@
                 </div>
 
                 <div class="desc">手续费按输入金额的2%收取</div>
-                <div>
-                    <button class="btn btn_primary" id="startRecord">开始</button>
-                    <button class="btn btn_primary" id="deleteVoice">删除</button>
-                    <button class="btn btn_primary" id="uploadVoice">确认</button>
-                </div>
                 <div class="flex">
                     <div class="flex_grow_1 text_center">
                         <button type="button" class="btn btn_1">录音祝福语</button>
@@ -348,9 +343,19 @@
                                 'downloadVoice',
                                 ]
                             });
-                            alert('peizhi')
 
                             wx.ready(function () {
+                                
+                                alert('ready')
+                                wx.checkJsApi({
+                                    jsApiList: ['startRecord'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                                    success: function(res) {
+                                        alert('succ')
+                                    // 以键值对的形式返回，可用的api值true，不可用为false
+                                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                                    }
+                                });
+
                                 var self = this;
                                 var timeOutEvent;
                                 var longClick =0;
