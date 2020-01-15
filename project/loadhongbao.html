@@ -358,13 +358,25 @@
                                 var self = this;
                                 var timeOutEvent;
                                 var longClick =0;
+                                $('.btn_1').click(function(){
+                                    wx.startRecord();
+                                    setTimeout(function(){
+                                        wx.stopRecord({
+                                            success: function (res) {
+                                                var localId = res.localId;
+                                                alert(localId)
+                                            }
+                                        });
+                                    },3000)
+                                })
+                                return;
                                 $(".btn_1").on({
                                     touchstart: function(e){
                                         longClick=0;//设置初始为0
                                         timeOutEvent = setTimeout(function(){
                                             //此处为长按事件-----在此显示遮罩层及删除按钮
                                             longClick=1;//假如长按，则设置为1
-                                            wx.startRecord();
+                                            
                                         },500);
                                     },
                                     touchmove: function(){
