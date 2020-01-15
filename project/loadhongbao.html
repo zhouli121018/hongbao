@@ -347,14 +347,14 @@
 
                             wx.ready(function () {
                                 
-                                // wx.checkJsApi({
-                                //     jsApiList: ['startRecord'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                                //     success: function(res) {
-                                //         alert('succ')
-                                //     // 以键值对的形式返回，可用的api值true，不可用为false
-                                //     // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-                                //     }
-                                // });
+                                wx.checkJsApi({
+                                    jsApiList: ['stopRecord'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                                    success: function(res) {
+                                        alert('succ')
+                                    // 以键值对的形式返回，可用的api值true，不可用为false
+                                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                                    }
+                                });
 
                                 var self = this;
                                 var timeOutEvent;
@@ -404,13 +404,14 @@
                                         clearTimeout(recordTimer);
                                     }else{
                                         wx.stopRecord({
-                                        success: function (res) {
-                                            voice.localId = res.localId;
-                                            // uploadVoice();
-                                        },
-                                        fail: function (res) {
-                                            alert(JSON.stringify(res));
-                                        }
+                                            success: function (res) {
+                                                voice.localId = res.localId;
+                                                // uploadVoice();
+                                                alert(voice.localId)
+                                            },
+                                            fail: function (res) {
+                                                alert(JSON.stringify(res));
+                                            }
                                         });
                                     }
                                 });
