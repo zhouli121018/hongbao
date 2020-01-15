@@ -346,15 +346,14 @@
 
                             wx.ready(function () {
                                 
-                                alert('ready')
-                                wx.checkJsApi({
-                                    jsApiList: ['startRecord'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                                    success: function(res) {
-                                        alert('succ')
-                                    // 以键值对的形式返回，可用的api值true，不可用为false
-                                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-                                    }
-                                });
+                                // wx.checkJsApi({
+                                //     jsApiList: ['startRecord'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                                //     success: function(res) {
+                                //         alert('succ')
+                                //     // 以键值对的形式返回，可用的api值true，不可用为false
+                                //     // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                                //     }
+                                // });
 
                                 var self = this;
                                 var timeOutEvent;
@@ -365,17 +364,7 @@
                                         timeOutEvent = setTimeout(function(){
                                             //此处为长按事件-----在此显示遮罩层及删除按钮
                                             longClick=1;//假如长按，则设置为1
-                                            wx.startRecord({
-                                                success: function(res) {
-                                                    var tempFilePath = res.tempFilePath 
-                                                    alert(res)
-                                                    alert(tempFilePath)
-                                                },
-                                                fail: function(res) {
-                                                    alert('录音失败')
-                                                    //录音失败
-                                                }
-                                            })
+                                            wx.startRecord();
                                         },500);
                                     },
                                     touchmove: function(){
@@ -387,6 +376,13 @@
                                         clearTimeout(timeOutEvent);
                                         if(timeOutEvent!=0 && longClick==0){//点击
                                             //此处为点击事件----在此处添加跳转详情页
+                                            wx.stopRecord({
+                                                success: function (res) {
+                                                    var localId = res.localId;
+                                                    alert('jieshu')
+                                                    alert(localId)
+                                                }
+                                            });
                                         }
                                         return false;
                                     }
