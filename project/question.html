@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>常见问题</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        html,body {
+            padding:0;
+            margin:0;
+            background:#fff3c2;
+            height:100%;
+        }
+        .box{
+            height:100%;
+            background:url(img/question/bg.png) no-repeat;
+            background-position:bottom left;
+            background-size:100%;
+        }
+        .content_box{
+            background:url(img/question/dik.png) no-repeat;
+            background-size:100% 100%;
+            min-height:5rem;
+            margin:.4rem .4rem .2rem;
+            padding:.3rem;
+        }
+        .text_right{
+            text-align:right;
+        }
+        .que_desc{
+            font-size: 0.58rem;
+            font-family: kaiTi;
+            font-weight: bold;
+            color:#F86414;
+            background:linear-gradient(0deg,rgba(219,36,22,1) 0%, rgba(248,100,20,1) 100%);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+        .title_que{
+            color:#BEA164;
+            font-size:0.28rem;
+            font-family:Source Han Serif CN;
+            font-weight:800;
+        }
+        .desc{
+            font-size:0.24rem;
+            font-family:PingFang SC;
+            font-weight:500;
+            color:#727272;
+            line-height:0.34rem;
+            padding-left:.6rem;
+            /* padding-top:.1rem; */
+            padding-bottom:.2rem;
+            text-align:justify;
+        }
+        .btn{
+            border:none;
+            outline:none;
+            background-color:transparent;
+            background:url(img/question/btn.png);
+            background-size:100% 100%;
+            width: 3.94rem;
+            height:.83rem;
+            font-size:0.3rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            color:#FFFFFF;
+        }
+    </style>
+    <script>
+            //引入该flexible.min.js
+    !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+</head>
+<body>
+    <div class="box">
+        <div class="content_box">
+            <div class="flex">
+                <div class="flex_grow_1 text_right">
+                    <img class=" " src="img/question/1.png" alt="" style="width:.8rem;">
+                </div>
+                <div class="que_desc">常见问题</div>
+                <div class="flex_grow_1">
+                    <img class="" src="img/question/2.png" alt="" style="width:.8rem;">
+                </div>
+            </div>
+            <div class="title_que">一、传音祝福红包在怎么玩？</div>
+            <div class="desc">选好对联，录制祝福音，塞钱进红包，就可以把您的祝福红包发给好友，好友在搜到祝福的同时可以抢到随机金额红包并提现到微信红包。</div>
+            
+            <div class="title_que">二、如何快捷登录传音祝福账号？</div>
+            <div class="desc">搜索关注公众号“233”，通过快捷按键即可快速登录账号，并实现发祝福红包、提现、查询明细、取回无人认领红包等操作。</div>
+            
+            <div class="title_que">三、好友可以转发我的祝福红包吗？</div>
+            <div class="desc">可以的，把你的祝福图片转发出去即可。</div>
+
+            <div class="title_que">四、如何提现到微信红包？</div>
+            <div class="desc">搜索关注公众号“233”，按操作指引即可</div>
+
+            <div class="title_que">五、提现到微信红包有什么限制吗？</div>
+            <div class="desc">单次1元起提，单次最高提200元。每天最多提5次。</div>
+
+            <div class="title_que">六、提现会收取服务费吗？多久到账？</div>
+            <div class="desc">抢到的红包提现不收取服务费；申请提现后会在1-5个工作日内转到您的微信钱包。</div>
+
+            <div class="title_que">七、发的红包，没人认领怎么办？</div>
+            <div class="desc">红包自生成起7天内无人认领，可通过公众号领取至“微信钱包”。</div>
+
+            <div class="title_que">八、如何联系客服？</div>
+            <div class="desc">点击下方橙色按钮联系我们在线客服；也可以联系我们的QQ客服：92848293。</div>
+        </div>
+
+        <div style="text-align:center;">
+            <button type="button" class="btn">联系在线客服</button>
+
+        </div>
+
+    </div>
+    
+    
+</body>
+</html>
