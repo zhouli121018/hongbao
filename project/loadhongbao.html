@@ -516,7 +516,35 @@
                         alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
-                            
+                            function onBridgeReady(){
+                                WeixinJSBridge.invoke(
+                                    'getBrandWCPayRequest', {
+                                        "appId":data.appid,     //submintduilian.php返回    
+                                        "timeStamp":data.timestamp,         //submintduilian.php返回        
+                                        "nonceStr":data.nonce_str, //submintduilian.php返回         
+                                        "package":data.package,     //submintduilian.php返回    
+                                        "signType":"MD5",         //submintduilian.php返回    ：     
+                                        "paySign":data.paysign //submintduilian.php返回     
+                                    },
+                                    function(res){
+                                    if(res.err_msg == "get_brand_wcpay_request:ok" ){
+                                        // 使用以上方式判断前端返回,微信团队郑重提示：
+                                        //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+                                        location.href = 'sharehongbao.html'
+                                    } 
+                                }); 
+                            }
+                            if (typeof WeixinJSBridge == "undefined"){
+                                if( document.addEventListener ){
+                                    document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                                }else if (document.attachEvent){
+                                    document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+                                    document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                                }
+                            }else{
+                                onBridgeReady();
+                            }
+
                         }
                     }
                 });
