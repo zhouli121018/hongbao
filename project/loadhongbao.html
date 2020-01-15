@@ -323,6 +323,7 @@
                     type:'POST',
                     data:{token:now.getTime(),data:md5_data},
                     success:function(set){
+                        alert(set)
                         var data = JSON.parse(set);
                         if(data.errorcode == 0){
                             wx.config({
