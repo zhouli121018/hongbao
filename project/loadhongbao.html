@@ -368,6 +368,12 @@
                                             },
                                             cancel: function () {
                                                 alert('用户拒绝授权录音');
+                                            },
+                                            fail: function (res) {
+                                                setTimeout(function(){
+                                                    alert(JSON.stringify(res));
+                                                },8000)
+                                                
                                             }
                                         });
                                     },300);
