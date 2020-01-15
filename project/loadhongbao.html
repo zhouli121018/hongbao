@@ -128,6 +128,7 @@
         .btn_1{
             background:url(img/loadhb/btn_bg1.png);
             background-size:100% 100%;
+            user-select:none;
         }
         .btn_2{
             background:url(img/loadhb/btn_bg2.png);
@@ -233,7 +234,7 @@
                 <div class="desc">手续费按输入金额的2%收取</div>
                 <div class="flex">
                     <div class="flex_grow_1 text_center">
-                        <button type="button" class="btn btn_1" id="startre">录音祝福语</button>
+                        <button type="button" class="btn btn_1" id="talk_btn">录音祝福语</button>
                     </div>
                     <div class="flex_grow_1 text_center">
                         <button type="button" class="btn btn_2">塞钱进红包</button>
@@ -358,19 +359,86 @@
                                 var self = this;
                                 var timeOutEvent;
                                 var longClick =0;
-                                $('#startre').click(function(){
-                                    alert(1)
-                                    wx.startRecord();
-                                    alert(2)
-                                    setTimeout(function(){
-                                        wx.stopRecord({
-                                            success: function (res) {
-                                                var localId = res.localId;
-                                                alert(localId)
+                                // $('#startre').click(function(){
+                                //     alert(1)
+                                //     wx.startRecord();
+                                //     alert(2)
+                                //     setTimeout(function(){
+                                //         wx.stopRecord({
+                                //             success: function (res) {
+                                //                 var localId = res.localId;
+                                //                 alert(localId)
+                                //             }
+                                //         });
+                                //     },3000)
+                                // })
+                                var START,recordTimer,END;
+                                var voice = {
+                                    localId:''
+                                }
+                                $('#talk_btn').on('touchstart', function(event){
+                                    event.preventDefault();
+                                    START = new Date().getTime();
+
+                                    recordTimer = setTimeout(function(){
+                                        wx.startRecord({
+                                            success: function(){
+                                                localStorage.rainAllowRecord = 'true';
+                                                alert('sucess')
+                                            },
+                                            cancel: function () {
+                                                alert('用户拒绝授权录音');
                                             }
                                         });
-                                    },3000)
-                                })
+                                    },300);
+                                });
+                                //松手结束录音
+                                $('#talk_btn').on('touchend', function(event){
+                                    event.preventDefault();
+                                    END = new Date().getTime();
+                                    
+                                    if((END - START) < 300){
+                                        END = 0;
+                                        START = 0;
+                                        //小于300ms，不录音
+                                        clearTimeout(recordTimer);
+                                    }else{
+                                        wx.stopRecord({
+                                        success: function (res) {
+                                            voice.localId = res.localId;
+                                            // uploadVoice();
+                                        },
+                                        fail: function (res) {
+                                            alert(JSON.stringify(res));
+                                        }
+                                        });
+                                    }
+                                });
+
+                                //上传录音
+                                function uploadVoice(){
+                                    //调用微信的上传录音接口把本地录音先上传到微信的服务器
+                                    //不过，微信只保留3天，而我们需要长期保存，我们需要把资源从微信服务器下载到自己的服务器
+                                    wx.uploadVoice({
+                                        localId: voice.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                                        isShowProgressTips: 1, // 默认为1，显示进度提示
+                                        success: function (res) {
+                                            //把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
+                                            $.ajax({
+                                                url: '后端处理上传录音的接口',
+                                                type: 'post',
+                                                data: JSON.stringify(res),
+                                                dataType: "json",
+                                                success: function (data) {
+                                                    alert('文件已经保存到七牛的服务器');//这回，我使用七牛存储
+                                                },
+                                                error: function (xhr, errorType, error) {
+                                                    console.log(error);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
                                 return;
                                 $(".btn_1").on({
                                     touchstart: function(e){
