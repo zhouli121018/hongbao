@@ -332,16 +332,10 @@
                                 nonceStr: data.noncestr, // 必填，getjsapiconfig.php返回
                                 signature: data.signature,// 必填getjsapiconfig.php返回
                                 jsApiList: [
-                                // 所有要调用的 API 都要加到这个列表中
-                                'startRecord',
-                                'stopRecord',
-                                'onVoiceRecordEnd',
-                                'playVoice',
-                                'pauseVoice',
-                                'stopVoice',
-                                'onVoicePlayEnd',
-                                'uploadVoice',
-                                'downloadVoice',
+                                    // 所有要调用的 API 都要加到这个列表中
+                                    'startRecord',
+                                    'stopRecord',
+                                    'uploadVoice'
                                 ]
                             });
 
