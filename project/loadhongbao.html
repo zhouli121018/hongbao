@@ -190,7 +190,7 @@
                 <div class="xiao_dik flex" style="padding-right: .1rem;">
                     <div class="text">祝福语:</div>
                     <div class="flex_grow_1">
-                        <select class="form-control" id="id_select2_demo1" style="width:100%;">
+                        <select class="form-control" id="titlelist" style="width:100%;">
                             <option value="1">OPS-COFFEE-A</option>
                             <option value="2">OPS-COFFEE-B</option>
                             <option value="3">OPS-COFFEE-C</option>
@@ -259,9 +259,9 @@
 
     <script>
         $(function(){
-            var selectorx = $('#id_select2_demo1').select2({
-  tags: true
-});
+            var selectorx = $('#titlelist').select2({
+                tags: true
+            });
             // 获取数据协议 getduiliandata.php
             let now = new Date();
             let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
@@ -280,14 +280,12 @@
                     alert(json)
                     var data = JSON.parse(json)
                     if(data.errorcode == 0){
-                        $('#hongbao').html(data.hongbao);
-                        $('#hongbao_weiling').html(data.hongbao_weiling);
-                        $('.headimg').attr('src',data.headimg);
                         let html = ''
-                        for(var i=0;i<data.list.length;i++){
-                            var o = data.list[i]
-                            html += ``
+                        for(var i=0;i<data.titlelist.length;i++){
+                            var o = data.titlelist[i]
+                            html += `<option value="1">${o}</option>`
                         }
+                        $('#titlelist').html(html)
                     }
                 }
             });
