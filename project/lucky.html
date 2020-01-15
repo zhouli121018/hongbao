@@ -103,22 +103,6 @@
             </div>
             <div class="box">
                 <div class="dikuang">
-                        <div class="xiao_dik flex">
-                            <img src="img/lucky/xiaotoux.png" alt="" style="width:.76rem;">
-                            <div style="padding-left:.16rem;">Linan</div>
-                            <div class="text_right flex_grow_1">
-                                <div>2019-12-12  01:21:32</div>
-                                <div style="font-size:.34rem;padding-top:.1rem;">0.2元</div>
-                            </div>
-                        </div>
-                        <div class="xiao_dik flex">
-                                <img src="img/lucky/xiaotoux.png" alt="" style="width:.76rem;">
-                                <div style="padding-left:.16rem;">Linan</div>
-                                <div class="text_right flex_grow_1">
-                                    <div>2019-12-12  01:21:32</div>
-                                    <div style="font-size:.34rem;padding-top:.1rem;">0.2元</div>
-                                </div>
-                            </div>
                 </div>
             </div>
             
@@ -163,7 +147,7 @@
                         for(var i=0;i<data.list.length;i++){
                             var o = data.list[i]
                             html += `<div class="xiao_dik flex">
-                                        <img src="${o.headimg}" alt="" style="width:.76rem;">
+                                        <img src="${o.headimg}" alt="" style="width:.76rem;border-radius:50%;">
                                         <div style="padding-left:.16rem;">${o.username}</div>
                                         <div class="text_right flex_grow_1">
                                             <div>${o.createtime}</div>
