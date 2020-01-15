@@ -345,19 +345,44 @@
                             });
                             alert('peizhi')
 
-                            $('.btn_1').click(function(){
-                                wx.startRecord({
-                                    success: function(res) {
-                                        var tempFilePath = res.tempFilePath 
-                                        alert(res)
-                                        alert(tempFilePath)
-                                    },
-                                    fail: function(res) {
-                                        alert('录音失败')
-                                        //录音失败
+                            var self = this;
+                            var timeOutEvent;
+                            var longClick =0;
+                            $(".btn_1").on({
+                                touchstart: function(e){
+                                    longClick=0;//设置初始为0
+                                    timeOutEvent = setTimeout(function(){
+                                        alert('touchstart')
+                                        //此处为长按事件-----在此显示遮罩层及删除按钮
+                                        longClick=1;//假如长按，则设置为1
+                                        wx.startRecord({
+                                            success: function(res) {
+                                                var tempFilePath = res.tempFilePath 
+                                                alert(res)
+                                                alert(tempFilePath)
+                                            },
+                                            fail: function(res) {
+                                                alert('录音失败')
+                                                //录音失败
+                                            }
+                                        })
+                                    },500);
+                                },
+                                touchmove: function(){
+                                    clearTimeout(timeOutEvent);
+                                    timeOutEvent = 0;
+                                    e.preventDefault();
+                                },
+                                touchend: function(e){
+                                    clearTimeout(timeOutEvent);
+                                    if(timeOutEvent!=0 && longClick==0){//点击
+                                        //此处为点击事件----在此处添加跳转详情页
+                                        alert('touchend')
                                     }
-                                })
-                            })
+                                    return false;
+                                }
+                            });
+
                         }
                     }
                 })
