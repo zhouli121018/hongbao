@@ -191,29 +191,29 @@
                     <div class="text">祝福语:</div>
                     <div class="flex_grow_1">
                         <select class="form-control" id="titlelist" style="width:100%;">
-                            <option value="1">OPS-COFFEE-A</option>
-                            <option value="2">OPS-COFFEE-B</option>
-                            <option value="3">OPS-COFFEE-C</option>
-                            <option value="4">OPS-COFFEE-D</option>
-                            <option value="5">OPS-COFFEE-E</option>
-                            <option value="6">OPS-COFFEE-F</option>
-                            <option value="7">OPS-COFFEE-G</option>
                         </select>
                     </div>
                     <!-- <div class="down"></div> -->
                 </div>
-                <div class="xiao_dik flex">
+                <div class="xiao_dik flex" style="padding-right: .1rem;">
                     <div class="text">横批:</div>
-                    <div class="flex_grow_1"></div>
-                    <div class="down"></div>
+                    <div class="flex_grow_1">
+                        <select class="form-control" id="hengpi" style="width:100%;">
+                        </select>
+                    </div>
+                    <!-- <div class="down"></div> -->
                 </div>
-                <div class="xiao_dik flex">
+                <div class="xiao_dik flex" style="padding-right: .1rem;">
                     <div class="text">上联:</div>
-                    <div class="flex_grow_1"></div>
+                    <div class="flex_grow_1">
+                        <input type="text" id="shanglian" placeholder="上联" class="load_input" style="text-align:left;">
+                    </div>
                 </div>
-                <div class="xiao_dik flex">
+                <div class="xiao_dik flex" style="padding-right: .1rem;">
                     <div class="text">下联:</div>
-                    <div class="flex_grow_1"></div>
+                    <div class="flex_grow_1">
+                        <input type="text" id="xialian" placeholder="下联" class="load_input" style="text-align:left;">
+                    </div>
                 </div>
                 <div class="xiao_dik flex">
                     <div class="text">总金额:</div>
@@ -262,7 +262,19 @@
             var selectorx = $('#titlelist').select2({
                 tags: true
             });
+            var select_hp = $('#hengpi').select2({
+                tags: true
+            });
             // 获取数据协议 getduiliandata.php
+            var hash_duilian = [];
+            $('#hengpi').change(function(){
+                let hengpi = $('#hengpi').select2('val');
+                if(hash_duilian[hengpi]){
+                    $('#shanglian').val(hash_duilian[hengpi][0])
+                    $('#xialian').val(hash_duilian[hengpi][1])
+                }
+            })
+
             let now = new Date();
             let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
             let obj = {
@@ -283,9 +295,21 @@
                         let html = ''
                         for(var i=0;i<data.titlelist.length;i++){
                             var o = data.titlelist[i]
-                            html += `<option value="1">${o}</option>`
+                            html += `<option value="${i}">${o}</option>`
+                        }
+                        let html_hp = ''
+                        hash_duilian = [];
+                        for(var i=0;i<data.DuilianItem.length;i++){
+                            var o = data.DuilianItem[i]
+                            html_hp += `<option value="${o.hengpi}">${o.hengpi}</option>`
+                            hash_duilian[o.hengpi]=[o.shanglian,o.xialian]
                         }
                         $('#titlelist').html(html)
+                        $('#hengpi').html(html_hp)
+                        if(data.DuilianItem.length>0){
+                            $('#shanglian').val(data.DuilianItem[0].shanglian)
+                            $('#xialian').val(data.DuilianItem[0].xialian)
+                        }
                     }
                 }
             });
