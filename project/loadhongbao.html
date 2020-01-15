@@ -21,10 +21,10 @@
     </style>
     <script src="js/jquery-1.11.3.js"></script>
     <script src="js/md5.js"></script>
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <!-- <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script> -->
     <link href="css/select2.min.css" rel="stylesheet" />
     <script src="js/select2.min.js"></script>
-    <!-- <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> -->
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
     <script>
             //引入该flexible.min.js
     !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
@@ -219,14 +219,14 @@
                 <div class="xiao_dik flex">
                     <div class="text">总金额:</div>
                     <div class="flex_grow_1">
-                        <input type="text" placeholder="请输入金额..." class="load_input">
+                        <input type="text" id="sumcash" placeholder="请输入金额..." class="load_input">
                     </div>
                     <div>元</div>
                 </div>
                 <div class="xiao_dik flex">
                     <div class="text">红包个数:</div>
                     <div class="flex_grow_1">
-                        <input type="text" placeholder="请输入个数..." class="load_input">
+                        <input type="text" id="hbnum" placeholder="请输入个数..." class="load_input">
                     </div>
                     <div>个</div>
                 </div>
@@ -237,7 +237,7 @@
                         <button type="button" class="btn btn_1" id="talk_btn">录音祝福语</button>
                     </div>
                     <div class="flex_grow_1 text_center">
-                        <button type="button" class="btn btn_2">塞钱进红包</button>
+                        <button type="button" class="btn btn_2" id="submitduilian">塞钱进红包</button>
                     </div>
                 </div>
 
@@ -458,16 +458,69 @@
                                 });
                             
                             });
-
-
-                            
-
-                        }
+                           }
                     }
                 })
                                
             }
             getparams();
+
+            // 提交对联红包 submitduilian.php 
+            $('#submitduilian').click(function(){
+                if($('#titlelist').select2('val') == ''){
+                    alert('请选择或输入祝福语！')
+                    return;
+                }
+                if($('#hengpi').select2('val') == ''){
+                    alert('请选择或输入横批！')
+                    return;
+                }
+                if($('#shanglian').val() == ''){
+                    alert('请输入上联！')
+                    return;
+                }
+                if($('#xialian').val() == ''){
+                    alert('请输入下联！')
+                    return;
+                }
+                if($('#sumcash').val() == ''){
+                    alert('请输入总金额！')
+                    return;
+                }
+                if($('#hbnum').val() == ''){
+                    alert('请输入红包个数！')
+                    return;
+                }
+                let now = new Date();
+                let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                let obj = {
+                    token:now.getTime(),
+                    data:md5_data,
+                    title:$('#titlelist').select2('val'),
+                    hengfu:$('#hengpi').select2('val'),
+                    shanglian:$('#shanglian').val(),
+                    xialian:$('#xialian').val(),
+                    sumcash:$('#sumcash').val(),
+                    hbnum:$('#hbnum').val(),
+                    serverid:10,
+                    voicetime:5,
+                }
+                if(localStorage.getItem('openid')){
+                    obj.openid = localStorage.getItem('openid');
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "submitduilian.php",
+                    data: obj,
+                    success: function (json) {
+                        alert(json)
+                        var data = JSON.parse(json)
+                        if(data.errorcode == 0){
+                            
+                        }
+                    }
+                });
+            })
 
             // wx.config({
             //     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -508,9 +561,9 @@
                 });
             }
 
-            $('.btn_2').click(function(){
-                location.href = 'sharehongbao.html'
-            })
+            // $('.btn_2').click(function(){
+            //     // location.href = 'sharehongbao.html'
+            // })
         })
             
     
