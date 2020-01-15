@@ -333,9 +333,7 @@
                                 signature: data.signature,// 必填getjsapiconfig.php返回
                                 jsApiList: [
                                     // 所有要调用的 API 都要加到这个列表中
-                                    'startRecord',
-                                    'stopRecord',
-                                    'uploadVoice'
+                                    'startRecord','stopRecord','onVoiceRecordEnd','playVoice','stopVoice'
                                 ]
                             });
 
@@ -353,19 +351,7 @@
                                 var self = this;
                                 var timeOutEvent;
                                 var longClick =0;
-                                // $('#startre').click(function(){
-                                //     alert(1)
-                                //     wx.startRecord();
-                                //     alert(2)
-                                //     setTimeout(function(){
-                                //         wx.stopRecord({
-                                //             success: function (res) {
-                                //                 var localId = res.localId;
-                                //                 alert(localId)
-                                //             }
-                                //         });
-                                //     },3000)
-                                // })
+
                                 var START,recordTimer,END;
                                 var voice = {
                                     localId:''
