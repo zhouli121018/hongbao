@@ -289,7 +289,6 @@
                 url: "getduiliandata.php",
                 data: obj,
                 success: function (json) {
-                    alert(json)
                     var data = JSON.parse(json)
                     if(data.errorcode == 0){
                         let html = ''
@@ -313,6 +312,57 @@
                     }
                 }
             });
+
+            function getparams () {
+                // 获取JS-API配置项数据getjsapiconfig.php 
+                let now = new Date();
+                let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                $.ajax({
+                    url:'getjsapiconfig.php',
+                    type:'POST',
+                    data:{token:now.getTime(),data:md5_data},
+                    success:function(set){
+                        var data = JSON.parse(set);
+                        if(data.errorcode == 0){
+                            wx.config({
+                                debug: false,
+                                appId: data.appid, // 必填，getjsapiconfig.php返回
+                                timestamp: data.timestamp, // 必填，getjsapiconfig.php返回
+                                nonceStr: data.noncestr, // 必填，getjsapiconfig.php返回
+                                signature: data.signature,// 必填getjsapiconfig.php返回
+                                jsApiList: [
+                                // 所有要调用的 API 都要加到这个列表中
+                                'startRecord',
+                                'stopRecord',
+                                'onVoiceRecordEnd',
+                                'playVoice',
+                                'pauseVoice',
+                                'stopVoice',
+                                'onVoicePlayEnd',
+                                'uploadVoice',
+                                'downloadVoice',
+                                ]
+                            });
+                            alert('peizhi')
+
+                            $('.btn_1').click(function(){
+                                wx.startRecord({
+                                    success: function(res) {
+                                        var tempFilePath = res.tempFilePath 
+                                        alert(res)
+                                        alert(tempFilePath)
+                                    },
+                                    fail: function(res) {
+                                        alert('录音失败')
+                                        //录音失败
+                                    }
+                                })
+                            })
+                        }
+                    }
+                })
+                               
+            }
 
 
             // wx.config({
