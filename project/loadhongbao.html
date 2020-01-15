@@ -351,126 +351,46 @@
                             alert('peizhi')
 
                             wx.ready(function () {
-                                var voice = {
-                                    localId: '',
-                                    serverId: ''
-                                };
-                                var startRecord = document.querySelector('#startRecord');
-                                var stopClearTimeout;
-                                startRecord.onclick = function () {
-                                    //开始录音
-                                    if(startRecord.innerHTML == '开始'){
-                                        wx.startRecord({
-                                            success: function(){
-                                                startRecord.innerHTML = '停止';
-                                                //30秒后自动停止;
-                                                stopClearTimeout = setTimeout(function(){
-                                                    wx.stopRecord({
-                                                        success: function (res) {
-                                                            voice.localId = res.localId;
-                                                            startRecord.innerHTML = '试听';
-                                                        }
-                                                    });
-                                                },30000);
-                                            },
-                                        });
-                                    }
-                                
-                                    //结束录音
-                                    if(startRecord.innerHTML =='停止'){
-                                        wx.stopRecord({
-                                            success: function (res) {
-                                                clearTimeout(stopClearTimeout);
-                                                startRecord.innerHTML = '试听';
-                                                voice.localId = res.localId;
-                                            },
-                                            fail: function (res) {
-                                                alert(JSON.stringify(res));
-                                            }
-                                        });
-                                    }
-                        
-                                    //试听音频
-                                    if(startRecord.innerHTML =='试听'){
-                                        if (voice.localId == '') {
-                                            alert('请先录制一段声音');
-                                            return;
-                                        }
-                                        wx.playVoice({
-                                            localId: voice.localId
-                                        });
-                                    }
-                        
-                                };
-                                
-                                //删除语音,重新录音;
-                                document.querySelector('#deleteVoice').onclick = function(){
-                                    voice.localId = '';
-                                    startRecord.innerHTML = '开始';
-                                }
-                                
-                                //确认上传语音
-                                document.querySelector('#uploadVoice').onclick = function () {
-                                    if (voice.localId == '') {
-                                    alert('请先录制一段声音');
-                                    return;
-                                    }
-                                    wx.uploadVoice({
-                                    localId: voice.localId,
-                                        success: function (res) {
-                                            voice.serverId = res.serverId;
-                                            //把微信服务器上的serverId传给后台,后台再通过serverId到微信服务器上把语音保存到自己服务器上
-                                            $.ajax({
-                                                url: '',//后台接收数据地址
-                                                dataType: "json",
-                                                type: 'get',
-                                                data: {'id': voice.serverId},
-                                                success: function (msg) {
-                                                    alert('上传成功!');
+                                var self = this;
+                                var timeOutEvent;
+                                var longClick =0;
+                                $(".btn_1").on({
+                                    touchstart: function(e){
+                                        longClick=0;//设置初始为0
+                                        timeOutEvent = setTimeout(function(){
+                                            //此处为长按事件-----在此显示遮罩层及删除按钮
+                                            longClick=1;//假如长按，则设置为1
+                                            wx.startRecord({
+                                                success: function(res) {
+                                                    var tempFilePath = res.tempFilePath 
+                                                    alert(res)
+                                                    alert(tempFilePath)
                                                 },
-                                            });
+                                                fail: function(res) {
+                                                    alert('录音失败')
+                                                    //录音失败
+                                                }
+                                            })
+                                        },500);
+                                    },
+                                    touchmove: function(){
+                                        clearTimeout(timeOutEvent);
+                                        timeOutEvent = 0;
+                                        e.preventDefault();
+                                    },
+                                    touchend: function(e){
+                                        clearTimeout(timeOutEvent);
+                                        if(timeOutEvent!=0 && longClick==0){//点击
+                                            //此处为点击事件----在此处添加跳转详情页
                                         }
-                                    });
-                                };
-                        
-                            });
-
-
-                            var self = this;
-                            var timeOutEvent;
-                            var longClick =0;
-                            $(".btn_1").on({
-                                touchstart: function(e){
-                                    longClick=0;//设置初始为0
-                                    timeOutEvent = setTimeout(function(){
-                                        //此处为长按事件-----在此显示遮罩层及删除按钮
-                                        longClick=1;//假如长按，则设置为1
-                                        wx.startRecord({
-                                            success: function(res) {
-                                                var tempFilePath = res.tempFilePath 
-                                                alert(res)
-                                                alert(tempFilePath)
-                                            },
-                                            fail: function(res) {
-                                                alert('录音失败')
-                                                //录音失败
-                                            }
-                                        })
-                                    },500);
-                                },
-                                touchmove: function(){
-                                    clearTimeout(timeOutEvent);
-                                    timeOutEvent = 0;
-                                    e.preventDefault();
-                                },
-                                touchend: function(e){
-                                    clearTimeout(timeOutEvent);
-                                    if(timeOutEvent!=0 && longClick==0){//点击
-                                        //此处为点击事件----在此处添加跳转详情页
+                                        return false;
                                     }
-                                    return false;
-                                }
+                                });
+                            
                             });
+
+
+                            
 
                         }
                     }
