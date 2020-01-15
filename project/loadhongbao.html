@@ -299,16 +299,16 @@
                         }
                         let html_hp = ''
                         hash_duilian = [];
-                        for(var i=0;i<data.DuilianItem.length;i++){
-                            var o = data.DuilianItem[i]
+                        for(var i=0;i<data.duilianlist.length;i++){
+                            var o = data.duilianlist[i]
                             html_hp += `<option value="${o.hengpi}">${o.hengpi}</option>`
                             hash_duilian[o.hengpi]=[o.shanglian,o.xialian]
                         }
                         $('#titlelist').html(html)
                         $('#hengpi').html(html_hp)
-                        if(data.DuilianItem.length>0){
-                            $('#shanglian').val(data.DuilianItem[0].shanglian)
-                            $('#xialian').val(data.DuilianItem[0].xialian)
+                        if(data.duilianlist.length>0){
+                            $('#shanglian').val(data.duilianlist[0].shanglian)
+                            $('#xialian').val(data.duilianlist[0].xialian)
                         }
                     }
                 }
