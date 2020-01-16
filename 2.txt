@@ -1,0 +1,52 @@
+你在windows目录下搜索文件hosts  （C:\Windows\System32\drivers\etc）
+然后用记事本打开，把
+
+[图片]192.168.1.22 comingchina
+[图片]192.168.1.22 magvision
+[图片]192.168.1.22 magvision_wap
+[图片]192.168.1.22 unioncyber
+[图片]192.168.1.22 comingchina_qiye_wap
+
+贴在里面
+
+http://unioncyber/admin/login.php
+admin     jxfplus...
+http://unioncyber/rsync.php
+
+http://comingchina/admin/login.php
+admin     jxfplus123
+http://comingchina/rsync.php  更新到外网
+
+right.html  right_ny.html  1. 定时器  2.在线咨询跳转
+
+http://magvision/admin/login.php
+http://magvision_wap/admin/index.php
+admin	jxf1540
+http://magvision/rsync.php 更新到外网
+http://magvision_wap/rsync.php
+
+comingchina_qiye
+admin
+jxf1540...
+
+comingchina_qiye_wap
+admin
+jxf1540...
+
+
+服务器帐号密码
+192.168.1.22  root
+marxkarlmmxplus2401
+
+
+百度统计：
+u-mail  Karl1qaz==wo!!!     15172053606
+
+magvision   Karl1qaz==wo123   15172053606
+
+
+ <!-- {dede:include filename="flianxi.htm"/} -->
+
+刷新缓存
+https://login.bce.baidu.com/login?account=6484643add0942f1879166de26bc0f5a
+tuiguang   rk6pmNDt

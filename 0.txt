@@ -1,0 +1,229 @@
+﻿1、smartadmin  http://preview.isdee.com/admin/smartadmin.html
+2、测试运维后台  http://192.168.1.24:8069/operation/set/
+3、运维后台git地址代码  git clone http://zhouli@192.168.1.19/gerrit/Linux-Operation
+4、运维后台  http://192.168.1.35/operation/domain/account_sw/
+5、192.168.1.29  远程  root:X6jpbMnc0KJU |  cd /usr/local/u-mail/data/www/webmail/ | git pull origin dev
+6、/home/python/pyenv/versions/edm_web/bin/python /home/zhouli/project/edm_web/manage.py runserver 0.0.0.0:8888
+/home/python/pyenv/versions/edm_web/bin/python /home/zhouli/project/edm_web/manage.py runserver 0.0.0.0:8090
+
+7、参考 https://app.octanego.com doaxplus@126.com Demo5678$
+8、按照 http://mail.corpease.net/
+
+9、邮箱 zhouli@comingchina.com  1qaz@WSX
+     登录网址 http://mail2.comingchina.com/webmail/index.php?module=view&action=login
+
+10、以后你的工作主要有三部分：1、邮件营销平台的前端，主要和李工，杨工对接 2、邮件系统的前端，主要和阳工和吕工对接 3、对邮件营销平台的客户模板提供支持，有些客户的模板不知道怎么改，这个和黄会平和白薇对接，她俩坐在你后面
+11、git 地址 http://192.168.1.19/gerrit/
+12、http://192.168.1.29/webmail/index.php?module=view&action=login
+13、svn: svn://192.168.1.35/patch  zhouli  123456
+14、http://202.105.114.3:8088/secure/RapidBoard.jspa?rapidView=6&view=detail&selectedIssue=LINUX-208&quickFilter=13
+15、GIT信息 http://scm.magvision.com:12306/stash/login   (要做一条HOST记录 192.168.1.17 scm.magvision.com）
+zhouli/Zhou@2018Li
+16、黄会平01 dk53ENW54  https://www.bestedm.org
+17、开发管理系统
+http://202.105.114.3:8088/
+内容分享系统
+http://202.105.114.3:8090/
+
+192.168.1.24
+运行的用户：python/python
+/home/python/pyenv/versions/edm_web/bin/python /home/zhouli/project/edm_web/manage.py runserver 0.0.0.0:8888
+上传代码的用户：zhouli/zhouli
+
+:to=""
+
+群发平台
+http://simple.bestedm.org/JqWMZf41oH/9ZkOSYSxIt.html  
+zhouli
+Zhouli1qaz@WSX
+
+is_default
+is_show
+
+
+账号：
+zhouli
+密码
+Umail1QAZ2wsx
+
+开发流程介绍：
+http://202.105.114.3:8090/pages/viewpage.action?pageId=327715
+18、QQ号码：1399633036 密码：z600688 //  !@#$1qaz2wsxAABB
+19、https://docs.djangoproject.com/en/2.0/
+20、邮箱账号管理地址  Linux-Web/admin/template/mailbox/mailbox_list.tpl
+
+网易企业邮局：mail.mailarchiva.cn
+管理员admin	密码：fgFR4Efvg79a2
+
+coremail Demo账号
+•试用地址：http://xt5-dm100.coremail.cn/  
+•试用账号：oadmin@business1167.com
+•试用账号密码：M5a^iut*1167
+
+Demo账号
+•试用地址：http://xt5-dm100.coremail.cn/  
+•试用账号：oadmin@business1473.com
+•试用账号密码：Md#6@19G1473
+•试用账号有效期：2018-7-27至2018-8-27
+
+这是您个人登录确认邮件 webpower.
+URL: https://cndemo.webpower.asia/admin
+用户名: girdear
+密码: Elppxtamq6=
+
+https://www.cnblogs.com/haonanZhang/p/6236354.html
+
+svn  svn://192.168.1.35/patch || zhouli || 123456
+
+GIT信息 http://scm.magvision.com:12306/stash/login   (要做一条HOST记录 192.168.1.17 scm.magvision.com）
+zhouli/Zhou@2018Li
+
+http://202.105.114.3:8088/projects/GAT/issues/GAT-10?filter=allopenissues
+
+comingchina
+1qaz@WSX
+
+参考https://app.octanego.com doaxplus@126.com Demo5678$   
+
+http://www.eqxiu.com/details/share/119873957/social
+
+http://preview.isdee.com/admin/smartadmin.html
+
+https://github.com/voidlabs/mosaico
+https://www.ctolib.com/article/comments/33337
+https://github.com/knockout/knockout
+https://blog.csdn.net/zh15732621679/article/details/54864595
+http://baijiahao.baidu.com/s?id=1585020544619987944&wfr=spider&for=pc     tinyMCE
+
+https://docs.djangoproject.com/en/2.0/
+
+icon 引入
+https://blog.csdn.net/slqt_6688/article/details/81188636
+http://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=779819
+
+operation 启动 http://192.168.1.39:8888/operation
+同步代码：  ./sync.sh 
+启动 ： ./run.sh
+关闭:   ./stop.sh
+服务器root密码：  root  1qaz2wsx
+管理员账号密码：  system@test.com    1QAZ2wsx
+
+手动更新39 operation项目代码   
+./sync_operation.sh
+
+mosaico数据库
+http://202.103.191.7:81/pma/index.php?db=mm-ms&token=2829d816a4492b3bf0928b7f9382bf90
+'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'mm-ms',                      # Or path to database file if using sqlite3.
+        'USER': 'edm_web',                      # Not used with sqlite3.
+        'PASSWORD': 'XnLaT34LxaQViNB',                  # Not used with sqlite3.
+        'HOST': '202.103.191.7',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+    },
+
+c_carrie@163.com	1qazmmax
+c_carrie@126.com	1qazmmax
+ceshi1136@gmail.com	32017F3#QWQ&2WODHS
+yejing64@aliyun.com	1qazmmax
+
+
+
+webmail 手机测试网址 
+http://192.168.1.29/webmail/m/Outbox/index    a122@test.com / 1qaz@WSX
+代码地址 Linux-Web/m/App/Home/View/default/Outbox/index.html
+
+git push 报错：you are not allowed to upload merges
+http://www.cnblogs.com/zndxall/p/9650087.html
+2018-09-15 10:07 by 加个小鸡腿, 209 阅读, 0 评论, 收藏, 编辑
+
+git rebase
+git stash # 每次 push 前
+git pull --rebase
+git push origin HEAD:refs/for/master # gerrit review
+git pull
+git stash pop
+
+企业邮箱管理登录
+http://192.168.1.29/webmail/admin/index.php?module=admin&action=login
+administrator @test.com  密码 1qaz@WSX
+
+网易企业邮箱
+https://qiye.163.com/login/
+账号：lw@mailarchiva.cn  密码：1qaz@WSX
+
+地铁发票网址： https://www.shenzhentong.com/
+687114103   深圳市福洽科技有限公司  91440300671850639K 17607619682    2019-03-01日打印
+
+edm_web 数据库登录
+http://202.103.191.7:81/pma/index.php?db=mm-ms&token=2829d816a4492b3bf0928b7f9382bf90
+'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'mm-ms',                      # Or path to database file if using sqlite3.
+        'USER': 'edm_web',                      # Not used with sqlite3.
+        'PASSWORD': 'XnLaT34LxaQViNB',                  # Not used with sqlite3.
+        'HOST': '202.103.191.7',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+    },
+
+数据库调模板检测状态，删除发送记录
+http://192.168.1.24:81/phpmyadmin/sql.php?server=1&db=mm-ms&table=django_content_type&pos=0&token=9e6df6cc0f7b93c7c9e703d5b5c2da69
+root   123456
+
+192.168.1.78 测试账号
+
+security@domain.com
+1qaz@WSX
+
+administrator@domain.com
+1qaz@WSX
+
+system@domain.com   
+1qaz@WSX
+
+老webmail手机端测试
+http://192.168.1.29/webmail/m/User/login.html
+a122@test.com
+1qaz@WSX
+
+
+阿里云邮箱网址： https://mail.aliyun.com/   
+
+腾讯企业邮箱 https://exmail.qq.com/login 18825187840
+
+# 查看当前工程是不是在release-2.2.6版本
+git branch -v  或者  git branch -a
+当前版本前面有个*号，同时标绿。
+
+# 切换工程到 release-2.2.6 
+git checkout release-2.2.6
+
+# 提交至 release-2.2.6 
+git commit -am '解析邮件BUG'
+git push origin release-2.2.6 
+
+# 切换回主版本
+git checkout master
+
+
+-ko-attr-width:@_root_.globalWidth;
+-ko-max-width:@[_root_.globalWidth]px;
+-ko-attr-width:@_root_.globalWidth;-ko-max-width:@[_root_.globalWidth]px;
+
+-ko-attr-width:@[Math.round(_root_.globalWidth)-18]
+-ko-attr-width:@[(Math.round(_root_.globalWidth)-18)/2]
+
+-ko-attr-width:@[Math.round((_root_.globalWidth-18)/3)]
+
+打印机：
+RICOH Aficio MP 3350 (大打印机)
+HP LaserJet P3010 Series UPD (小打印机)
+
+patch
+1、 找技术支持要版本号
+2、看看patch的src_operation目录下有没有对应版本号的目录，没有就新建
+3、参考 src_operation\1.1.29\app\mailbox\templates\mailbox\add_account.html 目录存放文件
+4、参考  src_operation\1.1.29\update.txt 写更新信息
+
+
+/usr/local/u-mail/webvue/appfront
