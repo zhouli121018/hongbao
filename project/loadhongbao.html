@@ -365,7 +365,7 @@
                                 signature: data.signature,// 必填getjsapiconfig.php返回
                                 jsApiList: [
                                     // 所有要调用的 API 都要加到这个列表中
-                                    'startRecord','stopRecord','onVoiceRecordEnd','playVoice','stopVoice'
+                                    'startRecord','stopRecord','onVoiceRecordEnd','playVoice','stopVoice','uploadVoice','onVoicePlayEnd'
                                 ]
                             });
 
@@ -384,7 +384,7 @@
                                 var timeOutEvent;
                                 var longClick =0;
 
-                                var START,recordTimer,END,status=0;//0 还没开始  1开始了还没停止 2停止
+                                var START,recordTimer,END,status=0;//0 还没开始  1开始了还没停止 2停止 3试听中
                                 var startRecord = document.querySelector('#startRecord');
                                 var stopClearTimeout;
                                 $('#startRecord').click(function(){
@@ -421,6 +421,14 @@
                                     }else if(status == 2){
                                         $('.modal_bottom').css({display:'block'});
                                         $('.modal_box').css({display:'block'});
+                                    }else if(status == 3){
+                                        wx.stopVoice({
+                                            localId: voice.localId,
+                                            success:function(){
+                                                startRecord.innerHTML = '录音祝福语';
+                                                status = 2;
+                                            }
+                                        });
                                     }
                                 })
 
@@ -441,9 +449,19 @@
                                         return;
                                     }
                                     wx.playVoice({
-                                        localId: voice.localId
+                                        localId: voice.localId,
+                                        success:function(){
+                                            status = 3;
+                                            startRecord.innerHTML = '停止播放';
+                                        }
                                     });
                                 })
+                                wx.onVoicePlayEnd({
+                                    complete: function (res) {
+                                        startRecord.innerHTML = '录音祝福语';
+                                        status = 2;
+                                    }
+                                });
 
                                 $('#chonglu').click(function(){
                                     $('.modal_bottom').css({display:'none'});
