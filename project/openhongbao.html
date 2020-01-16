@@ -481,51 +481,55 @@
                                                 ]
                                             });
 
-                                            wx.downloadVoice({
-                                                serverId: voice.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-                                                isShowProgressTips: 1, // 默认为1，显示进度提示
-                                                success: function (res) {
-                                                    alert('successdowload')
-                                                    alert(JSON.stringify(res))
-                                                    var localId = res.localId; // 返回音频的本地ID
-                                                    $('#serverid').attr('data_id',res.localId);
-                                                    voice.localId = res.localId;
+                                            wx.ready(function () {
+                                                wx.downloadVoice({
+                                                    serverId: voice.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                                                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                                                    success: function (res) {
+                                                        alert('successdowload')
+                                                        alert(JSON.stringify(res))
+                                                        var localId = res.localId; // 返回音频的本地ID
+                                                        $('#serverid').attr('data_id',res.localId);
+                                                        voice.localId = res.localId;
 
-                                                    $('#serverid').click(function(){
-                                                        let id = $(this).attr('data_id');
-                                                        if(id){
-                                                            if(isstart){
-                                                                wx.stopVoice({
-                                                                    localId: voice.localId,
-                                                                    success:function(){
-                                                                        isstart = false;
+                                                        $('#serverid').click(function(){
+                                                            let id = $(this).attr('data_id');
+                                                            if(id){
+                                                                if(isstart){
+                                                                    wx.stopVoice({
+                                                                        localId: voice.localId,
+                                                                        success:function(){
+                                                                            isstart = false;
+                                                                        }
+                                                                    });
+                                                                }else{
+                                                                    if (voice.localId == '') {
+                                                                        alert('请先录制一段声音');
+                                                                        return;
                                                                     }
-                                                                });
-                                                            }else{
-                                                                if (voice.localId == '') {
-                                                                    alert('请先录制一段声音');
-                                                                    return;
+                                                                    wx.playVoice({
+                                                                        localId: voice.localId,
+                                                                        success:function(){
+                                                                            isstart = true;
+                                                                        }
+                                                                    });
                                                                 }
-                                                                wx.playVoice({
-                                                                    localId: voice.localId,
-                                                                    success:function(){
-                                                                        isstart = true;
-                                                                    }
-                                                                });
                                                             }
-                                                        }
-                                                    })
-                                                    wx.onVoicePlayEnd({
-                                                        complete: function (res) {
-                                                            isstart = false;
-                                                        }
-                                                    });
+                                                        })
+                                                        wx.onVoicePlayEnd({
+                                                            complete: function (res) {
+                                                                isstart = false;
+                                                            }
+                                                        });
 
-                                                },
-                                                fail:function(res){
-                                                    alert(JSON.stringify(res))
-                                                }
-                                            });
+                                                    },
+                                                    fail:function(res){
+                                                        alert(JSON.stringify(res))
+                                                    }
+                                                });
+                                            }
+
+                                            
                                             
                                         }
                                     }
