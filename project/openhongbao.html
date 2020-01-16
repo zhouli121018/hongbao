@@ -338,6 +338,11 @@
         $(function(){
             var isstart = false;
             var voicetime = 0;
+            var voice = {
+                localId: '',
+                serverId: ''
+            };
+            var status = 0;
             $('#hbid').click(function(){
                 let id = $(this).attr('data_id');
                 if(id){
@@ -449,14 +454,14 @@
                                 localStorage.setItem('openid',data.openid);
                             }
                             if(data.serverid){
-                                var ser_id = data.serverid;
+                                voice.serverId = data.serverid;
                                 // 获取JS-API配置项数据getjsapiconfig.php 
                                 let now_1 = new Date();
                                 let md5_data_1 = md5('token=' + now_1.getTime() + '&key=lldu43d98382');
                                 $.ajax({
                                     url:'getjsapiconfig.php',
                                     type:'POST',
-                                    data:{token:now_1.getTime(),data:md5_data_1},
+                                    data:{token:now_1.getTime(),data:md5_data_1,url:location.href},
                                     success:function(set){
                                         var data = JSON.parse(set);
                                         if(data.errorcode == 0){
@@ -467,53 +472,51 @@
                                                 nonceStr: data.noncestr, // 必填，getjsapiconfig.php返回
                                                 signature: data.signature,// 必填getjsapiconfig.php返回
                                                 jsApiList: [
-                                                // 所有要调用的 API 都要加到这个列表中
-                                                // 'startRecord',
-                                                // 'stopRecord',
-                                                // 'onVoiceRecordEnd',
-                                                'playVoice',
-                                                // 'pauseVoice',
-                                                'stopVoice',
-                                                // 'onVoicePlayEnd',
-                                                // 'uploadVoice',
-                                                // 'chooseImage',
-                                                // 'uploadImage',
-                                                // 'downloadImage',
-                                                'downloadVoice',
-                                                // 'onMenuShareAppMessage'
+                                                    // 所有要调用的 API 都要加到这个列表中
+                                                    'playVoice',
+                                                    'stopVoice',
+                                                    'downloadVoice',
+                                                    'onVoicePlayEnd'
                                                 ]
                                             });
 
                                             wx.downloadVoice({
-                                                serverId: ser_id, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-                                                isShowProgressTips: 0, // 默认为1，显示进度提示
+                                                serverId: voice.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                                                isShowProgressTips: 1, // 默认为1，显示进度提示
                                                 success: function (res) {
                                                     var localId = res.localId; // 返回音频的本地ID
                                                     $('#serverid').attr('data_id',res.localId);
+                                                    voice.localId = res.localId;
 
                                                     $('#serverid').click(function(){
-                                                        console.log('听语音')
                                                         let id = $(this).attr('data_id');
                                                         if(id){
                                                             if(isstart){
                                                                 wx.stopVoice({
-                                                                    localId: id // 需要停止的音频的本地ID，由stopRecord接口获得
-                                                                });
-                                                                isstart = false;
-                                                            }else{
-                                                                isstart = true;
-                                                                wx.playVoice({
-                                                                    localId: id // 需要播放的音频的本地ID，由stopRecord接口获得
-                                                                });
-                                                                if(voicetime>0){
-                                                                    setTimeout(function(){
+                                                                    localId: voice.localId,
+                                                                    success:function(){
                                                                         isstart = false;
-                                                                    },voicetime)
+                                                                    }
+                                                                });
+                                                            }else{
+                                                                if (voice.localId == '') {
+                                                                    alert('请先录制一段声音');
+                                                                    return;
                                                                 }
-                                                                
+                                                                wx.playVoice({
+                                                                    localId: voice.localId,
+                                                                    success:function(){
+                                                                        isstart = true;
+                                                                    }
+                                                                });
                                                             }
                                                         }
                                                     })
+                                                    wx.onVoicePlayEnd({
+                                                        complete: function (res) {
+                                                            isstart = false;
+                                                        }
+                                                    });
 
                                                 }
                                             });
