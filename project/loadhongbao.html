@@ -321,10 +321,14 @@
                 // 获取JS-API配置项数据getjsapiconfig.php 
                 let now = new Date();
                 let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                let obj = {
+                    token:now.getTime(),data:md5_data,url:location.href
+                } 
+                alert(JSON.stringify(obj))
                 $.ajax({
                     url:'getjsapiconfig.php',
                     type:'POST',
-                    data:{token:now.getTime(),data:md5_data},
+                    data:obj,
                     success:function(set){
                         alert(set)
                         var data = JSON.parse(set);
@@ -346,7 +350,7 @@
                                 wx.checkJsApi({
                                     jsApiList: ['stopRecord'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
                                     success: function(res) {
-                                        alert('succ')
+                                        // alert('succ')
                                     // 以键值对的形式返回，可用的api值true，不可用为false
                                     // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
                                     }
