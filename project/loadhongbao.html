@@ -350,13 +350,11 @@
                 let obj = {
                     token:now.getTime(),data:md5_data,url:location.href
                 } 
-                alert(JSON.stringify(obj))
                 $.ajax({
                     url:'getjsapiconfig.php',
                     type:'POST',
                     data:obj,
                     success:function(set){
-                        alert(set)
                         var data = JSON.parse(set);
                         if(data.errorcode == 0){
                             wx.config({
@@ -514,6 +512,7 @@
                 wx.uploadVoice({
                     localId: voice.localId,
                     success: function (res) {
+                        alert(res)
                         voice.serverId = res.serverId;
                         //把微信服务器上的serverId传给后台,后台再通过serverId到微信服务器上把语音保存到自己服务器上
                         let now = new Date();
@@ -573,6 +572,9 @@
                                 }
                             }
                         });
+                    },
+                    fail:function(res){
+                        alert(JSON.stringify(res));
                     }
                 });
 
