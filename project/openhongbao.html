@@ -336,6 +336,7 @@
 
     <script>
         $(function(){
+            
             var isstart = false;
             var voicetime = 0;
             var voice = {
@@ -372,7 +373,14 @@
                                 $('.modal-backdrop').addClass('fade');
                                 $('.modal').addClass('in');
                             }else{
-                                
+                                if(data.message){
+                                    $('.gongxi').html(data.message)
+                                }else{
+                                    $('.gongxi').html('')
+                                }
+                                $('.hit_desc').html(data.content)
+                                $('.modal-backdrop').addClass('fade');
+                                $('.modal').addClass('in');
                             }
                         }
                     })
@@ -396,8 +404,6 @@
             $('#go_hongbaolist').click(function(){
                 location.href = 'hongbaolist.html'
             })
-
-
             let device ;
             let u = navigator.userAgent, app = navigator.appVersion;
             let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
@@ -437,7 +443,7 @@
                     type:'POST',
                     data:obj,
                     success:function(json){
-                        alert(json)
+                        // alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
                             $('.head_img').attr('src',data.headimg);
@@ -467,7 +473,7 @@
                                         var data = JSON.parse(set);
                                         if(data.errorcode == 0){
                                             wx.config({
-                                                debug: true,
+                                                debug: false,
                                                 appId: data.appid, // 必填，getjsapiconfig.php返回
                                                 timestamp: data.timestamp, // 必填，getjsapiconfig.php返回
                                                 nonceStr: data.noncestr, // 必填，getjsapiconfig.php返回
@@ -486,12 +492,9 @@
                                                     serverId: voice.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
                                                     isShowProgressTips: 1, // 默认为1，显示进度提示
                                                     success: function (res) {
-                                                        alert('successdowload')
-                                                        alert(JSON.stringify(res))
                                                         var localId = res.localId; // 返回音频的本地ID
                                                         $('#serverid').attr('data_id',res.localId);
                                                         voice.localId = res.localId;
-
                                                         $('#serverid').click(function(){
                                                             let id = $(this).attr('data_id');
                                                             if(id){
@@ -527,10 +530,7 @@
                                                         alert(JSON.stringify(res))
                                                     }
                                                 });
-                                            }
-
-                                            
-                                            
+                                            })
                                         }
                                     }
 
@@ -551,13 +551,7 @@
                 location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
         
             }
-
-            
-
-            
         })
-            
-    
     </script>
     
     

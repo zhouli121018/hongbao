@@ -231,7 +231,7 @@
                 <button type="button" class="voice_btn" id="serverid" data_id="">
                     <img src="img/start.png" alt="" style="width:.42rem;height:.42rem;">
                     <img src="img/voice.png" alt="" style="width:60%;margin-left:.1rem;">
-                    <span class="listen_long flex_grow_1" style="text-align:right;padding-right:.1rem;">9s</span>
+                    <span class="listen_long flex_grow_1" style="text-align:right;padding-right:.1rem;"><span id="voicetime"></span>s</span>
                 </button>
                 <div class="flex" style="padding:0.2rem 0 0 1.6rem;color:rgba(255,218,123,1);">
                     <div>
@@ -239,7 +239,7 @@
                         <div style="font-size:.26rem;">抢红包接福回家</div>
                     </div>
                     <div style="padding-left:.26rem;padding-top:.1rem;">
-                        <img id="gongzhonghao" src="img/qrcode_ex.png" alt="" style="width:.78rem;">
+                        <img id="barcode" src="" alt="" style="width:.78rem;">
                     </div>
                         
                 </div>
@@ -286,14 +286,13 @@
                     var data = JSON.parse(json)
                     if(data.errorcode == 0){
                         $('.head_img').attr('src',data.headimg);
-                        $('#gongzhonghao').attr('src',data.gongzhonghao);
-                        $('#myhongbao').html(data.myhongbao);
+                        $('#barcode').attr('src',data.barcode);
                         $('#hongbao').html(data.hongbao);
-                        $('#hbid').attr('data_id',data.hbid);
                         $('#zhufutitle').html(data.zhufutitle);
                         $('#hengfu').html(data.hengfu);
                         $('#shanglian').html(data.shanglian);
                         $('#xialian').html(data.xialian);
+                        $('#voicetime').html(data.voicetime);
                         setTimeout(() => {
                             // html2canvas(document.querySelector("#img_box"),{ background:'#000',useCORS: true}).then(canvas => {
                             //     $('#black_box').html('<img src="'+canvas.toDataURL("image/png")+'" style="width:100%;border-radius:.2rem;">')
@@ -333,7 +332,7 @@
                                         width:$('#img_box').width(),//设置canvas尺寸与所截图尺寸相同，防止白边
                                         height:$('#img_box').height(),//防止白边
                                     }).then(canvas => {
-                                        $('#box').css({padding:'.4rem .6rem .2rem'})
+                                        $('#box').css({padding:'.4rem .4rem .2rem'})
                                         console.log(canvas)
                                         $('#box').html('<img src="'+canvas.toDataURL()+'" style="width:100%;border-radius:.2rem;">')
                                     });

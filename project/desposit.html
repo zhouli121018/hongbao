@@ -28,9 +28,10 @@
         .title_img_box{
             background:url(img/lucky/toux.png);
             background-size:100% 100%;
-            width:1.4rem;
-            height:1.4rem;
+            width:1.34rem;
+            height:1.34rem;
             margin: 0 auto;
+            padding:.06rem;
         }
         .center_font{
             font-family:Source Han Serif CN;
@@ -121,7 +122,8 @@
             font-family:PingFang SC;
             font-weight:bold;
             color:rgba(169,23,26,1);
-            width:.6rem;
+            width:1rem;
+            white-space: nowrap;
             text-align:right;
         }
         .load_input{
@@ -178,10 +180,10 @@
     <div id="login">
         <div class="top_title">
             <div class="title_img_box">
-
+                <img src="" id="headimg" alt="" style="width:1.34rem;border-radius:50%;">
             </div>
             <div class="center_font">
-                <span>Linan</span>
+                <span id="username"></span>
             </div>
             <div class="box">
                 <div class="dikuang">
@@ -209,13 +211,13 @@
                             <div class="money">
                                 ￥
                             </div>
-                            <input placeholder="账户余额1.03元" type="text" style="" class="flex_grow_1 load_input">
+                            <input id="money" placeholder="" type="number" data_max="" class="flex_grow_1 load_input">
                             <div class="all">全部</div>
                         </div>
                     </div>
 
                     <div class="text_center btn_box">
-                        <button class="tixian_btn" type="button">提现</button>
+                        <button id="desposit_hongbao" class="tixian_btn" type="button">提现</button>
                     </div>
                     <div class="desc text_center">
                         单次提现至少1元，最多200
@@ -230,54 +232,84 @@
     
     <script>
 		$(function(){
+            $('#desposit_hongbao').click(function(){
+                var reg =/^(0|([1-9]\d*))(\.\d+)?$/;
+                let max = parseFloat($('#money').attr('data_max'))
+                if(!reg.test($('#money').val())){
+                    alert('请输入正确的金额~')
+                    return;
+                }
+                if($('#money').val()=='' || (!$('#money').val()) || parseFloat($('#money').val())>max){
+                    alert('请输入正确的金额~')
+                    return;
+                }
+                let now = new Date();
+                let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                let obj = {
+                    token:now.getTime(),
+                    data:md5_data,
+                    hongbao:$('#money').val()
+                }
+                if(localStorage.getItem('openid')){
+                    obj.openid = localStorage.getItem('openid');
+                }
+                //getdespositdata.php 红包提款界面数据
+                $.ajax({
+                    type: "POST",
+                    url: "desposit_hongbao.php",
+                    data: obj,
+                    success: function (json) {
+                        alert(json)
+                        var data = JSON.parse(json)
+                        if(data.errorcode == 0){
+                            $('#money').attr('placeholder','账户余额'+data.hongbao+'元');
+                            $('#money').attr('data_max',data.hongbao);
+                            $('#money').val('')
+
+                        }
+                        if(data.message){
+                            alert(data.message)
+                        }
+                    }
+                });
+            })
+
             $('#go_despositlist').click(function(){
                 location.href = 'despositlist.html'
             })
-            var search = location.search;
-            var arr = search.slice(1).split('&');
-            var arr2 = [];
-            for(var i=0;i<arr.length;i++){
-                var o = arr[i];
-                var c = o.indexOf('=')
-                if(c>0){
-                    arr2[o.slice(0,c)] = o.slice(c+1)
-                }
-            }
-
             let now = new Date();
             let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
             let obj = {
-                hbid:arr2['hbid'],
                 token:now.getTime(),
                 data:md5_data
             }
             if(localStorage.getItem('openid')){
                 obj.openid = localStorage.getItem('openid');
             }
+            //getdespositdata.php 红包提款界面数据
             $.ajax({
                 type: "POST",
-                url: "getluckdata.php",
+                url: "getdespositdata.php",
                 data: obj,
                 success: function (json) {
                     var data = JSON.parse(json)
                     if(data.errorcode == 0){
                         $('#headimg').attr('src',data.headimg);
-                        let html = ''
-                        for(var i=0;i<data.list.length;i++){
-                            var o = data.list[i]
-                            html += `<div class="xiao_dik flex">
-                                        <img src="${o.headimg}" alt="" style="width:.76rem;">
-                                        <div style="padding-left:.16rem;">${o.username}</div>
-                                        <div class="text_right flex_grow_1">
-                                            <div>${o.createtime}</div>
-                                            <div style="font-size:.34rem;padding-top:.1rem;">${o.hongbao}元</div>
-                                        </div>
-                                    </div>`
-                        }
-                        $('.dikuang').html(html);
+                        $('#money').attr('placeholder','账户余额'+data.money+'元');
+                        $('#money').attr('data_max',data.money);
+                        $('#username').html(data.username);
+                    }
+                    if(data.message){
+                        alert(data.message)
                     }
                 }
             });
+
+            $('.all').click(function(){
+                $('#money').val($('#money').attr('data_max'))
+            })
+            
+            
         })
     </script>
 </body>
