@@ -437,6 +437,7 @@
                     type:'POST',
                     data:obj,
                     success:function(json){
+                        alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
                             $('.head_img').attr('src',data.headimg);
@@ -466,7 +467,7 @@
                                         var data = JSON.parse(set);
                                         if(data.errorcode == 0){
                                             wx.config({
-                                                debug: false,
+                                                debug: true,
                                                 appId: data.appid, // 必填，getjsapiconfig.php返回
                                                 timestamp: data.timestamp, // 必填，getjsapiconfig.php返回
                                                 nonceStr: data.noncestr, // 必填，getjsapiconfig.php返回
