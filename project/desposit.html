@@ -171,6 +171,7 @@
     </style>
     <script src="js/jquery-1.11.3.js"></script>
     <script src="js/md5.js"></script>
+    <script src="js/layer-v3.1.1/layer/layer.js"></script>
     <script>
             //引入该flexible.min.js
     !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
@@ -236,11 +237,11 @@
                 var reg =/^(0|([1-9]\d*))(\.\d+)?$/;
                 let max = parseFloat($('#money').attr('data_max'))
                 if(!reg.test($('#money').val())){
-                    alert('请输入正确的金额~')
+                    layer.msg('请输入正确的金额~')
                     return;
                 }
                 if($('#money').val()=='' || (!$('#money').val()) || parseFloat($('#money').val())>max){
-                    alert('请输入正确的金额~')
+                    layer.msg('请输入正确的金额~')
                     return;
                 }
                 let now = new Date();
@@ -259,7 +260,6 @@
                     url: "desposit_hongbao.php",
                     data: obj,
                     success: function (json) {
-                        alert(json)
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
                             $('#money').attr('placeholder','账户余额'+data.hongbao+'元');
@@ -268,7 +268,7 @@
 
                         }
                         if(data.message){
-                            alert(data.message)
+                            layer.msg(data.message);
                         }
                     }
                 });
@@ -300,7 +300,7 @@
                         $('#username').html(data.username);
                     }
                     if(data.message){
-                        alert(data.message)
+                        layer.msg(data.message);
                     }
                 }
             });
