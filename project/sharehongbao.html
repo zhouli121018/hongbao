@@ -338,7 +338,7 @@
                                         width:$('#img_box').width(),//设置canvas尺寸与所截图尺寸相同，防止白边
                                         height:$('#img_box').height(),//防止白边
                                     }).then(canvas => {
-                                        $('#box').css({padding:'.4rem .4rem .2rem'})
+                                        $('#box').css({padding:'.1rem .5rem .1rem'})
                                         console.log(canvas)
                                         $('#box').html('<img src="'+canvas.toDataURL()+'" style="width:100%;border-radius:.2rem;">')
                                     });
