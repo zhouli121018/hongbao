@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>发送红包</title>
+    <title>传音祝福红包</title>
     <style>
         .flex{
             display: flex;
@@ -33,16 +33,16 @@
         .center_font{
             font-size:0.61rem;
             font-weight:bold;
-            color:rgba(0,0,0,1);
+            color:#32291e;
             text-align:center;
-            padding-top:1.34rem;
+            padding-top:1.32rem;
             font-family:PingFang SC;
         }
         .left_font,.right_font{
             width:0.53rem;
             font-size:0.56rem;
             font-weight:bold;
-            color:rgba(0,0,0,1);
+            color:#32291e;
             line-height:1.2;
             opacity:0.9;
             font-family:PingFang SC;
@@ -60,6 +60,7 @@
             letter-spacing: 0.02rem;
             position:relative;
             top:-.5rem;
+            font-weight:bold;
         }
         .qiang_btn{
             padding-top: .2rem;
@@ -74,6 +75,7 @@
             color:#FFDA7B;
             line-height:0.5rem;
             text-shadow:0rem 0rem .1rem rgba(125,4,5,0.8);
+            font-weight:bold;
 
             /* background:linear-gradient(-8deg,rgba(208,163,99,1) 0%, rgba(246,232,176,1) 58.056640625%, rgba(206,159,95,1) 100%); */
             /* -webkit-background-clip:text; */
@@ -94,13 +96,13 @@
             top:9.7rem;
             width:100%;
             text-align:center;
-            margin-top:-.1rem;
+            margin-top:-.01rem;
         }
         .voice_btn{
             background:url(img/voice_bg.png);
             width:3.34rem;
             /* border-radius: 50%; */
-            height: .76rem;
+            height: .8rem;
             background-size: 100% 100%;
             padding: 0;
             outline: none;
@@ -189,9 +191,9 @@
     <div id="box">
         <!-- <img src="img/open_hb_bg.png" alt="" style="width:100%;"> -->
         <div id="img_box" style="position: relative;left:-150%;">
-            <div style="padding-top:.1rem;">
+            <div style="padding-top:.2rem;">
                 <div class="flex">
-                    <div style="padding:.08rem;width:.82rem;height:.82rem;background:url(img/circle_bg.png);background-size:100% 100%;margin:0 .2rem;">
+                    <div style="padding:.05rem;width:.82rem;height:.82rem;background:url(img/circle_bg.png);background-size:100% 100%;margin:0 .2rem 0 .3rem;">
                         <img class="head_img" src="" alt="" style="width:.82rem;border-radius:50%;">
                     </div>
                     <div class="top_font" id="zhufutitle">
@@ -207,10 +209,10 @@
                     年年如意发大财
                 </div>
                 <div class="inner_top flex_grow_1">
-                    <div style="font-size:.38rem">
-                        <span id="hongbao" style="font-size:.5rem">8</span>元红包
+                    <div style="font-size:.38rem;">
+                        <span id="hongbao" style="font-size:.5rem"></span>元红包
                     </div>
-                    <div>点击抢红包 带祝福回家</div>
+                    <div>扫码领红包 带祝福回家</div>
                     <div class="qiang_btn">
                         <button id="hbid" class="qiang_click_btn" type="button" data_id=""></button>
                         <!-- <img src="img/qiang.png" alt="" style="width: 2rem;"> -->
@@ -224,7 +226,7 @@
             <div class="voice_box">
                 <div class="listen flex">
                     听听
-                    <div style="padding:.06rem;width:.5rem;height:.5rem;background:url(img/listen_img.png);background-size:100% 100%;margin-top:.1rem;">
+                    <div style="padding:.04rem;width:.5rem;height:.5rem;background:url(img/listen_img.png);background-size:100% 100%;">
                         <img class="head_img" src="" alt="" style="width:.5rem;border-radius:50%;">
                     </div>
                     的祝福
@@ -234,7 +236,7 @@
                     <img src="img/voice.png" alt="" style="width:60%;margin-left:.1rem;">
                     <span class="listen_long flex_grow_1" style="text-align:right;padding-right:.1rem;"><span id="voicetime"></span>s</span>
                 </button>
-                <div class="flex" style="padding:0.2rem 0 0 1.6rem;color:rgba(255,218,123,1);">
+                <div class="flex" style="padding:0.2rem 0 0 1.6rem;color:rgba(255,218,123,1);font-weight:bold;">
                     <div>
                         <span style="font-size:.32rem;">长按识别右边二维码</span>
                         <div style="font-size:.26rem;">抢红包接福回家</div>

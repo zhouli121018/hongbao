@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>打开红包</title>
+    <title>传音祝福红包</title>
     <style>
         .flex{
             display: flex;
@@ -31,16 +31,16 @@
         .center_font{
             font-size:0.61rem;
             font-weight:bold;
-            color:rgba(0,0,0,1);
+            color:#32291e;
             text-align:center;
-            padding-top:1.34rem;
+            padding-top:1.3rem;
             font-family:PingFang SC;
         }
         .left_font,.right_font{
             width:0.53rem;
             font-size:0.56rem;
             font-weight:bold;
-            color:rgba(0,0,0,1);
+            color:#32291e;
             line-height:1.2;
             opacity:0.9;
             font-family:PingFang SC;
@@ -58,6 +58,7 @@
             letter-spacing: 0.02rem;
             position:relative;
             top:-.5rem;
+            font-weight:bold;
         }
         .qiang_btn{
             padding-top: .2rem;
@@ -72,6 +73,7 @@
             color:#FFDA7B;
             line-height:0.5rem;
             text-shadow:0rem 0rem .1rem rgba(125,4,5,0.8);
+            font-weight:bold;
 
             /* background:linear-gradient(-8deg,rgba(208,163,99,1) 0%, rgba(246,232,176,1) 58.056640625%, rgba(206,159,95,1) 100%); */
             /* -webkit-background-clip:text; */
@@ -92,13 +94,13 @@
             top:9.7rem;
             width:100%;
             text-align:center;
-            margin-top:-.1rem;
+            margin-top:-.01rem;
         }
         .voice_btn{
             background:url(img/voice_bg.png);
             width:3.34rem;
             /* border-radius: 50%; */
-            height: .76rem;
+            height: .8rem;
             background-size: 100% 100%;
             padding: 0;
             outline: none;
@@ -108,6 +110,7 @@
             margin:0 auto;
             padding:.0  .2rem  .07rem;
             align-items: center;
+            margin-top:.05rem;
         }
         .listen_long{
             color:#D40000;
@@ -117,7 +120,7 @@
         .btn_bg{
             background:url(img/btn_bg.png);
             width:1.64rem;
-            height: .45rem;
+            height: .5rem;
             background-size: 100% 100%;
             padding: 0;
             outline: none;
@@ -252,9 +255,9 @@
     
     <div id="box">
         <!-- <img src="img/open_hb_bg.png" alt="" style="width:100%;"> -->
-        <div style="padding-top:.1rem;">
+        <div style="padding-top:.2rem;">
             <div class="flex">
-                <div style="padding:.08rem;width:.82rem;height:0.82rem;background:url(img/circle_bg.png);background-size:100% 100%;margin:0 .2rem;">
+                <div style="padding:.05rem;width:.82rem;height:0.82rem;background:url(img/circle_bg.png);background-size:100% 100%;margin:0 .2rem 0 .3rem;">
                     <img class="head_img" src="" alt="" style="width:.82rem;border-radius:50%;">
                 </div>
                 <div class="top_font" id="zhufutitle">
@@ -271,7 +274,7 @@
             </div>
             <div class="inner_top flex_grow_1">
                 <div style="font-size:.38rem">
-                    <span id="hongbao" style="font-size:.5rem">8</span>元红包
+                    <span id="hongbao" style="font-size:.5rem"></span>元红包
                 </div>
                 <div>点击抢红包 带祝福回家</div>
                 <div class="qiang_btn">
@@ -287,7 +290,7 @@
         <div class="voice_box">
             <div class="listen flex">
                 听听
-                <div style="padding:.06rem;width:.5rem;height:.5rem;background:url(img/listen_img.png);background-size:100% 100%;margin-top:.1rem;">
+                <div style="padding:.04rem;width:.5rem;height:.5rem;background:url(img/listen_img.png);background-size:100% 100%;">
                     <img class="head_img" src="" alt="" style="width:.5rem;border-radius:50%;">
                 </div>
                 的祝福
@@ -306,13 +309,13 @@
                     <button class="btn_bg" id="go_hongbaolist" type="button">抢红包记录</button>
                 </div>
             </div>
-            <div class="flex" style="padding:0.2rem 1.8rem 0;text-align:left;color:rgba(255,218,123,1);">
+            <div class="flex" style="padding:0.2rem 1.8rem 0;text-align:left;color:rgba(255,218,123,1);font-weight:bold;">
                 <div>
                     <span style="font-size:.32rem;">我的红包：<span id="myhongbao"></span>元</span>
                     <div style="font-size:.26rem;">扫码关注公众号提现</div>
                 </div>
                 <div style="padding-left:.26rem;padding-top:.1rem;">
-                    <img id="gongzhonghao" src="img/qrcode_ex.png" alt="" style="width:.78rem;">
+                    <img id="gongzhonghao" src="gongzhonghao.jpg" alt="" style="width:.78rem;">
                 </div>
                     
             </div>
@@ -324,7 +327,7 @@
                         
                         <div class="qiangdao active">
                             <div class="gongxi">恭喜你</div>
-                            <div class="hit_desc">抢到13.3元红包</div>
+                            <div class="hit_desc">抢到红包</div>
                         </div>
                         <button class="modal_btn" type="button">查看红包账户</button>
                     </div>
@@ -345,7 +348,37 @@
                 serverId: ''
             };
             var status = 0;
+            let device ;
+            let u = navigator.userAgent, app = navigator.appVersion;
+            let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+            let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if (isAndroid) {
+                device = 0
+            }
+            if (isIOS) {
+                device = 1
+            }
+            let pid = '';
+            let hbid = '';
+            if(arr2['pid']){
+                pid = arr2['pid']
+            }
+            if(arr2['hbid']){
+                hbid = arr2['hbid']
+            }
+            let state = decodeURIComponent(arr2['state']).split(',')
+            if(arr2['code'] && state.length>1){
+                pid = state[0];
+                hbid = state[1];
+            }
+
             $('#hbid').click(function(){
+                if(localStorage.getItem('openid')){
+
+                }else{
+                    location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
+                    return;
+                }
                 let id = $(this).attr('data_id');
                 if(id){
                     let now = new Date();
@@ -363,6 +396,7 @@
                         type:'POST',
                         data: obj,
                         success:function(json){
+                            // layer.msg(json)
                             var data = JSON.parse(json)
                             if(data.errorcode == 0){
                                 if(data.ishit==1){
@@ -371,6 +405,7 @@
                                     $('.gongxi').html('抱歉')
                                 }
                                 $('.hit_desc').html(data.content)
+                                $('#myhongbao').html(data.hongbao)
                                 $('.modal-backdrop').addClass('fade');
                                 $('.modal').addClass('in');
                             }else{
@@ -397,161 +432,175 @@
             })
        
             $('#go_loadhongbao').click(function(){
+                if(localStorage.getItem('openid')){
+
+                }else{
+                    location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
+                    return;
+                }
                 location.href = 'loadhongbao.html'
             })
             $('#go_lucky').click(function(){
+                if(localStorage.getItem('openid')){
+
+                }else{
+                    location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
+                    return;
+                }
                 location.href = 'lucky.html?hbid='+$('#hbid').attr('data_id')
             })
             $('#go_hongbaolist').click(function(){
+                if(localStorage.getItem('openid')){
+
+                }else{
+                    location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
+                    return;
+                }
                 location.href = 'hongbaolist.html'
             })
-            let device ;
-            let u = navigator.userAgent, app = navigator.appVersion;
-            let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-            let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-            if (isAndroid) {
-                device = 0
+            
+            let now = new Date();
+            let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+            let obj = {
+                device:device,
+                pid:pid,
+                hbid:hbid,
+                token:now.getTime(),
+                data:md5_data
             }
-            if (isIOS) {
-                device = 1
-            }
-            let pid = '';
-            let hbid = '';
-            if(arr2['pid']){
-                pid = arr2['pid']
-            }
-            if(arr2['hbid']){
-                hbid = arr2['hbid']
+            if(localStorage.getItem('openid')){
+                obj.openid = localStorage.getItem('openid');
             }
             if(arr2['code']){
-                let state = decodeURIComponent(arr2['state']).split(',')
-                let now = new Date();
-                let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
-                let obj = {
-                    code:arr2['code'],
-                    device:device,
-                    pid:state[0],
-                    hbid:state[1],
-                    token:now.getTime(),
-                    data:md5_data
-                }
-                if(localStorage.getItem('openid')){
-                    obj.openid = localStorage.getItem('openid');
-                }
-                
-                $.ajax({
-                    url:'gethongbaodata.php',
-                    type:'POST',
-                    data:obj,
-                    success:function(json){
-                        var data = JSON.parse(json)
-                        if(data.errorcode == 0){
-                            $('.head_img').attr('src',data.headimg);
-                            $('#gongzhonghao').attr('src',data.gongzhonghao);
-                            $('#myhongbao').html(data.myhongbao);
-                            $('#hongbao').html(data.hongbao);
-                            $('#hbid').attr('data_id',data.hbid);
-                            $('#zhufutitle').html(data.zhufutitle);
-                            $('#hengfu').html(data.hengfu);
-                            $('#shanglian').html(data.shanglian);
-                            $('#xialian').html(data.xialian);
-                            $('#voicetime').html(data.voicetime+'s');
-                            voicetime = parseFloat(data.voicetime)*1000;
-                            if(data.openid){
-                                localStorage.setItem('openid',data.openid);
-                            }
-                            if(data.serverid){
-                                voice.serverId = data.serverid;
-                                // 获取JS-API配置项数据getjsapiconfig.php 
-                                let now_1 = new Date();
-                                let md5_data_1 = md5('token=' + now_1.getTime() + '&key=lldu43d98382');
-                                $.ajax({
-                                    url:'getjsapiconfig.php',
-                                    type:'POST',
-                                    data:{token:now_1.getTime(),data:md5_data_1,url:location.href},
-                                    success:function(set){
-                                        var data = JSON.parse(set);
-                                        if(data.errorcode == 0){
-                                            wx.config({
-                                                debug: false,
-                                                appId: data.appid, // 必填，getjsapiconfig.php返回
-                                                timestamp: data.timestamp, // 必填，getjsapiconfig.php返回
-                                                nonceStr: data.noncestr, // 必填，getjsapiconfig.php返回
-                                                signature: data.signature,// 必填getjsapiconfig.php返回
-                                                jsApiList: [
-                                                    // 所有要调用的 API 都要加到这个列表中
-                                                    'playVoice',
-                                                    'stopVoice',
-                                                    'downloadVoice',
-                                                    'onVoicePlayEnd'
-                                                ]
-                                            });
+                obj.code = arr2['code']
+            }
+            $.ajax({
+                url:'gethongbaodata.php',
+                type:'POST',
+                data:obj,
+                success:function(json){
+                    var data = JSON.parse(json)
+                    if(data.errorcode == 0){
+                        $('.head_img').attr('src',data.headimg);
+                        $('#gongzhonghao').attr('src',data.gongzhonghao);
+                        $('#myhongbao').html(data.myhongbao);
+                        $('#hongbao').html(data.hongbao);
+                        $('#hbid').attr('data_id',data.hbid);
+                        $('#zhufutitle').html(data.zhufutitle);
+                        $('#hengfu').html(data.hengfu);
+                        $('#shanglian').html(data.shanglian);
+                        $('#xialian').html(data.xialian);
+                        $('#voicetime').html(data.voicetime+'s');
+                        voicetime = parseFloat(data.voicetime)*1000;
+                        
+                        if(data.serverid){
+                            voice.serverId = data.serverid;
+                            // 获取JS-API配置项数据getjsapiconfig.php 
+                            let now_1 = new Date();
+                            let md5_data_1 = md5('token=' + now_1.getTime() + '&key=lldu43d98382');
+                            $.ajax({
+                                url:'getjsapiconfig.php',
+                                type:'POST',
+                                data:{token:now_1.getTime(),data:md5_data_1,url:location.href},
+                                success:function(set){
+                                    var data = JSON.parse(set);
+                                    if(data.errorcode == 0){
+                                        wx.config({
+                                            debug: false,
+                                            appId: data.appid, // 必填，getjsapiconfig.php返回
+                                            timestamp: data.timestamp, // 必填，getjsapiconfig.php返回
+                                            nonceStr: data.noncestr, // 必填，getjsapiconfig.php返回
+                                            signature: data.signature,// 必填getjsapiconfig.php返回
+                                            jsApiList: [
+                                                // 所有要调用的 API 都要加到这个列表中
+                                                'playVoice',
+                                                'stopVoice',
+                                                'downloadVoice',
+                                                'onVoicePlayEnd'
+                                            ]
+                                        });
 
-                                            wx.ready(function () {
-                                                wx.downloadVoice({
-                                                    serverId: voice.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
-                                                    isShowProgressTips: 1, // 默认为1，显示进度提示
-                                                    success: function (res) {
-                                                        var localId = res.localId; // 返回音频的本地ID
-                                                        $('#serverid').attr('data_id',res.localId);
-                                                        voice.localId = res.localId;
-                                                        $('#serverid').click(function(){
-                                                            let id = $(this).attr('data_id');
-                                                            if(id){
-                                                                if(isstart){
-                                                                    wx.stopVoice({
-                                                                        localId: voice.localId,
-                                                                        success:function(){
-                                                                            isstart = false;
-                                                                        }
-                                                                    });
-                                                                }else{
-                                                                    if (voice.localId == '') {
-                                                                        layer.msg('请先录制一段声音');
-                                                                        return;
-                                                                    }
-                                                                    wx.playVoice({
-                                                                        localId: voice.localId,
-                                                                        success:function(){
-                                                                            isstart = true;
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }
-                                                        })
-                                                        wx.onVoicePlayEnd({
-                                                            complete: function (res) {
-                                                                isstart = false;
+                                        wx.ready(function () {
+                                            wx.downloadVoice({
+                                                serverId: voice.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                                                isShowProgressTips: 1, // 默认为1，显示进度提示
+                                                success: function (res) {
+                                                    var localId = res.localId; // 返回音频的本地ID
+                                                    $('#serverid').attr('data_id',res.localId);
+                                                    voice.localId = res.localId;
+                                                    if (voice.localId) {
+                                                        wx.playVoice({
+                                                            localId: voice.localId,
+                                                            success:function(){
+                                                                isstart = true;
                                                             }
                                                         });
-
-                                                    },
-                                                    fail:function(res){
-                                                        layer.msg(JSON.stringify(res))
                                                     }
-                                                });
-                                            })
-                                        }
-                                        if(data.message){
-                                            layer.msg(data.message);
-                                        }
-                                    }
+                                                                
+                                                    $('#serverid').click(function(){
+                                                        let id = $(this).attr('data_id');
+                                                        if(id){
+                                                            if(isstart){
+                                                                wx.stopVoice({
+                                                                    localId: voice.localId,
+                                                                    success:function(){
+                                                                        isstart = false;
+                                                                    }
+                                                                });
+                                                            }else{
+                                                                if (voice.localId == '') {
+                                                                    layer.msg('请先录制一段声音');
+                                                                    return;
+                                                                }
+                                                                wx.playVoice({
+                                                                    localId: voice.localId,
+                                                                    success:function(){
+                                                                        isstart = true;
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    })
+                                                    wx.onVoicePlayEnd({
+                                                        complete: function (res) {
+                                                            isstart = false;
+                                                        }
+                                                    });
 
-                                })
-                                
-                            }
-                            $('#box').css('display','block');
+                                                },
+                                                fail:function(res){
+                                                    layer.msg(JSON.stringify(res))
+                                                }
+                                            });
+                                        })
+                                    }
+                                    if(data.message){
+                                        layer.msg(data.message);
+                                    }
+                                }
+
+                            })
+                            
+                        }
+                        $('#box').css('display','block');
+                        if(data.openid){
+                            localStorage.setItem('openid',data.openid);
                         }else{
-                            if(data.message){
-                                $('body').html('<h3>'+data.message+'</h3>')
-                                return;
-                            }
+                            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
+                        }
+                    }else{
+                        if(data.message){
+                            $('body').html('<h3>'+data.message+'</h3>')
+                            return;
                         }
                     }
-                })
+                }
+            })
+            
+            
+            if(arr2['code'] || localStorage.getItem('openid')){
             }else{    
-                location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
-        
+                
             }
         })
     </script>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>新年祝福对联红包</title>
+    <title>新年传音对联祝福红包</title>
     <style>
         .flex{
             display: flex;
@@ -239,7 +239,7 @@
                     <div>个</div>
                 </div>
 
-                <div class="desc">手续费按输入金额的2%收取</div>
+                <div class="desc">手续费按输入金额的1.5%收取</div>
                 <div class="flex">
                     <div class="flex_grow_1 text_center">
                         <button type="button" class="btn btn_1" id="startRecord">录音祝福语</button>
@@ -252,11 +252,11 @@
                 <div class="flex bottom_desc" style="padding:.5rem .2rem .1rem;">
                     <div class="flex_grow_1">
                         <div>好友将抢到随机金额红包</div>
-                        <div>长按扫码关注公众号可取回无人认领红包</div>
+                        <div>红包7天后未领完将原路退还，可扫码关注</div>
                         <div class="normal_quest" ><span class="wenhao">?</span>常见问题></div>
                     </div>
                     <div class="qr">
-                        <img  src="img/qrcode_ex.png" alt="" style="width:1.34rem;">
+                        <img  src="gongzhonghao.jpg" alt="" style="width:1.34rem;">
                     </div>
                 </div>
 
@@ -269,6 +269,9 @@
                             </div>
                             <div class="flex_grow_1 text_center">
                                 <button type="button" id="chonglu" class="btn btn_2" style="width:1.8rem;height:.6rem;">重录</button>
+                            </div>
+                            <div class="flex_grow_1 text_center">
+                                <button type="button" id="guanbi" class="btn btn_1" style="width:1.8rem;height:.6rem;">关闭</button>
                             </div>
                         </div>
                     </div>
@@ -463,6 +466,10 @@
                                         }
                                     });
                                 })
+                                $('#guanbi').click(function(){
+                                    $('.modal_bottom').css({display:'none'});
+                                    $('.modal_box').css({display:'none'});
+                                })
                                 wx.onVoicePlayEnd({
                                     complete: function (res) {
                                         startRecord.innerHTML = '录音祝福语';
@@ -562,7 +569,6 @@
                         if(localStorage.getItem('openid')){
                             obj.openid = localStorage.getItem('openid');
                         }
-                        layer.msg(JSON.stringify(obj))
                         $.ajax({
                             type: "POST",
                             url: "submitduilian.php",

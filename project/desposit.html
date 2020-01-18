@@ -240,10 +240,10 @@
                     layer.msg('请输入正确的金额~')
                     return;
                 }
-                if($('#money').val()=='' || (!$('#money').val()) || parseFloat($('#money').val())>max){
-                    layer.msg('请输入正确的金额~')
-                    return;
-                }
+                // if($('#money').val()=='' || (!$('#money').val()) || parseFloat($('#money').val())>max){
+                //     layer.msg('请输入正确的金额~')
+                //     return;
+                // }
                 let now = new Date();
                 let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
                 let obj = {

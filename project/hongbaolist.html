@@ -119,25 +119,8 @@
                     <div class="lingqu">1/10领取中</div>
                 </div>
             </div>
-            <div class="item_list flex">
-                <div>
-                    19年12月30日 9:22
-                </div>
-                <div class="flex_grow_1 text_right">
-                    <div class="hongbao">78元</div>
-                    <div class="lingqu">1/10领取中</div>
-                </div>
-            </div>
         </div>
         <div class="content_box recive_content active">
-                <div class="item_list flex">
-                    <img src="img/lucky/xiaotoux.png" alt="" style="width:.76rem;">
-                    <div style="padding-left:.16rem;">Linan</div>
-                    <div class="text_right flex_grow_1">
-                        <div class="lingqu">2019-12-12  01:21:32</div>
-                        <div class="hongbao">0.2元</div>
-                    </div>
-                </div>
                 <div class="item_list flex">
                     <img src="img/lucky/xiaotoux.png" alt="" style="width:.76rem;">
                     <div style="padding-left:.16rem;">Linan</div>
@@ -189,7 +172,7 @@
                             let html = ''
                             for(var i=0;i<data.list.length;i++){
                                 var o = data.list[i]
-                                html += `<div class="item_list flex">
+                                html += `<div class="item_list flex" data_hbid="${o.hbid}">
                                             <div>
                                                 ${o.createtime}
                                             </div>
@@ -264,6 +247,9 @@
                 gethongbao_shou()
             })
             gethongbao_shou();
+            $('.send_content').on('click',' .item_list',function(){
+                location.href = 'sharehongbao.html?hbid='+$(this).attr('data_hbid')
+            })
         })
     </script>
 </body>
