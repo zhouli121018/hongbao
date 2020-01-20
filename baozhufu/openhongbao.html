@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>打开红包</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        html,body {
+            padding:0;
+            margin:0;
+            height:100%;
+            background:#CA3933;
+            /* background: url('img/open_hb_bg.png') no-repeat #CA3933; */
+            /* background-size:100%; */
+            font-family: STZhongsong ,kaiTi;
+        }
+        .top_font{
+            font-size:0.54rem;
+            font-weight:800;
+            color:rgba(255,218,123,1);
+        }
+        .center_font{
+            font-size:0.61rem;
+            font-weight:bold;
+            color:rgba(0,0,0,1);
+            text-align:center;
+            padding-top:1.34rem;
+            font-family:PingFang SC;
+        }
+        .left_font,.right_font{
+            width:0.53rem;
+            font-size:0.56rem;
+            font-weight:bold;
+            color:rgba(0,0,0,1);
+            line-height:1.2;
+            opacity:0.9;
+            font-family:PingFang SC;
+        }
+        .left_font{
+            left: 0.56rem;
+        }
+        .right_font{
+            right: .56rem;
+        }
+        .inner_top{
+            text-align:center;
+            color: #FBD874;
+            font-size:.28rem;
+            letter-spacing: 0.02rem;
+            position:relative;
+            top:-.5rem;
+        }
+        .qiang_btn{
+            padding-top: .2rem;
+            width:100%;
+            text-align:center;
+        }
+        .listen{
+            text-align:center;
+            padding-left:2.33rem;
+            font-size:0.4rem;
+            font-weight:800;
+            color:#FFDA7B;
+            line-height:0.5rem;
+            text-shadow:0rem 0rem .1rem rgba(125,4,5,0.8);
+
+            /* background:linear-gradient(-8deg,rgba(208,163,99,1) 0%, rgba(246,232,176,1) 58.056640625%, rgba(206,159,95,1) 100%); */
+            /* -webkit-background-clip:text; */
+            /* -webkit-text-fill-color:transparent; */
+        }
+        .qiang_click_btn{
+            background:url(img/qiang.png);
+            width:1.5rem;
+            border-radius: 50%;
+            height: 1.5rem;
+            background-size: 100%;
+            padding: 0;
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
+        .voice_box{
+            top:9.7rem;
+            width:100%;
+            text-align:center;
+            margin-top:-.1rem;
+        }
+        .voice_btn{
+            background:url(img/voice_bg.png);
+            width:3.34rem;
+            /* border-radius: 50%; */
+            height: .76rem;
+            background-size: 100% 100%;
+            padding: 0;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            margin:0 auto;
+            padding:.0  .2rem  .07rem;
+            align-items: center;
+        }
+        .listen_long{
+            color:#D40000;
+            font-size:0.26rem;
+            font-weight:bold;
+        }
+        .btn_bg{
+            background:url(img/btn_bg.png);
+            width:1.64rem;
+            height: .45rem;
+            background-size: 100% 100%;
+            padding: 0;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            font-size:0.24rem;
+            font-weight:800;
+            color:rgba(211,0,0,1);
+        }
+        #box{
+            /* display:none; */
+            background: url('img/open_hb_bg.png')  no-repeat #CA3933;
+            background-size: 100% ;
+            padding-bottom:.2rem;
+        }
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1040;
+            background-color: #000;
+            opacity:0;
+            display:none;
+        }
+        .modal-backdrop.fade{
+            opacity:.8;
+            display:block;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1050;
+            display: none;
+            overflow: hidden;
+            -webkit-overflow-scrolling: touch;
+            outline: 0;
+        }
+        .modal.in{
+            opacity: 1;
+            display: block;
+        }
+        .modal-dialog {
+            position: relative;
+            width:auto;
+            margin: 10px;
+            margin-top:1.6rem;
+
+        }
+        .modal-content {
+            position: relative;
+            text-align:center;
+        }
+        .modal_box{
+            width:6.8rem;
+            background:url(img/open/bg.png);
+            background-size:100%;
+            height:3.3rem;
+            margin:0 auto;
+            text-align: center;
+            padding-top: 3.5rem;
+            color:#FFD694;
+        }
+        .modal_btn{
+            background-color:transparent;
+            background:url(img/open/btn.png);
+            background-size:100% 100%;
+            border:none;
+            outline:none;
+            width:4.6rem;
+            height:.7rem;
+            color:#D01B33;
+            font-size:0.36rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+        }
+        .close_btn{
+            background-color:transparent;
+            background:url(img/open/close.png);
+            background-size:100% 100%;
+            border:none;
+            outline:none;
+            width:.6rem;
+            height:.6rem;
+            margin:0 auto;
+            margin-top:.5rem;
+        }
+        .gongxi{
+            font-size:0.4rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            padding-bottom:.1rem;
+        }
+        .qiangdao{
+            font-size:0.56rem;
+            font-family:Microsoft YaHei;
+            font-weight:bold;
+            padding-bottom:.5rem;
+        }
+    </style>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script>
+            //引入该flexible.min.js
+    !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+    <script>
+        var search = location.search;
+        var arr = search.slice(1).split('&');
+        var arr2 = [];
+        for(var i=0;i<arr.length;i++){
+            var o = arr[i];
+            var c = o.indexOf('=')
+            if(c>0){
+                arr2[o.slice(0,c)] = o.slice(c+1)
+            }
+        }
+        if(localStorage['openid']){
+
+        }else{
+
+        }
+    </script>
+</head>
+<body>
+    
+    <div id="box">
+        <!-- <img src="img/open_hb_bg.png" alt="" style="width:100%;"> -->
+        <div style="padding-top:.1rem;">
+            <div class="flex">
+                <div style="padding:.08rem;width:.82rem;height:0.82rem;background:url(img/circle_bg.png);background-size:100% 100%;margin:0 .2rem;">
+                    <img class="head_img" src="" alt="" style="width:.82rem;border-radius:50%;">
+                </div>
+                <div class="top_font" id="zhufutitle">
+                    祝您2020年幸福安康
+                </div>
+            </div>
+        </div>
+        <div class="center_font" id="hengfu">
+            万事如意
+        </div>
+        <div class="flex" style="padding:1.1rem .56rem 0;">
+            <div class="left_font" id="shanglian">
+                年年如意发大财
+            </div>
+            <div class="inner_top flex_grow_1">
+                <div style="font-size:.38rem">
+                    <span id="hongbao" style="font-size:.5rem">8</span>元红包
+                </div>
+                <div>点击抢红包 带祝福回家</div>
+                <div class="qiang_btn">
+                    <button id="hbid" class="qiang_click_btn" type="button" data_id=""></button>
+                    <!-- <img src="img/qiang.png" alt="" style="width: 2rem;"> -->
+                </div>
+            </div>
+            <div class="right_font" id="xialian">
+                岁岁平安行大运
+            </div>
+        </div>
+        
+        <div class="voice_box">
+            <div class="listen flex">
+                听听
+                <div style="padding:.06rem;width:.5rem;height:.5rem;background:url(img/listen_img.png);background-size:100% 100%;margin-top:.1rem;">
+                    <img class="head_img" src="" alt="" style="width:.5rem;border-radius:50%;">
+                </div>
+                的祝福
+            </div>
+            <button type="button" class="voice_btn" id="serverid" data_id="">
+                <img src="img/start.png" alt="" style="width:.42rem;height:.42rem;">
+                <img src="img/voice.png" alt="" style="width:60%;margin-left:.1rem;">
+                <span class="listen_long flex_grow_1" style="text-align:right;padding-right:.1rem;" id="voicetime"></span>
+            </button>
+            <div class="flex">
+                <div class="flex_grow_1" style="text-align:right;">
+                    <button class="btn_bg" type="button" id="go_loadhongbao">我也发祝福</button>
+                </div>
+                <button class="btn_bg" type="button"  id="go_lucky" style="margin:0 .16rem;">大家手气</button>
+                <div class="flex_grow_1" style="text-align:left;">
+                    <button class="btn_bg" id="go_hongbaolist" type="button">抢红包记录</button>
+                </div>
+            </div>
+            <div class="flex" style="padding:0.2rem 1.8rem 0;text-align:left;color:rgba(255,218,123,1);">
+                <div>
+                    <span style="font-size:.32rem;">我的红包：<span id="myhongbao"></span>元</span>
+                    <div style="font-size:.26rem;">扫码关注公众号提现</div>
+                </div>
+                <div style="padding-left:.26rem;padding-top:.1rem;">
+                    <img id="gongzhonghao" src="img/qrcode_ex.png" alt="" style="width:.78rem;">
+                </div>
+                    
+            </div>
+        </div>
+        <div class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal_box">
+                        
+                        <div class="qiangdao active">
+                            <div class="gongxi">恭喜你</div>
+                            <div class="hit_desc">抢到13.3元红包</div>
+                        </div>
+                        <button class="modal_btn" type="button">查看红包账户</button>
+                    </div>
+                    <button type="button" class="close_btn"></button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop"></div>
+    </div>
+
+    <script>
+        $(function(){
+            var isstart = false;
+            var voicetime = 0;
+            $('#hbid').click(function(){
+                let id = $(this).attr('data_id');
+                if(id){
+                    let now = new Date();
+                    let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                    let obj = {
+                        token:now.getTime(),
+                        data:md5_data,
+                        hbid:id,
+                    }
+                    if(localStorage.getItem('openid')){
+                        obj.openid = localStorage.getItem('openid');
+                    }
+                    $.ajax({
+                        url:'qianghongbao.php',
+                        type:'POST',
+                        data: obj,
+                        success:function(json){
+                            var data = JSON.parse(json)
+                            if(data.errorcode == 0){
+                                if(data.ishit==1){
+                                    $('.gongxi').html('恭喜你')
+                                }else{
+                                    $('.gongxi').html('抱歉')
+                                }
+                                $('.hit_desc').html(data.content)
+                                $('.modal-backdrop').addClass('fade');
+                                $('.modal').addClass('in');
+                            }else{
+                                
+                            }
+                        }
+                    })
+                }
+            })
+            
+            $('.close_btn').click(function(){
+                $('.modal-backdrop').removeClass('fade');
+                $('.modal').removeClass('in');
+            })
+            $('.modal_btn').click(function(){
+                location.href = 'hongbaolist.html'
+            })
+       
+            $('#go_loadhongbao').click(function(){
+                location.href = 'loadhongbao.html'
+            })
+            $('#go_lucky').click(function(){
+                location.href = 'lucky.html?hbid='+$('#hbid').attr('data_id')
+            })
+            $('#go_hongbaolist').click(function(){
+                location.href = 'hongbaolist.html'
+            })
+
+
+            let device ;
+            let u = navigator.userAgent, app = navigator.appVersion;
+            let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+            let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if (isAndroid) {
+                device = 0
+            }
+            if (isIOS) {
+                device = 1
+            }
+            let pid = '';
+            let hbid = '';
+            if(arr2['pid']){
+                pid = arr2['pid']
+            }
+            if(arr2['hbid']){
+                hbid = arr2['hbid']
+            }
+            if(arr2['code']){
+                let state = decodeURIComponent(arr2['state']).split(',')
+                let now = new Date();
+                let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                let obj = {
+                    code:arr2['code'],
+                    device:device,
+                    pid:state[0],
+                    hbid:state[1],
+                    token:now.getTime(),
+                    data:md5_data
+                }
+                if(localStorage.getItem('openid')){
+                    obj.openid = localStorage.getItem('openid');
+                }
+                
+                $.ajax({
+                    url:'gethongbaodata.php',
+                    type:'POST',
+                    data:obj,
+                    success:function(json){
+                        var data = JSON.parse(json)
+                        if(data.errorcode == 0){
+                            $('.head_img').attr('src',data.headimg);
+                            $('#gongzhonghao').attr('src',data.gongzhonghao);
+                            $('#myhongbao').html(data.myhongbao);
+                            $('#hongbao').html(data.hongbao);
+                            $('#hbid').attr('data_id',data.hbid);
+                            $('#zhufutitle').html(data.zhufutitle);
+                            $('#hengfu').html(data.hengfu);
+                            $('#shanglian').html(data.shanglian);
+                            $('#xialian').html(data.xialian);
+                            $('#voicetime').html(data.voicetime+'s');
+                            voicetime = parseFloat(data.voicetime)*1000;
+                            if(data.openid){
+                                localStorage.setItem('openid',data.openid);
+                            }
+                            if(data.serverid){
+                                var ser_id = data.serverid;
+                                // 获取JS-API配置项数据getjsapiconfig.php 
+                                let now_1 = new Date();
+                                let md5_data_1 = md5('token=' + now_1.getTime() + '&key=lldu43d98382');
+                                $.ajax({
+                                    url:'getjsapiconfig.php',
+                                    type:'POST',
+                                    data:{token:now_1.getTime(),data:md5_data_1},
+                                    success:function(set){
+                                        var data = JSON.parse(set);
+                                        if(data.errorcode == 0){
+                                            wx.config({
+                                                debug: false,
+                                                appId: data.appid, // 必填，getjsapiconfig.php返回
+                                                timestamp: data.timestamp, // 必填，getjsapiconfig.php返回
+                                                nonceStr: data.noncestr, // 必填，getjsapiconfig.php返回
+                                                signature: data.signature,// 必填getjsapiconfig.php返回
+                                                jsApiList: [
+                                                // 所有要调用的 API 都要加到这个列表中
+                                                // 'startRecord',
+                                                // 'stopRecord',
+                                                // 'onVoiceRecordEnd',
+                                                'playVoice',
+                                                // 'pauseVoice',
+                                                'stopVoice',
+                                                // 'onVoicePlayEnd',
+                                                // 'uploadVoice',
+                                                // 'chooseImage',
+                                                // 'uploadImage',
+                                                // 'downloadImage',
+                                                'downloadVoice',
+                                                // 'onMenuShareAppMessage'
+                                                ]
+                                            });
+
+                                            wx.downloadVoice({
+                                                serverId: ser_id, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                                                isShowProgressTips: 0, // 默认为1，显示进度提示
+                                                success: function (res) {
+                                                    var localId = res.localId; // 返回音频的本地ID
+                                                    $('#serverid').attr('data_id',res.localId);
+
+                                                    $('#serverid').click(function(){
+                                                        console.log('听语音')
+                                                        let id = $(this).attr('data_id');
+                                                        if(id){
+                                                            if(isstart){
+                                                                wx.stopVoice({
+                                                                    localId: id // 需要停止的音频的本地ID，由stopRecord接口获得
+                                                                });
+                                                                isstart = false;
+                                                            }else{
+                                                                isstart = true;
+                                                                wx.playVoice({
+                                                                    localId: id // 需要播放的音频的本地ID，由stopRecord接口获得
+                                                                });
+                                                                if(voicetime>0){
+                                                                    setTimeout(function(){
+                                                                        isstart = false;
+                                                                    },voicetime)
+                                                                }
+                                                                
+                                                            }
+                                                        }
+                                                    })
+
+                                                }
+                                            });
+                                            
+                                        }
+                                    }
+
+                                })
+                                
+                            }
+                            $('#box').css('display','block');
+                        }else{
+                            if(data.message){
+                                $('body').html('<h3>'+data.message+'</h3>')
+                                // alert(data.message);
+                                return;
+                            }
+                        }
+                    }
+                })
+            }else{    
+                location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
+        
+            }
+
+            
+
+            
+        })
+            
+    
+    </script>
+    
+    
+</body>
+</html>

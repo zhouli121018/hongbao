@@ -98,6 +98,14 @@
             <img src="img/hongbaolist/hongbao.png" alt="" style="width:.22rem;margin-right:.1rem;">
             <span>红包余额：</span>
             <div class="red"><span id="hongbao">20.1</span>元</div>
+            <div class="flex text_right flex_grow_1">
+                <div class="flex_grow_1" style="font-size: 0;">
+                    <img src="img/des/detail.png" style="width:.28rem;" alt="">
+                </div>
+                
+                <div class="detail" id="go_despositlist">提现明细</div>
+
+            </div>
         </div>
         <div class="flex text_center title_box">
             <div class="flex_grow_1 recive active">
@@ -249,6 +257,10 @@
             gethongbao_shou();
             $('.send_content').on('click',' .item_list',function(){
                 location.href = 'sharehongbao.html?hbid='+$(this).attr('data_hbid')
+            })
+
+            $('#go_despositlist').click(function(){
+                location.href = 'despositlist.html'
             })
         })
     </script>

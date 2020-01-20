@@ -55,6 +55,9 @@
             }
             // location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
         }
+        if(search == ''){
+            location.href = location.href + '?v=' + new Date().getTime();
+        }
         
     </script>
     <style>
@@ -79,7 +82,7 @@
             margin-bottom:.18rem;
         }
         .text{
-            width:1.4rem;
+            width:1.6rem;
             text-align:right;
         }
         .down{
@@ -314,6 +317,9 @@
             if(localStorage.getItem('openid')){
                 obj.openid = localStorage.getItem('openid');
             }
+            if(arr2['code']){
+                obj.code = arr2['code'];
+            }
             $.ajax({
                 type: "POST",
                 url: "getduiliandata.php",
@@ -342,6 +348,11 @@
                     }
                     if(data.message){
                         layer.msg(data.message);
+                    }
+                    if(data.openid ){
+                        localStorage.setItem('openid',data.openid);
+                    }else{
+                        location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3a%2f%2fwww.baozhufu.com%2fbaozhufu%2floadhongbao.html&response_type=code&scope=snsapi_userinfo&state=1234#wechat_redirect'
                     }
                 }
             });
@@ -378,15 +389,6 @@
                             });
 
                             wx.ready(function () {
-                                
-                                wx.checkJsApi({
-                                    jsApiList: ['stopRecord'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                                    success: function(res) {
-                                    // 以键值对的形式返回，可用的api值true，不可用为false
-                                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-                                    }
-                                });
-
                                 var self = this;
                                 var timeOutEvent;
                                 var longClick =0;
@@ -395,6 +397,12 @@
                                 var startRecord = document.querySelector('#startRecord');
                                 var stopClearTimeout;
                                 $('#startRecord').click(function(){
+                                    if(localStorage.getItem('openid')){
+                    
+                                    }else{
+                                        location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3a%2f%2fwww.baozhufu.com%2fbaozhufu%2floadhongbao.html&response_type=code&scope=snsapi_userinfo&state=1234#wechat_redirect'
+                                        return;
+                                    }
                                     if(status == 0){
                                         wx.startRecord({
                                             success: function(){
@@ -455,7 +463,7 @@
                                     $('.modal_bottom').css({display:'none'});
                                     $('.modal_box').css({display:'none'});
                                     if (voice.localId == '') {
-                                        layer.msg('请先录制一段声音');
+                                        layer.msg('请先录制一段祝福语音');
                                         return;
                                     }
                                     wx.playVoice({
@@ -518,6 +526,12 @@
 
             // 提交对联红包 submitduilian.php 
             $('#submitduilian').click(function(){
+                if(localStorage.getItem('openid')){
+                    
+                }else{
+                    location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3a%2f%2fwww.baozhufu.com%2fbaozhufu%2floadhongbao.html&response_type=code&scope=snsapi_userinfo&state=1234#wechat_redirect'
+                    return;
+                }
                 if($('#titlelist').select2('val') == ''){
                     layer.msg('请选择或输入祝福语！')
                     return;
@@ -543,7 +557,7 @@
                     return;
                 }
                 if (voice.localId == '') {
-                    layer.msg('请先录制一段声音');
+                    layer.msg('请先录制一段祝福语音');
                   return;
                 }
                 var voice_time = parseInt(( end_time - start_time )/1000);

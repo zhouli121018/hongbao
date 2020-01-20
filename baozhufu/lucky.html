@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>大家手气</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        body {
+            padding:0;
+            margin:0;
+            background:#FDF3C1;
+        }
+        .top_title{
+            background:url(img/lucky/bg.jpg);
+            background-size:100% 100%;
+            height:4rem;
+            padding-top:.28rem;
+            display:none;
+        }
+        .title_img_box{
+            background:url(img/lucky/toux.png);
+            background-size:100% 100%;
+            width:1.3rem;
+            height:1.3rem;
+            margin: 0 auto;
+            padding:.1rem;
+        }
+        .center_font{
+            font-size:0.6rem;
+            font-family:Source Han Serif CN;
+            font-weight:800;
+            color:rgba(255,218,123,1);
+            text-align:center;
+            padding:.2rem 0;
+        }
+        .center_font>span{
+            font-size:0.82rem;
+        }
+        .weiling_box{
+            width:2.88rem;
+            height:.56rem;
+            background:url(img/lucky/btn.png);
+            background-size:100% 100%;
+            margin:0 auto;
+            text-align:center;
+            line-height:.56rem;
+            color:#FFFFFF;
+            font-size:.3rem;
+        }
+        .dikuang{
+            background:url(img/loadhb/dikuang.png);
+            background-size:100% 100%;
+            min-height:7rem;
+            padding:.4rem .2rem .2rem;
+            margin-bottom:.2rem;
+        }
+        .box{
+            padding:.6rem .3rem .2rem;
+        }
+        .xiao_dik{
+            background:url(img/loadhb/xiao_dik.png);
+            background-size:100% 100%;
+            padding:.28rem .36rem;
+            font-size:0.3rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            color:rgba(169,23,26,1);
+            margin-bottom:.18rem;
+            color:rgba(169,23,26,1);
+            font-size:0.24rem;
+        }
+        .text_right{
+            text-align:right;
+            font-size:.2rem;
+        }
+    </style>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/md5.js"></script>
+    <script>
+            //引入该flexible.min.js
+    !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+</head>
+<body>
+    <div id="login">
+        <div class="top_title">
+            <div class="title_img_box">
+                <img class="headimg" src="" alt="" style="width:1.3rem;border-radius:50%;">
+            </div>
+            <div class="center_font">
+                <span id="hongbao">33.2</span>元
+            </div>
+            <div class="weiling_box">
+                未领：<span style="color:#FFF3C2;"><span id="hongbao_weiling">2.10</span> 元</span>
+            </div>
+            <div class="box">
+                <div class="dikuang">
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+    
+    <script>
+		$(function(){
+            var search = location.search;
+            var arr = search.slice(1).split('&');
+            var arr2 = [];
+            for(var i=0;i<arr.length;i++){
+                var o = arr[i];
+                var c = o.indexOf('=')
+                if(c>0){
+                    arr2[o.slice(0,c)] = o.slice(c+1)
+                }
+            }
+
+            let now = new Date();
+            let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+            let obj = {
+                hbid:arr2['hbid'],
+                token:now.getTime(),
+                data:md5_data
+            }
+            if(localStorage.getItem('openid')){
+                obj.openid = localStorage.getItem('openid');
+            }
+            $.ajax({
+                type: "POST",
+                url: "getluckdata.php",
+                data: obj,
+                success: function (json) {
+                    var data = JSON.parse(json)
+                    if(data.errorcode == 0){
+                        $('#hongbao').html(data.hongbao);
+                        $('#hongbao_weiling').html(data.hongbao_weiling);
+                        $('.headimg').attr('src',data.headimg);
+                        let html = ''
+                        for(var i=0;i<data.list.length;i++){
+                            var o = data.list[i]
+                            html += `<div class="xiao_dik flex">
+                                        <img src="${o.headimg}" alt="" style="width:.76rem;border-radius:50%;">
+                                        <div style="padding-left:.16rem;">${o.username}</div>
+                                        <div class="text_right flex_grow_1">
+                                            <div>${o.createtime}</div>
+                                            <div style="font-size:.34rem;padding-top:.1rem;">${o.hongbao}元</div>
+                                        </div>
+                                    </div>`
+                        }
+                        $('.dikuang').html(html);
+                        $('.top_title').css({display:'block'})
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+</html>

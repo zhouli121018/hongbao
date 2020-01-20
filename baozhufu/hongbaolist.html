@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的红包记录</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        body {
+            padding:0;
+            margin:0;
+        }
+        .top_font{
+            color:#333333;
+            font-size:0.26rem;
+            background:#FFFBF0;
+            padding:.26rem;
+            border-bottom:1px solid #E6E6E6;
+        }
+        .top_font .red{
+            color:#FF4444;
+        }
+        .text_center{
+            text-align:center;
+        }
+        .title_box{
+            padding:.1rem 0 .05rem;
+            border-bottom:1px solid #EBEBEB; 
+        }
+        .send,.recive{
+            font-size:0;
+            font-family:PingFang SC;
+            font-weight:bold;
+        }
+        .send>div,.recive>div{
+            font-size:0.28rem;
+            padding:.16rem 0;
+        }
+        .send>img,.recive>img{
+            visibility:hidden;
+        }
+        .send.active,.recive.active{
+            color:#FD2A1D;
+        }
+        .send.active>img,.recive.active>img{
+            visibility:visible;
+        }
+        .content_box{
+            padding:0 .3rem;
+        }
+        .item_list{
+            border-bottom:1px solid #EBEBEB;
+            padding:.26rem 0;
+            font-size:0.24rem;
+            color:#333333;
+        }
+        .text_right{
+            text-align:right;
+        }
+        .hongbao{
+            font-size:0.34rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+        }
+        .lingqu{
+            color:#999999;
+            padding-top:.1rem;
+        }
+        .recive_content .lingqu{
+            padding-bottom:.1rem;
+        }
+        .content_box{
+            display:none;
+        }
+        .content_box.active{
+            display:block;
+        }
+
+    </style>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/md5.js"></script>
+    <script>
+            //引入该flexible.min.js
+    !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+</head>
+<body>
+    <div >
+        <div class="flex top_font">
+            <img src="img/hongbaolist/hongbao.png" alt="" style="width:.22rem;margin-right:.1rem;">
+            <span>红包余额：</span>
+            <div class="red"><span id="hongbao">20.1</span>元</div>
+        </div>
+        <div class="flex text_center title_box">
+            <div class="flex_grow_1 recive active">
+                <div>我收到的</div>
+                <img src="img/hongbaolist/1.png" alt="" style="width:.6rem;">
+            </div>
+            <div class="flex_grow_1 send">
+                <div>我发出的</div>
+                <img src="img/hongbaolist/1.png" alt="" style="width:.6rem;">
+            </div>
+        </div>
+        <div class="content_box send_content">
+            <div class="item_list flex">
+                <div>
+                    19年12月30日 9:22
+                </div>
+                <div class="flex_grow_1 text_right">
+                    <div class="hongbao">78元</div>
+                    <div class="lingqu">1/10领取中</div>
+                </div>
+            </div>
+            <div class="item_list flex">
+                <div>
+                    19年12月30日 9:22
+                </div>
+                <div class="flex_grow_1 text_right">
+                    <div class="hongbao">78元</div>
+                    <div class="lingqu">1/10领取中</div>
+                </div>
+            </div>
+        </div>
+        <div class="content_box recive_content active">
+                <div class="item_list flex">
+                    <img src="img/lucky/xiaotoux.png" alt="" style="width:.76rem;">
+                    <div style="padding-left:.16rem;">Linan</div>
+                    <div class="text_right flex_grow_1">
+                        <div class="lingqu">2019-12-12  01:21:32</div>
+                        <div class="hongbao">0.2元</div>
+                    </div>
+                </div>
+                <div class="item_list flex">
+                    <img src="img/lucky/xiaotoux.png" alt="" style="width:.76rem;">
+                    <div style="padding-left:.16rem;">Linan</div>
+                    <div class="text_right flex_grow_1">
+                        <div class="lingqu">2019-12-12  01:21:32</div>
+                        <div class="hongbao">0.2元</div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+    <script>
+		$(function(){
+            var search = location.search;
+            var arr = search.slice(1).split('&');
+            var arr2 = [];
+            for(var i=0;i<arr.length;i++){
+                var o = arr[i];
+                var c = o.indexOf('=')
+                if(c>0){
+                    arr2[o.slice(0,c)] = o.slice(c+1)
+                }
+            }
+            function gethongbao_fa(){
+                let now = new Date();
+                let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                let obj = {
+                    token:now.getTime(),
+                    data:md5_data
+                }
+                if(localStorage.getItem('openid')){
+                    obj.openid = localStorage.getItem('openid');
+                }
+                $('.send').siblings().removeClass('active')
+                $('.send').addClass('active');
+                $('.send_content').html('加载中...');
+                $('.recive_content').removeClass('active');
+                $('.send_content').addClass('active');
+                $.ajax({
+                    type: "POST",
+                    url: "gethongbao_fa.php",
+                    data: obj,
+                    success: function (json) {
+                        var data = JSON.parse(json)
+                        if(data.errorcode == 0){
+                            $('#hongbao').html(data.hongbao);
+                            $('#hongbao_weiling').html(data.hongbao_weiling);
+                            $('#headimg').attr('src',data.headimg);
+                            let html = ''
+                            for(var i=0;i<data.list.length;i++){
+                                var o = data.list[i]
+                                html += `<div class="item_list flex">
+                                            <div>
+                                                ${o.createtime}
+                                            </div>
+                                            <div class="flex_grow_1 text_right">
+                                                <div class="hongbao">${o.hongbao}元</div>
+                                                <div class="lingqu">${o.status}</div>
+                                            </div>
+                                        </div>`
+                            }
+                            $('.send_content').html(html);
+                        }else{
+                            let message = ''
+                            if(data.message){
+                                message = data.message;
+                            }
+                            $('.send_content').html(message);
+                        }
+                        
+                    }
+                });
+            }
+            function gethongbao_shou(){
+                let now = new Date();
+                let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
+                let obj = {
+                    token:now.getTime(),
+                    data:md5_data
+                }
+                if(localStorage.getItem('openid')){
+                    obj.openid = localStorage.getItem('openid');
+                }
+                $('.recive').siblings().removeClass('active')
+                $('.recive').addClass('active');
+                $('.recive_content').html('加载中...');
+                $('.send_content').removeClass('active');
+                $('.recive_content').addClass('active');
+                $.ajax({
+                    type: "POST",
+                    url: "gethongbao_shou.php",
+                    data: obj,
+                    success: function (json) {
+                        var data = JSON.parse(json)
+                        if(data.errorcode == 0){
+                            $('#hongbao').html(data.hongbao);
+                            $('#hongbao_weiling').html(data.hongbao_weiling);
+                            $('#headimg').attr('src',data.headimg);
+                            let html = ''
+                            for(var i=0;i<data.list.length;i++){
+                                var o = data.list[i]
+                                html += `<div class="item_list flex">
+                                            <img src="${o.headimg}" alt="" style="width:.76rem;border-radius:50%;">
+                                            <div style="padding-left:.16rem;">${o.username}</div>
+                                            <div class="text_right flex_grow_1">
+                                                <div class="lingqu">${o.createtime}</div>
+                                                <div class="hongbao">${o.hongbao}元</div>
+                                            </div>
+                                        </div>`
+                            }
+                            $('.recive_content').html(html);                            
+                        }else{
+                            let message = ''
+                            if(data.message){
+                                message = data.message;
+                            }
+                            $('.recive_content').html(message);
+                        }
+                    }
+                });
+            }
+            $('.send').click(function(){
+                gethongbao_fa();
+            })
+            $('.recive').click(function(){
+                gethongbao_shou()
+            })
+            gethongbao_shou();
+        })
+    </script>
+</body>
+</html>
