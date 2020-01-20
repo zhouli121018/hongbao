@@ -45,8 +45,7 @@ if(isEmptyStr($shanglian) )
 $ret='上联不能为空';
 if(isEmptyStr($xialian) )
 $ret='下联不能为空';
-if(isEmptyStr($xialian) )
-$ret='下联不能为空';
+
 if(isEmptyStr($sumcash) )
 $ret='红包金额不能为空';
 if(isEmptyStr($hbnum) )
@@ -54,6 +53,23 @@ $ret='人数不能为空';
 if(isEmptyStr($voicetime) )
 $ret='祝福录音不能为空';
 
+if(mb_strlen($hengfu,"utf-8")!=4)
+{
+	$ret='横批要求4个汉字';
+}
+if(mb_strlen($shanglian,"utf-8")!=7)
+{
+	$ret='上联要求7个汉字';
+}
+if(mb_strlen($xialian,"utf-8")!=7)
+{
+	$ret='下联要求7个汉字';
+}
+
+if(mb_strlen($title,"utf-8")>11)
+{
+	$ret='祝福语不能超过11个汉字';
+}
 //$ret=true;
 if($ret===true)
 {
@@ -72,7 +88,9 @@ if($ret===true)
 
 if($ret===true)
 {
-	$total_fee=$sumcash*100;
+	$money_sum=round(floatval($sumcash*0.015+$sumcash),2);
+	
+	$total_fee=$money_sum*100;
 	$result_a = $con->query("SELECT  id,invitecode,hongbao FROM user where   openid='$openid' "  );
 		
 	if($result_a->num_rows>0)
@@ -104,7 +122,7 @@ if($ret===true)
 		QRcode::png($tinyurl, $barcodepath, $errorCorrectionLevel, $matrixPointSize, 2);
 
 		$out_trade_no=$userid . '-' . time().'-'.rand(100,999);
-		$tsql = "INSERT INTO flow_hongbao_kj(trade_no,tinyurl,voicetime,barcode,hbid,invitecode,hongbao,endtime,hongbao_sy,renshu,renshu_sy,serverid,zhufutitle,hengfu,shanglian,xialian) VALUES ('$out_trade_no','$tinyurl','$voicetime','$barcodepath','$ivcode','$invitecode','$sumcash' ,'$endtime' ,'$sumcash','$hbnum','$hbnum','$serverid','$title','$hengfu','$shanglian','$xialian')";
+		$tsql = "INSERT INTO flow_hongbao_kj(money_sum,trade_no,tinyurl,voicetime,barcode,hbid,invitecode,hongbao,endtime,hongbao_sy,renshu,renshu_sy,serverid,zhufutitle,hengfu,shanglian,xialian) VALUES ('$money_sum','$out_trade_no','$tinyurl','$voicetime','$barcodepath','$ivcode','$invitecode','$sumcash' ,'$endtime' ,'$sumcash','$hbnum','$hbnum','$serverid','$title','$hengfu','$shanglian','$xialian')";
 		$con->query($tsql);
 		if($con->affected_rows>0)
 		{

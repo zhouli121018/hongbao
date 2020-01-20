@@ -67,7 +67,7 @@ echo $persiondata ;
 class Datalist 
 {
 	public $errorcode=1;//0表示正常
-	public $message='默认错误';
+	public $message='';
 	 
 	public $list=array();//祝福标题列表
  

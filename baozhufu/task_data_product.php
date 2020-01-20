@@ -7,7 +7,7 @@ $clientip='118.31.109.150';//$_SERVER['REMOTE_ADDR'];
 
 //-------------------------检查7天红包未认领退款----------------
 $nowtime=date('Y-m-d H:i:s');
-$result_b = $con->query("SELECT  hongbao,id,hbid,hongbao_sy,invitecode,trade_no_wx FROM flow_hongbao_kj where status=1 and istui=0 and endtime<'$nowtime'  and hongbao_sy>0 limit 1"  );
+$result_b = $con->query("SELECT  money_sum,id,hbid,hongbao_sy,invitecode,trade_no_wx FROM flow_hongbao_kj where status=1 and istui=0 and endtime<'$nowtime'  and hongbao_sy>0 limit 3"  );
 		
 while($row_cl = $result_b->fetch_assoc())
 {
@@ -15,7 +15,7 @@ while($row_cl = $result_b->fetch_assoc())
 	$hongbao_sy=$row_cl['hongbao_sy'];//;
 	$id=$row_cl['id'];
 	$invitecode=$row_cl['invitecode'];
-	$hongbao=$row_cl['hongbao'];
+	$money_sum=$row_cl['money_sum'];
 	$trade_no_wx=$row_cl['trade_no_wx'];
 	$hbid=$row_cl['hbid'];
 
@@ -31,7 +31,7 @@ while($row_cl = $result_b->fetch_assoc())
 	$refund_desc='语音祝福红包超7天未领退款';
 	$refund_fee=round($hongbao_sy,2)*100;
 	$transaction_id=$trade_no_wx;//微信支付成功的微信订单号
-	$total_fee=round($hongbao,2)*100;
+	$total_fee=round($money_sum,2)*100;
 	$stringA="appid=$appid&mch_id=$mch_id&nonce_str=$nonce_str&notify_url=$notify_url&out_refund_no=$out_refund_no&refund_desc=$refund_desc&refund_fee=$refund_fee&sign_type=MD5&total_fee=$total_fee&transaction_id=$transaction_id";
 	$stringSignTemp=$stringA."&key=".$md_key;
 	 
@@ -111,8 +111,10 @@ while($row_cl = $result_b->fetch_assoc())
 //-------------------------检查1-5天红包提款----------------
 //$nowtime=date('Y-m-d H:i:s');
 $starttime=date('Y-m-d H:i:s',strtotime('-5 days'));
+$starttime=date('Y-m-d H:i:s');
+
 //  
-$result_b = $con->query("SELECT  id,money,invitecode FROM flow_hongbao_tikuan where status=0  and createtime<'$starttime' limit 1 "  );
+$result_b = $con->query("SELECT  id,money,invitecode FROM flow_hongbao_tikuan where status=0  and createtime<'$starttime' and money<='200' and money>='0.3' order by createtime  limit 200 "  );
 		
 while($row_cl = $result_b->fetch_assoc())
 {
@@ -132,14 +134,14 @@ while($row_cl = $result_b->fetch_assoc())
 
 	$md_key='9934e7d25453e97507ef794cf7b0529e';
 
-	$mch_billno=$id.time() . rand(100,999);
+	$mch_billno=time() . rand(100,999);
 	
 	$nonce_str = md5(rand());
 	//$total_fee='';
 
-	$send_name='祝福包包-提款';
+	$send_name='“祝福包包”公众号提款';
 	$wishing='祝2020心想事成';
-	$act_name='春节红包-祝福包包';
+	$act_name='春节传音祝福红包';
 	$remark='2020年祝福包包提款';
 	$total_amount=intval($money*100) ;
 
@@ -149,7 +151,7 @@ while($row_cl = $result_b->fetch_assoc())
 	$detail='传音包祝福红包-送亲朋好友';
 	
 	//$clientip=$_SERVER['REMOTE_ADDR'];
-	$stringA="act_name=$act_name&client_ip=$clientip&mch_billno=$mch_billno&mch_id=1573874181&nonce_str=$nonce_str&re_openid=$openid&remark=$remark&send_name=$send_name&total_amount=$total_amount&total_num=1&wishing=$wishing&wxappid=wx13665daee96a688b";
+	$stringA="act_name=$act_name&client_ip=$clientip&mch_billno=$mch_billno&mch_id=1573874181&nonce_str=$nonce_str&re_openid=$openid&remark=$remark&scene_id=PRODUCT_2&send_name=$send_name&total_amount=$total_amount&total_num=1&wishing=$wishing&wxappid=wx13665daee96a688b";
 	$stringSignTemp=$stringA."&key=".$md_key;
 	 
 
@@ -163,6 +165,7 @@ while($row_cl = $result_b->fetch_assoc())
 	<nonce_str><![CDATA[$nonce_str]]></nonce_str>
 	<re_openid><![CDATA[$openid]]></re_openid>
 	<remark><![CDATA[$remark]]></remark>
+	<scene_id><![CDATA[PRODUCT_2]]></scene_id>
 	<send_name><![CDATA[$send_name]]></send_name>
 	<total_amount><![CDATA[$total_amount]]></total_amount>
 	<total_num><![CDATA[1]]></total_num>
@@ -171,7 +174,7 @@ while($row_cl = $result_b->fetch_assoc())
 	<sign><![CDATA[$sign]]></sign>
 
 	</xml>";
-
+//
 	//echo $postdata;
 	 
 	$ch = curl_init();
@@ -195,7 +198,7 @@ while($row_cl = $result_b->fetch_assoc())
 	curl_setopt($ch,CURLOPT_SSLKEY,$apiclient_key);
 	$file_contents = curl_exec($ch);
 	curl_close($ch);
-//	echo $file_contents ;
+	//echo $file_contents ;
 	$xml = simplexml_load_string($file_contents);
 	$return_code =(string)$xml->return_code;
 	if($return_code=="SUCCESS")
@@ -203,15 +206,27 @@ while($row_cl = $result_b->fetch_assoc())
 		$result_code =(string)$xml->result_code;
 		if($result_code=="SUCCESS")//这里应该验证服务器过来的签名
 		{
-			$con->query("update flow_hongbao_tikuan set status='1',time_tikuan='$tikuantime' where id= $id");
+			$con->query("update flow_hongbao_tikuan set status='1',time_tikuan='$tikuantime',orderid='$mch_billno' where id= $id");
 
 
 			if($con->affected_rows>0)
 			{
 				//微信提款到红包
 				echo "<br />提款成功";
+				$tsql = "INSERT INTO flow_sendhb_status(openid,status) VALUES ('$openid','1' )";
+				$con->query($tsql);
 
 			}
+			else
+			echo "<br />提款失败";
+		}
+		else
+		{
+			$err_code_des=(string)$xml->err_code_des;
+			$con->query("update flow_hongbao_tikuan set shibai='$err_code_des',status='2',time_tikuan='$tikuantime' where id= $id");
+ 
+			$tsql = "INSERT INTO flow_sendhb_status(openid,detail) VALUES ('$openid','$err_code_des' )";
+			$con->query($tsql);
 		}
 	}
 

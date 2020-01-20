@@ -35,14 +35,14 @@ if($ret===true)
 	//$openid_exit=0;
 	if(isset($openid_tmp)&&strlen($openid_tmp)>4)
 	{
-		//$openid_exit=0;
+		$openid=$openid_tmp;
 		$result_a = $con->query("SELECT  id,hongbao FROM user where   openid='$openid_tmp' "  );
 		
 		if($result_a->num_rows>0)
 		{ 
-			$openid=$openid_tmp;
+			
 			$userdata =$result_a->fetch_array();
-			$myhongbao=round($userdata['hongbao']);
+			$myhongbao=round($userdata['hongbao'],2);
 		}
 		$result_a->free();
 
@@ -254,10 +254,10 @@ class Datalist
 	public $errorcode=1;//0表示正常
 	public $message='';
 
-	public $hbid='22';//红包id
+	public $hbid='0';//红包id
 	public $headimg='uicon/default.png';//用户头像
-	public $myhongbao='12';
-	public $hongbao='9.2';
+	public $myhongbao='0';
+	public $hongbao='0';
 	public $serverid='';//获取录音需要的id
 	public $zhufutitle='祝您2020年幸福安康';//祝福语
 	public $hengfu='万事如意';// 

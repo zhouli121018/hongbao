@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>新年祝福对联红包</title>
+    <title>新年传音对联祝福红包</title>
     <style>
         .flex{
             display: flex;
@@ -25,6 +25,7 @@
     <link href="css/select2.min.css" rel="stylesheet" />
     <script src="js/select2.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <script src="js/layer-v3.1.1/layer/layer.js"></script>
     <script>
             //引入该flexible.min.js
     !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
@@ -54,6 +55,9 @@
             }
             // location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
         }
+        if(search == ''){
+            location.href = location.href + '?v=' + new Date().getTime();
+        }
         
     </script>
     <style>
@@ -78,7 +82,7 @@
             margin-bottom:.18rem;
         }
         .text{
-            width:1.4rem;
+            width:1.6rem;
             text-align:right;
         }
         .down{
@@ -238,7 +242,7 @@
                     <div>个</div>
                 </div>
 
-                <div class="desc">手续费按输入金额的2%收取</div>
+                <div class="desc">手续费按输入金额的1.5%（少于10元收2%）</div>
                 <div class="flex">
                     <div class="flex_grow_1 text_center">
                         <button type="button" class="btn btn_1" id="startRecord">录音祝福语</button>
@@ -251,11 +255,11 @@
                 <div class="flex bottom_desc" style="padding:.5rem .2rem .1rem;">
                     <div class="flex_grow_1">
                         <div>好友将抢到随机金额红包</div>
-                        <div>长按扫码关注公众号可取回无人认领红包</div>
+                        <div>红包7天后未领完将原路退还，可扫码关注</div>
                         <div class="normal_quest" ><span class="wenhao">?</span>常见问题></div>
                     </div>
                     <div class="qr">
-                        <img  src="img/qrcode_ex.png" alt="" style="width:1.34rem;">
+                        <img  src="gongzhonghao.jpg" alt="" style="width:1.34rem;">
                     </div>
                 </div>
 
@@ -268,6 +272,9 @@
                             </div>
                             <div class="flex_grow_1 text_center">
                                 <button type="button" id="chonglu" class="btn btn_2" style="width:1.8rem;height:.6rem;">重录</button>
+                            </div>
+                            <div class="flex_grow_1 text_center">
+                                <button type="button" id="guanbi" class="btn btn_1" style="width:1.8rem;height:.6rem;">关闭</button>
                             </div>
                         </div>
                     </div>
@@ -310,6 +317,9 @@
             if(localStorage.getItem('openid')){
                 obj.openid = localStorage.getItem('openid');
             }
+            if(arr2['code']){
+                obj.code = arr2['code'];
+            }
             $.ajax({
                 type: "POST",
                 url: "getduiliandata.php",
@@ -335,6 +345,14 @@
                             $('#shanglian').val(data.duilianlist[0].shanglian)
                             $('#xialian').val(data.duilianlist[0].xialian)
                         }
+                    }
+                    if(data.message){
+                        layer.msg(data.message);
+                    }
+                    if(data.openid ){
+                        localStorage.setItem('openid',data.openid);
+                    }else{
+                        location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3a%2f%2fwww.baozhufu.com%2fbaozhufu%2floadhongbao.html&response_type=code&scope=snsapi_userinfo&state=1234#wechat_redirect'
                     }
                 }
             });
@@ -371,16 +389,6 @@
                             });
 
                             wx.ready(function () {
-                                
-                                wx.checkJsApi({
-                                    jsApiList: ['stopRecord'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                                    success: function(res) {
-                                        // alert('succ')
-                                    // 以键值对的形式返回，可用的api值true，不可用为false
-                                    // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-                                    }
-                                });
-
                                 var self = this;
                                 var timeOutEvent;
                                 var longClick =0;
@@ -389,6 +397,12 @@
                                 var startRecord = document.querySelector('#startRecord');
                                 var stopClearTimeout;
                                 $('#startRecord').click(function(){
+                                    if(localStorage.getItem('openid')){
+                    
+                                    }else{
+                                        location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3a%2f%2fwww.baozhufu.com%2fbaozhufu%2floadhongbao.html&response_type=code&scope=snsapi_userinfo&state=1234#wechat_redirect'
+                                        return;
+                                    }
                                     if(status == 0){
                                         wx.startRecord({
                                             success: function(){
@@ -418,7 +432,7 @@
                                                 status = 2;
                                             },
                                             fail: function (res) {
-                                                alert(JSON.stringify(res));
+                                                layer.msg(JSON.stringify(res));
                                             }
                                         });
 
@@ -449,7 +463,7 @@
                                     $('.modal_bottom').css({display:'none'});
                                     $('.modal_box').css({display:'none'});
                                     if (voice.localId == '') {
-                                        alert('请先录制一段声音');
+                                        layer.msg('请先录制一段祝福语音');
                                         return;
                                     }
                                     wx.playVoice({
@@ -459,6 +473,10 @@
                                             startRecord.innerHTML = '停止播放';
                                         }
                                     });
+                                })
+                                $('#guanbi').click(function(){
+                                    $('.modal_bottom').css({display:'none'});
+                                    $('.modal_box').css({display:'none'});
                                 })
                                 wx.onVoicePlayEnd({
                                     complete: function (res) {
@@ -494,6 +512,10 @@
                             
                             });
                            }
+                        
+                        if(data.message){
+                            layer.msg(data.message);
+                        }
                     }
                 })
                                
@@ -504,32 +526,38 @@
 
             // 提交对联红包 submitduilian.php 
             $('#submitduilian').click(function(){
+                if(localStorage.getItem('openid')){
+                    
+                }else{
+                    location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3a%2f%2fwww.baozhufu.com%2fbaozhufu%2floadhongbao.html&response_type=code&scope=snsapi_userinfo&state=1234#wechat_redirect'
+                    return;
+                }
                 if($('#titlelist').select2('val') == ''){
-                    alert('请选择或输入祝福语！')
+                    layer.msg('请选择或输入祝福语！')
                     return;
                 }
                 if($('#hengpi').select2('val') == ''){
-                    alert('请选择或输入横批！')
+                    layer.msg('请选择或输入横批！')
                     return;
                 }
                 if($('#shanglian').val() == ''){
-                    alert('请输入上联！')
+                    layer.msg('请输入上联！')
                     return;
                 }
                 if($('#xialian').val() == ''){
-                    alert('请输入下联！')
+                    layer.msg('请输入下联！')
                     return;
                 }
                 if($('#sumcash').val() == ''){
-                    alert('请输入总金额！')
+                    layer.msg('请输入总金额！')
                     return;
                 }
                 if($('#hbnum').val() == ''){
-                    alert('请输入红包个数！')
+                    layer.msg('请输入红包个数！')
                     return;
                 }
                 if (voice.localId == '') {
-                  alert('请先录制一段声音');
+                    layer.msg('请先录制一段祝福语音');
                   return;
                 }
                 var voice_time = parseInt(( end_time - start_time )/1000);
@@ -555,13 +583,11 @@
                         if(localStorage.getItem('openid')){
                             obj.openid = localStorage.getItem('openid');
                         }
-                        alert(JSON.stringify(obj))
                         $.ajax({
                             type: "POST",
                             url: "submitduilian.php",
                             data: obj,
                             success: function (json) {
-                                alert(json)
                                 var data = JSON.parse(json)
                                 if(data.errorcode == 0){
                                     function onBridgeReady(){
@@ -578,7 +604,7 @@
                                             if(res.err_msg == "get_brand_wcpay_request:ok" ){
                                                 // 使用以上方式判断前端返回,微信团队郑重提示：
                                                 //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-                                                location.href = 'sharehongbao.html'
+                                                location.href = 'sharehongbao.html?hbid='+data.hbid
                                             } 
                                         }); 
                                     }
@@ -594,11 +620,14 @@
                                     }
 
                                 }
+                                if(data.message){
+                                    layer.msg(data.message);
+                                }
                             }
                         });
                     },
                     fail:function(res){
-                        alert(JSON.stringify(res));
+                        layer.msg(JSON.stringify(res));
                     }
                 });
 
@@ -606,48 +635,6 @@
                 
             })
 
-            // wx.config({
-            //     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            //     appId: '', // 必填，公众号的唯一标识
-            //     timestamp: '', // 必填，生成签名的时间戳
-            //     nonceStr: '', // 必填，生成签名的随机串
-            //     signature: '',// 必填，签名，见附录1
-            //     jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，这里只写支付的
-            // });
-
-            function startWxPay() {
-                $.ajax({
-                    type: "POST",
-                    url: "submitduilian",
-                    data: { code: code, openid: openid },
-                    beforeSend: function () {
-                        $("#btnPay").attr({ "disabled": "disabled" });
-                    },
-                    success: function (res) {
-                        $("#btnPay").removeAttr("disabled");
-                        if (res.openid != null && res.openid != undefined && res.openid != "") {
-                            window.localStorage.setItem("openid", res.openid);
-                        }
-                        wx.chooseWXPay({
-                            timestamp: res.data.timeStamp, // 支付签名时间戳
-                            nonceStr: res.data.nonceStr, // 支付签名随机串，不长于32 位
-                            package: res.data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
-                            signType: "MD5", // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-                            paySign: res.data.paysign, // 支付签名
-                            success: function (res) {
-                                //支付成功
-                            },
-                            cancel: function (res) {
-                                //支付取消
-                            }
-                        });
-                    }
-                });
-            }
-
-            // $('.btn_2').click(function(){
-            //     // location.href = 'sharehongbao.html'
-            // })
         })
             
     

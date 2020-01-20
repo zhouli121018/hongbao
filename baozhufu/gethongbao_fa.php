@@ -28,7 +28,7 @@ if($ret===true)
 		$userdata =$result_a->fetch_array();
 		$invitecode=$userdata['invitecode'];
 		$datalist->hongbao=$userdata['hongbao'];
-		$result_al = $con->query("SELECT createtime,hongbao,renshu,renshu_sy,endtime,istui FROM flow_hongbao_kj where  status=1 and invitecode='$invitecode' order by id desc  "  );
+		$result_al = $con->query("SELECT hbid, createtime,hongbao,renshu,renshu_sy,endtime,istui FROM flow_hongbao_kj where  status=1 and invitecode='$invitecode' order by id desc  "  );
 	 
 		while($row_cl = $result_al->fetch_assoc())
 		{
@@ -37,7 +37,7 @@ if($ret===true)
 			$dt->createtime=substr(date('Y年m月d日 H:i',strtotime($row_cl['createtime'])),2);//;
 
 			$dt->hongbao=$row_cl['hongbao'];
-
+			$dt->hbid=$row_cl['hbid'];
 			$renshu=$row_cl['renshu'];
 			$renshu_sy=$row_cl['renshu_sy'];
 			$endtime=$row_cl['endtime'];
@@ -100,6 +100,7 @@ class DataItem
 	public $createtime='';//时间
 	public $hongbao='';//红包
 	public $status='1/10领取中';
+	public $hbid='';//
 
 
 }

@@ -86,6 +86,7 @@
     </style>
     <script src="js/jquery-1.11.3.js"></script>
     <script src="js/md5.js"></script>
+    <script src="js/layer-v3.1.1/layer/layer.js"></script>
     <script>
             //引入该flexible.min.js
     !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
@@ -97,6 +98,14 @@
             <img src="img/hongbaolist/hongbao.png" alt="" style="width:.22rem;margin-right:.1rem;">
             <span>红包余额：</span>
             <div class="red"><span id="hongbao">20.1</span>元</div>
+            <div class="flex text_right flex_grow_1">
+                <div class="flex_grow_1" style="font-size: 0;">
+                    <img src="img/des/detail.png" style="width:.28rem;" alt="">
+                </div>
+                
+                <div class="detail" id="go_despositlist">提现明细</div>
+
+            </div>
         </div>
         <div class="flex text_center title_box">
             <div class="flex_grow_1 recive active">
@@ -118,25 +127,8 @@
                     <div class="lingqu">1/10领取中</div>
                 </div>
             </div>
-            <div class="item_list flex">
-                <div>
-                    19年12月30日 9:22
-                </div>
-                <div class="flex_grow_1 text_right">
-                    <div class="hongbao">78元</div>
-                    <div class="lingqu">1/10领取中</div>
-                </div>
-            </div>
         </div>
         <div class="content_box recive_content active">
-                <div class="item_list flex">
-                    <img src="img/lucky/xiaotoux.png" alt="" style="width:.76rem;">
-                    <div style="padding-left:.16rem;">Linan</div>
-                    <div class="text_right flex_grow_1">
-                        <div class="lingqu">2019-12-12  01:21:32</div>
-                        <div class="hongbao">0.2元</div>
-                    </div>
-                </div>
                 <div class="item_list flex">
                     <img src="img/lucky/xiaotoux.png" alt="" style="width:.76rem;">
                     <div style="padding-left:.16rem;">Linan</div>
@@ -188,7 +180,7 @@
                             let html = ''
                             for(var i=0;i<data.list.length;i++){
                                 var o = data.list[i]
-                                html += `<div class="item_list flex">
+                                html += `<div class="item_list flex" data_hbid="${o.hbid}">
                                             <div>
                                                 ${o.createtime}
                                             </div>
@@ -200,11 +192,10 @@
                             }
                             $('.send_content').html(html);
                         }else{
-                            let message = ''
-                            if(data.message){
-                                message = data.message;
-                            }
-                            $('.send_content').html(message);
+                            $('.send_content').html('');
+                        }
+                        if(data.message){
+                            layer.msg(data.message);
                         }
                         
                     }
@@ -249,11 +240,10 @@
                             }
                             $('.recive_content').html(html);                            
                         }else{
-                            let message = ''
-                            if(data.message){
-                                message = data.message;
-                            }
-                            $('.recive_content').html(message);
+                            $('.recive_content').html('');
+                        }
+                        if(data.message){
+                            layer.msg(data.message);
                         }
                     }
                 });
@@ -265,6 +255,13 @@
                 gethongbao_shou()
             })
             gethongbao_shou();
+            $('.send_content').on('click',' .item_list',function(){
+                location.href = 'sharehongbao.html?hbid='+$(this).attr('data_hbid')
+            })
+
+            $('#go_despositlist').click(function(){
+                location.href = 'despositlist.html'
+            })
         })
     </script>
 </body>

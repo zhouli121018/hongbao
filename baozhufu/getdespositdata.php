@@ -20,6 +20,7 @@ if($ret===true)
 		
 	if($result_a->num_rows>0)
 	{ 
+		$datalist->errorcode=0;
 		$userdata =$result_a->fetch_array();
 		$invitecode=$userdata['invitecode'];
 		$hongbao=$userdata['hongbao'];

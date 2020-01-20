@@ -24,6 +24,15 @@ $hongbao=round(floatval($hongbao),2);
 $datalist=new Datalist;
 $ret =checkSignH5($con,$_POST);
 //$ret=true;
+
+if($ret===true)
+{
+	if($hongbao<0.3)
+	$ret='提现金额最低0.3元';
+
+	if($hongbao>200)
+	$ret='提现金额最高200元';
+}
 if($ret===true)
 {
 
@@ -37,25 +46,48 @@ if($ret===true)
 		$datalist->hongbao=$userdata['hongbao'];
 		if($datalist->hongbao>=$hongbao)
 		{
-			$datalist->errorcode=0;
-			$datalist->message='';
-			$tsql = "INSERT INTO flow_hongbao_tikuan(invitecode,money) VALUES ('$invitecode','$hongbao')";
-			$con->query($tsql);
-			if($con->affected_rows>0)
-			{
-				$newhb=round($datalist->hongbao-$hongbao,2);
-				$datalist->hongbao=$newhb;
-				$con->query(" update user set hongbao='$newhb' where   openid='$openid' "  );
-				if($con->affected_rows>0)
+			$date_start=date('Y-m-d').' 00:00:00';
+
+			$result_aq = $con->query("SELECT  id ,money FROM flow_hongbao_tikuan where   invitecode='$invitecode' and createtime > '$date_start' "  );
+			if($result_aq->num_rows<10)
+			{ 
+				$sum_money=0;
+				while($row_cl = $result_aq->fetch_assoc())
 				{
-					$datalist->message='提现申请成功，处理需要1-5个工作日';
+					$sum_money += floatval($row_cl['money']);
 				}
+				if($sum_money+$hongbao>1000)
+				{
+					$datalist->message='您今日红包提现请求累计超过1000元，明日再提。';
+				}
+				else
+				{
+					$datalist->errorcode=0;
+					$datalist->message='';
+					$tsql = "INSERT INTO flow_hongbao_tikuan(invitecode,money) VALUES ('$invitecode','$hongbao')";
+					$con->query($tsql);
+					if($con->affected_rows>0)
+					{
+						$newhb=round($datalist->hongbao-$hongbao,2);
+						$datalist->hongbao=$newhb;
+						$con->query(" update user set hongbao='$newhb' where   openid='$openid' "  );
+						if($con->affected_rows>0)
+						{
+							$datalist->message='提现申请成功，处理需要1-5个工作日';
+						}
+					}
+					else
+					{
+						$datalist->message='请联系客服！';
+					}
+				}
+
+				
 			}
 			else
 			{
-				$datalist->message='请联系客服！';
+				$datalist->message='您今日红包提现请求次数超过10次，明日再提。';
 			}
-
 		}
 		else
 		{
