@@ -335,7 +335,7 @@
                             <div class="gongxi">恭喜你</div>
                             <div class="hit_desc">抢到红包</div>
                         </div>
-                        <button class="modal_btn" type="button">查看红包账户</button>
+                        <button class="modal_btn" type="button">红包去哪了？</button>
                         <div class="qiangdao_0 active" style="padding:.1rem 1.1rem 0;font-size: 0.28rem;font-family: PingFang SC;font-weight: bold;">
                             <div class="flex" style="justify-content: space-between;">
                                 <span class="tipdown" style="text-align: left;"></span> 
@@ -475,6 +475,9 @@
                 location.href = 'hongbaolist.html'
             })
             var link = location.href;
+            var title= '';
+            var desc= '';
+
             let now = new Date();
             let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
             let obj = {
@@ -510,6 +513,8 @@
                         voicetime = parseFloat(data.voicetime)*1000;
                         src = data.gongzhonghao;
                         link = data.link;
+                        title = data.title;
+                        desc = data.desc;
 
                         // if(data.uid){
                         //     localStorage.setItem('uid',data.uid);
@@ -553,8 +558,8 @@
                                             //分享给朋友
                                             //需在用户可能点击分享按钮前就先调用
                                             wx.updateAppMessageShareData({ 
-                                                title: '送你一个祝福红包', // 分享标题
-                                                desc: '微信领红包，带美好祝福回家', // 分享描述
+                                                title: title , // 分享标题
+                                                desc: desc, // 分享描述
                                                 link: link, // 分享链接，getsharedata.php 的link字段
                                                 imgUrl: 'http://www.baozhufu.com/baozhufu/hbicon.jpg', // 分享图标
                                                 success: function () {
@@ -562,7 +567,7 @@
                                                 }
                                             })
                                             wx.updateTimelineShareData({ 
-                                                title: '送你一个祝福红包', // 分享标题
+                                                title: title, // 分享标题
                                                 link: link, // 分享链接，该getsharedata.php 的link字段
                                                 imgUrl: 'http://www.baozhufu.com/baozhufu/hbicon.jpg', // 分享图标
                                                 success: function () {

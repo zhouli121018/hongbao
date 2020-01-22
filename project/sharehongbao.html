@@ -267,6 +267,8 @@
 
             let device ;
             let link= '';
+            let title= '';
+            let desc= '';
             let u = navigator.userAgent, app = navigator.appVersion;
             let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
             let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -305,6 +307,8 @@
                         $('#xialian').html(data.xialian);
                         $('#voicetime').html(data.voicetime);
                         link = data.link;
+                        title = data.title;
+                        desc = data.desc;
                         setTimeout(() => {
                             // html2canvas(document.querySelector("#img_box"),{ background:'#000',useCORS: true}).then(canvas => {
                             //     $('#black_box').html('<img src="'+canvas.toDataURL("image/png")+'" style="width:100%;border-radius:.2rem;">')
@@ -374,8 +378,8 @@
                                                         //分享给朋友
                                                         //需在用户可能点击分享按钮前就先调用
                                                         wx.updateAppMessageShareData({ 
-                                                            title: '送你一个祝福红包', // 分享标题
-                                                            desc: '微信领红包，带美好祝福回家', // 分享描述
+                                                            title: title, // 分享标题
+                                                            desc: desc, // 分享描述
                                                             link: link, // 分享链接，getsharedata.php 的link字段
                                                             imgUrl: 'http://www.baozhufu.com/baozhufu/hbicon.jpg', // 分享图标
                                                             success: function () {
@@ -383,7 +387,7 @@
                                                             }
                                                         })
                                                         wx.updateTimelineShareData({ 
-                                                            title: '送你一个祝福红包', // 分享标题
+                                                            title: title, // 分享标题
                                                             link: link, // 分享链接，该getsharedata.php 的link字段
                                                             imgUrl: 'http://www.baozhufu.com/baozhufu/hbicon.jpg', // 分享图标
                                                             success: function () {
