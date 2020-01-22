@@ -110,8 +110,9 @@
             cursor: pointer;
             display: flex;
             margin:0 auto;
-            padding:.0  .2rem  .07rem;
+            padding:0  .2rem  0.07rem;
             align-items: center;
+            margin-top:.1rem;
         }
         .listen_long{
             color:#D40000;
@@ -142,7 +143,7 @@
             
         }
         .long_tap{
-            font-size:0.5rem;
+            font-size:0.36rem;
             font-family:Alibaba PuHuiTi;
             font-weight:400;
             color:rgba(254,254,254,1);
@@ -187,9 +188,10 @@
     </script>
 </head>
 <body>
-    
+    <div>
+        <img src="img/open/share.png" alt="" style="width:100%;">
+    </div>
     <div id="box">
-        <!-- <img src="img/open_hb_bg.png" alt="" style="width:100%;"> -->
         <div id="img_box" style="position: relative;left:-150%;">
             <div style="padding-top:.2rem;">
                 <div class="flex">
@@ -236,7 +238,7 @@
                     <img src="img/voice.png" alt="" style="width:60%;margin-left:.1rem;">
                     <span class="listen_long flex_grow_1" style="text-align:right;padding-right:.1rem;"><span id="voicetime"></span>s</span>
                 </button>
-                <div class="flex" style="padding:0.1rem 0 0 1.6rem;color:rgba(255,218,123,1);font-weight:bold;">
+                <div class="flex" style="padding:0 0 0 1.6rem;color:rgba(255,218,123,1);font-weight:bold;">
                     <div>
                         <span style="font-size:.32rem;">长按识别右边二维码</span>
                         <div style="font-size:.26rem;">抢红包接福回家</div>
@@ -251,9 +253,11 @@
 
         
     </div>
-    <div class="long_tap">长按图片发祝福红包给亲友
+    <!-- <div class="long_tap">
+        <button type="button" id="share_1" style="background:#32CD32;color:#fff;border-color:#32CD32;border-radius:.1rem;font-size:.4rem;">发送给朋友</button>
+        <button type="button" id="share_2" style="background:#1E90FF;color:#fff;border-color:#1E90FF;border-radius:.1rem;font-size:.4rem;">发送到朋友圈</button>
 
-    </div>
+    </div> -->
 
     
 
@@ -262,6 +266,7 @@
             var isstart = false;
 
             let device ;
+            let link= '';
             let u = navigator.userAgent, app = navigator.appVersion;
             let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
             let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -299,6 +304,7 @@
                         $('#shanglian').html(data.shanglian);
                         $('#xialian').html(data.xialian);
                         $('#voicetime').html(data.voicetime);
+                        link = data.link;
                         setTimeout(() => {
                             // html2canvas(document.querySelector("#img_box"),{ background:'#000',useCORS: true}).then(canvas => {
                             //     $('#black_box').html('<img src="'+canvas.toDataURL("image/png")+'" style="width:100%;border-radius:.2rem;">')
@@ -339,8 +345,61 @@
                                         height:$('#img_box').height(),//防止白边
                                     }).then(canvas => {
                                         $('#box').css({padding:'.1rem .5rem .1rem'})
-                                        console.log(canvas)
                                         $('#box').html('<img src="'+canvas.toDataURL()+'" style="width:100%;border-radius:.2rem;">')
+                                    
+                                        // 获取JS-API配置项数据getjsapiconfig.php 
+                                        let now_1 = new Date();
+                                        let md5_data_1 = md5('token=' + now_1.getTime() + '&key=lldu43d98382');
+                                        $.ajax({
+                                            url:'getjsapiconfig.php',
+                                            type:'POST',
+                                            data:{token:now_1.getTime(),data:md5_data_1,url:location.href},
+                                            success:function(set){
+                                                var data = JSON.parse(set);
+                                                if(data.errorcode == 0){
+                                                    wx.config({
+                                                        debug: false,
+                                                        appId: data.appid, // 必填，getjsapiconfig.php返回
+                                                        timestamp: data.timestamp, // 必填，getjsapiconfig.php返回
+                                                        nonceStr: data.noncestr, // 必填，getjsapiconfig.php返回
+                                                        signature: data.signature,// 必填getjsapiconfig.php返回
+                                                        jsApiList: [
+                                                            // 所有要调用的 API 都要加到这个列表中
+                                                            'updateAppMessageShareData',  //分享给朋友
+                                                            'updateTimelineShareData', //分享朋友圈
+                                                        ]
+                                                    });
+
+                                                    wx.ready(function () {
+                                                        //分享给朋友
+                                                        //需在用户可能点击分享按钮前就先调用
+                                                        wx.updateAppMessageShareData({ 
+                                                            title: '送你一个祝福红包', // 分享标题
+                                                            desc: '微信领红包，带美好祝福回家', // 分享描述
+                                                            link: link, // 分享链接，getsharedata.php 的link字段
+                                                            imgUrl: 'http://www.baozhufu.com/baozhufu/hbicon.jpg', // 分享图标
+                                                            success: function () {
+                                                                // layer.msg('分享成功~')
+                                                            }
+                                                        })
+                                                        wx.updateTimelineShareData({ 
+                                                            title: '送你一个祝福红包', // 分享标题
+                                                            link: link, // 分享链接，该getsharedata.php 的link字段
+                                                            imgUrl: 'http://www.baozhufu.com/baozhufu/hbicon.jpg', // 分享图标
+                                                            success: function () {
+                                                                // layer.msg('分享朋友圈成功~')
+                                                            }
+                                                        })
+                                                    })
+                                                }
+                                                if(data.message){
+                                                    layer.msg(data.message);
+                                                }
+                                            }
+
+                                        })
+                            
+
                                     });
                                 }
                                 // 判断图片加载状况，加载完成后回调

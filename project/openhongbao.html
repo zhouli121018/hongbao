@@ -256,7 +256,9 @@
     </script>
 </head>
 <body>
-    
+    <div id="share_tip" style="display:none;">
+        <img src="img/open/share.png" alt="" style="width:100%;">
+    </div>
     <div id="box">
         <!-- <img src="img/open_hb_bg.png" alt="" style="width:100%;"> -->
         <div style="padding-top:.2rem;">
@@ -472,7 +474,7 @@
                 }
                 location.href = 'hongbaolist.html'
             })
-            
+            var link = location.href;
             let now = new Date();
             let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
             let obj = {
@@ -507,6 +509,16 @@
                         $('#voicetime').html(data.voicetime+'s');
                         voicetime = parseFloat(data.voicetime)*1000;
                         src = data.gongzhonghao;
+                        link = data.link;
+
+                        // if(data.uid){
+                        //     localStorage.setItem('uid',data.uid);
+                        // }
+                        if(data.uid == arr2['pid']){
+                            $('#share_tip').css({display:'block'})
+                        }else{
+                            $('#share_tip').css({display:'none'})
+                        }
                         
                         if(data.serverid){
                             voice.serverId = data.serverid;
@@ -531,11 +543,32 @@
                                                 'playVoice',
                                                 'stopVoice',
                                                 'downloadVoice',
-                                                'onVoicePlayEnd'
+                                                'onVoicePlayEnd',
+                                                'updateAppMessageShareData',  //分享给朋友
+                                                'updateTimelineShareData', //分享朋友圈
                                             ]
                                         });
 
                                         wx.ready(function () {
+                                            //分享给朋友
+                                            //需在用户可能点击分享按钮前就先调用
+                                            wx.updateAppMessageShareData({ 
+                                                title: '送你一个祝福红包', // 分享标题
+                                                desc: '微信领红包，带美好祝福回家', // 分享描述
+                                                link: link, // 分享链接，getsharedata.php 的link字段
+                                                imgUrl: 'http://www.baozhufu.com/baozhufu/hbicon.jpg', // 分享图标
+                                                success: function () {
+                                                    // layer.msg('分享成功~')
+                                                }
+                                            })
+                                            wx.updateTimelineShareData({ 
+                                                title: '送你一个祝福红包', // 分享标题
+                                                link: link, // 分享链接，该getsharedata.php 的link字段
+                                                imgUrl: 'http://www.baozhufu.com/baozhufu/hbicon.jpg', // 分享图标
+                                                success: function () {
+                                                    // layer.msg('分享朋友圈成功~')
+                                                }
+                                            })
                                             wx.downloadVoice({
                                                 serverId: voice.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
                                                 isShowProgressTips: 1, // 默认为1，显示进度提示
