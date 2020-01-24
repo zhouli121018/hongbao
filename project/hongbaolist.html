@@ -68,6 +68,10 @@
             font-size:0.34rem;
             font-family:PingFang SC;
             font-weight:bold;
+            
+        }
+        .recive_content .hongbao{
+            color:red;
         }
         .lingqu{
             color:#999999;
@@ -81,6 +85,42 @@
         }
         .content_box.active{
             display:block;
+        }
+        .normal_quest{
+            color:#FF2D27;
+            font-size:0.28rem;
+            font-family:PingFang SC;
+            font-weight:bold;
+            text-decoration:underline;
+            padding-left:.2rem;
+        }
+        .wenhao{
+            display:inline-block;
+            border-radius:50%;
+            width:.36rem;
+            height:.36rem;
+            color:#fff;
+            background:red;
+            text-align:center;
+            line-height:.36rem;
+            margin-right:.12rem;
+        }
+        .go_lucky{
+            background:url(img/btn_bg.png);
+            width:1.64rem;
+            height: .5rem;
+            background-size: 100% 100%;
+            padding: 0;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            font-size:0.24rem;
+            font-weight:800;
+            color:rgba(211,0,0,1);
+            margin-left:.1rem;
+        }
+        .center_font{
+            /* padding-left:.4rem; */
         }
 
     </style>
@@ -104,6 +144,7 @@
                 </div>
                 
                 <div class="detail" id="go_despositlist">提现明细</div>
+                <div class="normal_quest" >常见问题</div>
 
             </div>
         </div>
@@ -142,6 +183,9 @@
     
     <script>
 		$(function(){
+            $('.normal_quest').click(function(){
+                location.href = 'question.html';
+            })
             var search = location.search;
             var arr = search.slice(1).split('&');
             var arr2 = [];
@@ -178,16 +222,19 @@
                             $('#hongbao_weiling').html(data.hongbao_weiling);
                             $('#headimg').attr('src',data.headimg);
                             let html = ''
+                            // <div class=" text_center go_share"  data_hbid="${o.hbid}">
+                            //                     <div class="hongbao">${o.hongbao}元</div>
+                            //                     <div class="lingqu">${o.status}</div>
+                            //                 </div>
                             for(var i=0;i<data.list.length;i++){
                                 var o = data.list[i]
-                                html += `<div class="item_list flex" data_hbid="${o.hbid}">
-                                            <div>
+                                html += `<div class="item_list flex" style="justify-content: space-between;">
+                                            <div class=" go_share" data_hbid="${o.hbid}">
                                                 ${o.createtime}
                                             </div>
-                                            <div class="flex_grow_1 text_right">
-                                                <div class="hongbao">${o.hongbao}元</div>
-                                                <div class="lingqu">${o.status}</div>
-                                            </div>
+                                            <div class=" text_center go_share"  data_hbid="${o.hbid}">${o.ling}</div>
+                                            <div class=" text_center go_share"  data_hbid="${o.hbid}">${o.ling_wei}</div>
+                                            <button data_id="${o.hbid}" class="go_lucky" type="button">大家手气</button>
                                         </div>`
                             }
                             $('.send_content').html(html);
@@ -231,11 +278,13 @@
                                 var o = data.list[i]
                                 html += `<div class="item_list flex">
                                             <img src="${o.headimg}" alt="" style="width:.76rem;border-radius:50%;">
-                                            <div style="padding-left:.16rem;">${o.username}</div>
-                                            <div class="text_right flex_grow_1">
-                                                <div class="lingqu">${o.createtime}</div>
+                                            <div style="padding-left:.16rem;width:1.6rem;">${o.username}</div>
+                                            <div class="center_font flex_grow_1">
                                                 <div class="hongbao">${o.hongbao}</div>
+                                                <div class="lingqu">${o.createtime}</div>
                                             </div>
+                                            <div style="margin-left:.2rem;">${o.status}</div>
+                                            
                                         </div>`
                             }
                             $('.recive_content').html(html);                            
@@ -255,8 +304,11 @@
                 gethongbao_shou()
             })
             gethongbao_shou();
-            $('.send_content').on('click',' .item_list',function(){
+            $('.send_content').on('click',' .go_share',function(){
                 location.href = 'sharehongbao.html?hbid='+$(this).attr('data_hbid')
+            })
+            $('.send_content').on('click',' .go_lucky',function(){
+                location.href = 'lucky.html?hbid='+$(this).attr('data_id')
             })
 
             $('#go_despositlist').click(function(){

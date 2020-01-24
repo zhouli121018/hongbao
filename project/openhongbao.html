@@ -171,7 +171,7 @@
             position: relative;
             width:auto;
             margin: 10px;
-            margin-top:1.6rem;
+            margin-top:1.2rem;
 
         }
         .modal-content {
@@ -227,6 +227,14 @@
         }
         .text_center{
             text-align:center;
+        }
+        .is_hit_show{
+            display:none;
+            color:#fff;
+            font-size:.24rem;
+        }
+        .is_hit_show.active{
+            display:block;
         }
     </style>
     <script src="js/jquery-1.11.3.js"></script>
@@ -334,6 +342,7 @@
                         <div class="qiangdao active">
                             <div class="gongxi">恭喜你</div>
                             <div class="hit_desc">抢到红包</div>
+                            <div class="is_hit_show">抢到*.88元红包发抢双方皆奖100元</div>
                         </div>
                         <button class="modal_btn" type="button">红包去哪了？</button>
                         <div class="qiangdao_0 active" style="padding:.1rem 1.1rem 0;font-size: 0.28rem;font-family: PingFang SC;font-weight: bold;">
@@ -413,8 +422,10 @@
                             if(data.errorcode == 0){
                                 if(data.ishit==1){
                                     $('.gongxi').html('恭喜你')
+                                    $('.is_hit_show').addClass('active')
                                 }else{
                                     $('.gongxi').html('抱歉')
+                                    $('.is_hit_show').removeClass('active')
                                 }
                                 $('.hit_desc').html(data.content)
                                 $('.tipdown').html(data.tipdown)

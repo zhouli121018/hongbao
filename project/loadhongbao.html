@@ -197,6 +197,12 @@
     
     <div>
         <img src="img/loadhb/bg.png" alt="" style="width:100%;">
+        <div style="width:300px;margin:0 auto;">
+            <marquee width=300 scrollamount=3> 
+                <FONT face=楷体_GB2312 color=#ff0000 size=3><b id="scrolldesc"></b></FONT>
+            </marquee>
+        </div>
+        
         <div class="box">
             <div class="dikuang">
                 <div class="xiao_dik flex" style="padding-right: .1rem;">
@@ -252,10 +258,11 @@
                     </div>
                 </div>
 
-                <div class="flex bottom_desc" style="padding:.5rem .2rem .1rem;">
+                <div class="flex bottom_desc" style="padding:.5rem .1rem .1rem;">
                     <div class="flex_grow_1">
-                        <div>好友将抢到随机金额红包</div>
-                        <div>红包7天后未领完将原路退还，可扫码关注</div>
+                        <div>好友将抢到随机金额红包，剩余7天后原路返还</div>
+                        <div>抢到“.88”红包，发抢双方皆奖100元</div>
+                        <div>扫码关注公众号关注管理和提现红包</div>
                         <div class="normal_quest" ><span class="wenhao">?</span>常见问题></div>
                     </div>
                     <div class="qr">
@@ -327,6 +334,7 @@
                 success: function (json) {
                     var data = JSON.parse(json)
                     if(data.errorcode == 0){
+                        $('#scrolldesc').html(data.scrolldesc)
                         let html = ''
                         for(var i=0;i<data.titlelist.length;i++){
                             var o = data.titlelist[i]

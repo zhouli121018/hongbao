@@ -82,7 +82,7 @@
             /* -webkit-text-fill-color:transparent; */
         }
         .qiang_click_btn{
-            background:url(img/sao.png);
+            background:url(img/qiang.png);
             width:1.5rem;
             border-radius: 50%;
             height: 1.5rem;
@@ -97,6 +97,7 @@
             width:100%;
             text-align:center;
             margin-top:-.01rem;
+            padding-bottom:.2rem;
         }
         .voice_btn{
             background:url(img/voice_bg.png);
@@ -188,8 +189,8 @@
     </script>
 </head>
 <body>
-    <div>
-        <img src="img/open/share.png" alt="" style="width:100%;">
+    <div style="padding:.3rem .2rem .1rem;">
+        <img src="img/open/share.gif" alt="" style="width:100%;">
     </div>
     <div id="box">
         <div id="img_box" style="position: relative;left:-150%;">
@@ -214,7 +215,7 @@
                     <div style="font-size:.38rem;">
                         <span id="hongbao" style="font-size:.5rem"></span>元红包
                     </div>
-                    <div>扫码领红包 带祝福回家</div>
+                    <div>点击抢红包 带祝福回家</div>
                     <div class="qiang_btn">
                         <button id="hbid" class="qiang_click_btn" type="button" data_id=""></button>
                         <!-- <img src="img/qiang.png" alt="" style="width: 2rem;"> -->
@@ -238,7 +239,7 @@
                     <img src="img/voice.png" alt="" style="width:60%;margin-left:.1rem;">
                     <span class="listen_long flex_grow_1" style="text-align:right;padding-right:.1rem;"><span id="voicetime"></span>s</span>
                 </button>
-                <div class="flex" style="padding:0 0 0 1.6rem;color:rgba(255,218,123,1);font-weight:bold;">
+                <!-- <div class="flex" style="padding:0 0 0 1.6rem;color:rgba(255,218,123,1);font-weight:bold;">
                     <div>
                         <span style="font-size:.32rem;">长按识别右边二维码</span>
                         <div style="font-size:.26rem;">抢红包接福回家</div>
@@ -247,7 +248,7 @@
                         <img id="barcode" src="img/qrcode_ex.png" alt="" style="width:.98rem;">
                     </div>
                         
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -299,7 +300,7 @@
                     }
                     if(data.errorcode == 0){
                         $('.head_img').attr('src',data.headimg);
-                        $('#barcode').attr('src',data.barcode);
+                        // $('#barcode').attr('src',data.barcode);
                         $('#hongbao').html(data.hongbao);
                         $('#zhufutitle').html(data.zhufutitle);
                         $('#hengfu').html(data.hengfu);
@@ -348,7 +349,7 @@
                                         width:$('#img_box').width(),//设置canvas尺寸与所截图尺寸相同，防止白边
                                         height:$('#img_box').height(),//防止白边
                                     }).then(canvas => {
-                                        $('#box').css({padding:'.1rem .5rem .1rem'})
+                                        $('#box').css({padding:'.1rem .8rem .1rem'})
                                         $('#box').html('<img src="'+canvas.toDataURL()+'" style="width:100%;border-radius:.2rem;">')
                                     
                                         // 获取JS-API配置项数据getjsapiconfig.php 
