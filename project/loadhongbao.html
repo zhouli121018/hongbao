@@ -201,10 +201,8 @@
     
     <div>
         <img src="img/loadhb/bg.png" alt="" style="width:100%;">
-        <div style="width:300px;margin:0 auto;">
-            <marquee width=300 scrollamount=3 > 
-                <FONT face=楷体_GB2312 color=#ff0000 size=3><b id="scrolldesc"></b></FONT>
-            </marquee>
+        <div id="caroucel" style="width:300px;margin:0 auto;">
+            
         </div>
         
         <div class="box">
@@ -350,9 +348,27 @@
                 url: "getduiliandata.php",
                 data: obj,
                 success: function (json) {
+                    // alert(json)
                     var data = JSON.parse(json)
                     if(data.errorcode == 0){
-                        $('#scrolldesc').html(data.scrolldesc)
+                        var qq = '';
+                        let device ;
+                        let u = navigator.userAgent, app = navigator.appVersion;
+                        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+                        let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                        if (isAndroid) {
+                            qq = `<marquee width=300 scrollamount=3 behavior="scroll" > 
+                                    <FONT face=楷体_GB2312 color=#ff0000 size=3><b>${data.scrolldesc}</b></FONT>
+                                </marquee>`
+                        }
+                        if (isIOS) {
+                            qq = `<marquee scrollamount=3 behavior="scroll" > 
+                                    <FONT face=楷体_GB2312 color=#ff0000 size=3><b>${data.scrolldesc}</b></FONT>
+                                </marquee>`
+                        }
+                            
+                            $('#caroucel').html(qq)
+                        
                         let html = ''
                         for(var i=0;i<data.titlelist.length;i++){
                             var o = data.titlelist[i]
