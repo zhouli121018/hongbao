@@ -191,6 +191,10 @@
         .modal_box{
             position:fixed;z-index:12;top:0;right:0;left:0;bottom:0;display:none;
         }
+        .tip_box{
+            position:fixed;z-index:12;top:0;right:0;left:0;bottom:0;display:none;
+        }
+        
     </style>
 </head>
 <body>
@@ -198,7 +202,7 @@
     <div>
         <img src="img/loadhb/bg.png" alt="" style="width:100%;">
         <div style="width:300px;margin:0 auto;">
-            <marquee width=300 scrollamount=3> 
+            <marquee width=300 scrollamount=3 > 
                 <FONT face=楷体_GB2312 color=#ff0000 size=3><b id="scrolldesc"></b></FONT>
             </marquee>
         </div>
@@ -260,8 +264,8 @@
 
                 <div class="flex bottom_desc" style="padding:.5rem .1rem .1rem;">
                     <div class="flex_grow_1">
-                        <div>好友将抢到随机金额红包，剩余7天后原路返还</div>
-                        <div>抢到“.88”红包，发抢双方皆奖100元</div>
+                        <div>好友抢随机金额红包，未领7天后自动返还</div>
+                        <div>抢到“X.88”红包，发与抢双方皆奖100元</div>
                         <div>扫码关注公众号关注管理和提现红包</div>
                         <div class="normal_quest" ><span class="wenhao">?</span>常见问题></div>
                     </div>
@@ -282,6 +286,20 @@
                             </div>
                             <div class="flex_grow_1 text_center">
                                 <button type="button" id="guanbi" class="btn btn_1" style="width:1.8rem;height:.6rem;">关闭</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tip_box">
+                    <div style="margin:.6rem;background:#fff;border-radius:.2rem;margin-top:2.5rem;padding:.3rem .4rem;">
+                        <div class="text_center" style="padding-bottom:.8rem;font-size:.5rem;">确定不录祝福语提交吗？</div>
+                        <div class="flex">
+                            <div class="flex_grow_1 text_center">
+                                <button type="button" id="quedingtj" class="btn btn_1" style="width:1.8rem;height:.6rem;">确定</button>
+                            </div>
+                            
+                            <div class="flex_grow_1 text_center">
+                                <button type="button" id="guanbi_tip" class="btn btn_1" style="width:1.8rem;height:.6rem;">关闭</button>
                             </div>
                         </div>
                     </div>
@@ -530,49 +548,7 @@
             }
             getparams();
 
-            
-
-            // 提交对联红包 submitduilian.php 
-            $('#submitduilian').click(function(){
-                if(localStorage.getItem('openid')){
-                    
-                }else{
-                    location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3a%2f%2fwww.baozhufu.com%2fbaozhufu%2floadhongbao.html&response_type=code&scope=snsapi_userinfo&state=1234#wechat_redirect'
-                    return;
-                }
-                if($('#titlelist').select2('val') == ''){
-                    layer.msg('请选择或输入祝福语！')
-                    return;
-                }
-                if($('#hengpi').select2('val') == ''){
-                    layer.msg('请选择或输入横批！')
-                    return;
-                }
-                if($('#shanglian').val() == ''){
-                    layer.msg('请输入上联！')
-                    return;
-                }
-                if($('#xialian').val() == ''){
-                    layer.msg('请输入下联！')
-                    return;
-                }
-                if($('#sumcash').val() == ''){
-                    layer.msg('请输入总金额！')
-                    return;
-                }
-                if($('#hbnum').val() == ''){
-                    layer.msg('请输入红包个数！')
-                    return;
-                }
-                if (voice.localId == '') {
-                    layer.msg('请先录制一段祝福语音');
-                  return;
-                }
-                var voice_time = parseInt(( end_time - start_time )/1000);
-                wx.uploadVoice({
-                    localId: voice.localId,
-                    success: function (res) {
-                        voice.serverId = res.serverId;
+            function postDuilian (voidServerId,voidTime){
                         //把微信服务器上的serverId传给后台,后台再通过serverId到微信服务器上把语音保存到自己服务器上
                         let now = new Date();
                         let md5_data = md5('token=' + now.getTime() + '&key=lldu43d98382');
@@ -585,8 +561,8 @@
                             xialian:$('#xialian').val(),
                             sumcash:$('#sumcash').val(),
                             hbnum:$('#hbnum').val(),
-                            serverid:voice.serverId,
-                            voicetime:voice_time,
+                            serverid:voidServerId,
+                            voicetime:voidTime,
                         }
                         if(localStorage.getItem('openid')){
                             obj.openid = localStorage.getItem('openid');
@@ -633,6 +609,66 @@
                                 }
                             }
                         });
+            }
+
+            $('#quedingtj').click(function(){
+                $('.modal_bottom').css({display:'none'});
+                $('.tip_box').css({display:'none'});
+                postDuilian (0,0);
+            })
+
+            $('#guanbi_tip').click(function(){
+                $('.modal_bottom').css({display:'none'});
+                $('.tip_box').css({display:'none'});
+                    
+            })
+
+
+            // 提交对联红包 submitduilian.php 
+            $('#submitduilian').click(function(){
+                if(localStorage.getItem('openid')){
+                    
+                }else{
+                    location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3a%2f%2fwww.baozhufu.com%2fbaozhufu%2floadhongbao.html&response_type=code&scope=snsapi_userinfo&state=1234#wechat_redirect'
+                    return;
+                }
+                if($('#titlelist').select2('val') == ''){
+                    layer.msg('请选择或输入祝福语！')
+                    return;
+                }
+                if($('#hengpi').select2('val') == ''){
+                    layer.msg('请选择或输入横批！')
+                    return;
+                }
+                if($('#shanglian').val() == ''){
+                    layer.msg('请输入上联！')
+                    return;
+                }
+                if($('#xialian').val() == ''){
+                    layer.msg('请输入下联！')
+                    return;
+                }
+                if($('#sumcash').val() == ''){
+                    layer.msg('请输入总金额！')
+                    return;
+                }
+                if($('#hbnum').val() == ''){
+                    layer.msg('请输入红包个数！')
+                    return;
+                }
+                if (voice.localId == '') {
+                    //layer.msg('请先录制一段祝福语音');
+                    $('.modal_bottom').css({display:'block'});
+                    $('.tip_box').css({display:'block'});
+                  return;
+                }
+                var voice_time = parseInt(( end_time - start_time )/1000);
+                wx.uploadVoice({
+                    localId: voice.localId,
+                    success: function (res) {
+                        voice.serverId = res.serverId;
+                        postDuilian (voice.serverId,voice_time);
+                       
                     },
                     fail:function(res){
                         layer.msg(JSON.stringify(res));

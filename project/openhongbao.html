@@ -231,7 +231,8 @@
         .is_hit_show{
             display:none;
             color:#fff;
-            font-size:.24rem;
+            margin-top:0.1rem;
+            font-size:.26rem;
         }
         .is_hit_show.active{
             display:block;
@@ -342,7 +343,7 @@
                         <div class="qiangdao active">
                             <div class="gongxi">恭喜你</div>
                             <div class="hit_desc">抢到红包</div>
-                            <div class="is_hit_show">抢到*.88元红包发抢双方皆奖100元</div>
+                            <div class="is_hit_show">（抢到X.88元发与抢双方皆奖100元）</div>
                         </div>
                         <button class="modal_btn" type="button">红包去哪了？</button>
                         <div class="qiangdao_0 active" style="padding:.1rem 1.1rem 0;font-size: 0.28rem;font-family: PingFang SC;font-weight: bold;">
@@ -465,6 +466,14 @@
                     location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
                     return;
                 }
+                if(isstart){
+                    wx.stopVoice({
+                        localId: voice.localId,
+                        success:function(){
+                            isstart = false;
+                        }
+                    });
+                }
                 location.href = 'loadhongbao.html'
             })
             $('#go_lucky').click(function(){
@@ -474,6 +483,14 @@
                     location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
                     return;
                 }
+                if(isstart){
+                    wx.stopVoice({
+                        localId: voice.localId,
+                        success:function(){
+                            isstart = false;
+                        }
+                    });
+                }
                 location.href = 'lucky.html?hbid='+$('#hbid').attr('data_id')
             })
             $('#go_hongbaolist').click(function(){
@@ -482,6 +499,14 @@
                 }else{
                     location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx13665daee96a688b&redirect_uri=http%3A%2F%2Fwww.baozhufu.com%2Fbaozhufu%2Fopenhongbao.html&response_type=code&scope=snsapi_userinfo&state='+pid+','+hbid+'#wechat_redirect'
                     return;
+                }
+                if(isstart){
+                    wx.stopVoice({
+                        localId: voice.localId,
+                        success:function(){
+                            isstart = false;
+                        }
+                    });
                 }
                 location.href = 'hongbaolist.html'
             })
@@ -536,7 +561,7 @@
                             $('#share_tip').css({display:'none'})
                         }
                         
-                        if(data.serverid){
+                        if(data.serverid && data.serverid.length>1){
                             voice.serverId = data.serverid;
                             // 获取JS-API配置项数据getjsapiconfig.php 
                             let now_1 = new Date();
@@ -613,7 +638,7 @@
                                                                 });
                                                             }else{
                                                                 if (voice.localId == '') {
-                                                                    layer.msg('请先录制一段声音');
+                                                                    //layer.msg('请先录制一段声音');
                                                                     return;
                                                                 }
                                                                 wx.playVoice({
