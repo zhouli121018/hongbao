@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="clipboard.min.js"></script>
+    <script src="jquery-1.11.3.js"></script>
+</head>
+<body >
+    <!-- Target -->
+    <input id="foo" value="Hello World">
+
+    <!-- Trigger -->
+    <button class="btn" data-clipboard-action="copy"  data-clipboard-target="#foo"></button>
+
+    <button type="button" id="test">ces</button>
+
+    <script>
+        const clipboard = (text, event) => {
+            const cb = new ClipboardJS('.t', {
+                text: () => text
+            })
+            cb.on('success', (e) => {
+                cb.off('error')
+                cb.off('success')
+            })
+            cb.on('error', (e) => {
+                cb.off('error')
+                cb.off('success')
+            })
+            cb.onClick(event)
+        }
+
+        const btn = document.querySelector('.btn')
+        btn.addEventListener('click', event => {
+            clipboard('Hello123567', event)
+        })
+       
+        $('#test').click(function(event){
+            clipboard('testtest', event)
+        })
+        // setTimeout(function(e){
+        //     console.log(3)
+        // },3000)
+        $('body').on('load',function(e){
+            console.log('body')
+            clipboard('bodybody', e)
+        })
+        // Window.onload(function(e){
+        //     clipboard('window', e)
+        // })
+        
+
+        
+        
+    </script>
+</body>
+</html>
