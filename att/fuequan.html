@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>充值购买复额券须知</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        body {
+            padding:0;
+            margin:0;
+            /* font-family: kaiTi; */
+        }
+        .title_desc{
+            font-size:.4rem;
+            font-weight:bold;
+            padding:.3rem 0;
+            border-bottom:2px solid #aaa;
+        }
+        .text_center{
+            text-align:center;
+        }
+        .text_right{
+            text-align:right;
+        }
+        .red{
+            color:red;
+        }
+        .desc{
+            padding:.2rem .4rem .1rem;
+            font-size:.32rem;
+            color:#9A9A9A;
+        }
+        .desc>div{
+            padding:.1rem 0;
+        }
+        .buy_box{
+            flex-wrap: wrap;
+            padding:0 .2rem;
+        }
+        .buy_box>div{
+            width:31.3%;
+            padding:0 1%;
+            margin-bottom:.2rem;
+        }
+        .item_box{
+            background:#fff;
+            border-radius:.5rem;
+            color:#000;
+            text-align:center;
+            padding:.1rem 0;
+            border:1px solid #E4E4E4;
+            cursor: pointer;
+        }
+        .item_box.active{
+            background:#440888;
+            border:1px solid #440888;
+            color:#fff;
+        }
+        .gray_bg{
+            background:#EEEEEE;
+            border-radius:.5rem;
+            padding:.2rem 0 .2rem .2rem;
+            color:red;
+        }
+        .alipay_box{
+            padding:.1rem 0;
+        }
+        .btn_def{
+            background:#440888;
+            border:1px solid #440888;
+            color:#fff;
+            border-radius:.5rem;
+            text-align:center;
+            padding:.2rem 0;
+            cursor: pointer;
+            width:2.8rem;
+            outline: none;
+            font-size:.34rem;
+        }
+    </style>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/layer-v3.1.1/layer/layer.js"></script>
+    <script>
+            //引入该flexible.min.js
+    !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+</head>
+<body>
+    <div >
+        <div class="title_desc flex">
+            <span class="flex_grow_1 text_right">充值购买</span> 
+            <img src="img/fuhuoquan.png" alt="1" style="width:1.2rem;margin:0 .05rem;">
+            <span class="flex_grow_1">须知</span>
+            
+        </div>
+        <div class="desc">
+            <div class="red">◆购复额券送金豆（按购得复额券数量x100赠送金豆）。</div>
+            <div>◆复额券可恢复当天钻石兑换体力额度</div>
+            <div>◆首充大礼包：充5元/20元送10%，充50元送15%，充100元送20%，充200元送35%。且会员首充叠加权益送。</div>
+            <div>◆平台方不对用户竞答活动结果做出任何保证或承诺，用户购买复额券则表示了解并接受可能因竞答活动胜负而导致的体力损耗结果。</div>
+            <div>◆每用户每日限最高充500元，购券不可退款。</div>
+            <div>◆提醒用户健康参与，切勿沉迷。</div>
+        </div>
+        <div class="buy_box flex">
+            
+        </div>
+
+        <div style="padding:.2rem;">
+            <div class="gray_bg flex">
+                <img src="img/gg.png" alt="1" style="width:.5rem;margin-right:.1rem;">
+                <span class="flex_grow_1 linedesc"></span>
+            </div>
+        </div>
+
+        <div class="text_center">
+            <img src="img/xian1.jpg" alt="" style="width:1.2rem;margin-right:.2rem">
+            <span style="font-size:.36rem;">支付方式选择</span>
+            <img src="img/xian1.jpg" alt="" style="width:1.2rem;margin-left:.2rem;">
+        </div>
+        <div class="text_center alipay_box">
+            <img src="img/alipay.png" alt="2" style="width:1.8rem;">
+        </div>
+        <div class="text_center" style="padding-bottom:.2rem;">
+            <button class="btn_def" type="button">前往充值</button>
+        </div>
+        
+    </div>
+    
+    <script>
+		$(function(){
+            var search = location.search;
+            var arr = search.slice(1).split('&');
+            var arr2 = [];
+            var hash_desc = []
+            for(var i=0;i<arr.length;i++){
+                var o = arr[i];
+                var c = o.indexOf('=')
+                if(c>0){
+                    arr2[o.slice(0,c)] = o.slice(c+1)
+                }
+            }
+            $('.buy_box').on('click',' .item_box',function(){
+                let data_id = $(this).attr('data_id')
+                $('.item_box').removeClass('active');
+                $(this).addClass('active')
+                $('.linedesc').html(hash_desc[data_id]);
+            })
+
+            $('.btn_def').click(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "admisd/geth5pay_wap.php",
+                    data: {"invitecode":arr2['invitecode'],money:$('.item_box.active').attr('data_money')},
+                    success: function (json) {
+                        var data = JSON.parse(json)
+                        if(data.errorcode == 0){
+                            let div = document.createElement('div');
+                            div.innerHTML = data.content
+                            document.body.appendChild(div);
+                            document.forms.alipaysubmit.submit(); 
+                        }else{
+                            if(data.message){
+                                layer.msg(data.message)
+                            }
+                        }
+                    }
+                });
+
+            })
+            
+
+            $.ajax({
+                type: "POST",
+                url: "getmoneydata.php",
+                data: {"invitecode":arr2['invitecode']},
+                success: function (json) {
+                    var data = JSON.parse(json)
+                    if(data.errorcode == 0){
+                        let html = ''
+                        hash_desc = [];
+                        for(var i=0;i<data.buylist.length;i++){
+                            var o = data.buylist[i]
+                            if(i == 0){
+                                $('.linedesc').html(o.linedesc);
+                            }
+                            html += `<div>
+                                        <div class="item_box ${i==0?'active':''}" data_id="${i}" data_money="${o.money}">
+                                            <div>${o.itemdesc}</div>
+                                            <div>(${o.money}元)</div>
+                                        </div>
+                                    </div>`
+                            hash_desc[i] = o.linedesc;
+                        }
+                        $('.buy_box').html(html);
+                    }else{
+                        if(data.message){
+                            layer.msg(data.message)
+                        }
+                    }
+                }
+            });
+            
+        })
+    </script>
+</body>
+</html>

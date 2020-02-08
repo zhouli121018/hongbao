@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>冲榜夺金购买充值页</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        body {
+            padding:0;
+            margin:0;
+            /* font-family: kaiTi; */
+        }
+        .title_desc{
+            font-size:.46rem;
+            font-weight:bold;
+            padding:.4rem 0;
+            border-bottom:2px solid #aaa;
+        }
+        .text_center{
+            text-align:center;
+        }
+        .content_box{
+            padding:1.4rem 0 .2rem;
+            font-size:.36rem;
+        }
+        .input_def{
+            border:1px solid #000;
+            border-radius:4px;
+            padding:.2rem;
+            outline: none;
+            font-size:.36rem;
+            width:2.6rem;
+        }
+        .desc{
+            padding:.2rem;
+        }
+        .btn_box{
+            padding-top:1rem;
+        }
+        .btn_def{
+            background:#FF7F27;
+            border:1px solid #FF7F27;
+            padding:.2rem 0;
+            font-size:.36rem;
+            border-radius:.2rem;
+            width: 2.4rem;
+            color:#fff;
+            outline: none;
+        }
+        .btn_def.huiyuan{
+            background:#00A2E8;
+            border:1px solid #00A2E8;
+        }
+    </style>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/layer-v3.1.1/layer/layer.js"></script>
+    <script>
+            //引入该flexible.min.js
+    !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+</head>
+<body>
+    <div >
+        <div class="title_desc text_center">冲榜夺金购买充值页</div>
+        <div class="text_center content_box">
+            <span>专属邀请码：</span>
+            <input id="invitecode" class="input_def" type="text" placeholder="必填">
+        </div>
+        <div class="desc">
+            专属邀请码用于定位充值账户，请点击位于冲榜夺金首页底部的“分享赚”查看并点击“复制”，在上方输入框粘贴即可正确输入。
+        </div>
+        <div class="flex btn_box">
+            <div class="flex_grow_1 text_center">
+                <button class="btn_def" data_id="1" type="button">购买复额券</button>
+            </div>
+            <div class="flex_grow_1 text_center">
+                <button class="btn_def huiyuan" data_id="2" type="button">开通会员</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+		$(function(){
+            // layer.msg('123')
+            $('.btn_def').click(function(){
+                // layer.msg($(this).html())
+                var invitecode = $('#invitecode').val()
+                var type_id = $(this).attr('data_id')
+                if(!invitecode){
+                    layer.msg('请输入邀请码~')
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "validateinvitecode.php",
+                    data: {"invitecode":invitecode},
+                    success: function (json) {
+                        var data = JSON.parse(json)
+                        if(data.errorcode == 0){
+                            layer.msg(data.content, {
+                                time: 0, //20s后自动关闭
+                                btn: ['返回修改', '确认并前往充值'],
+                                yes:function(){
+                                    // layer.msg('按钮1')
+                                }
+                                ,btn2:function(){
+                                    if(type_id==1){
+                                        location.href = 'fuequan.html?invitecode='+invitecode;
+                                    }else if(type_id==2){
+                                        location.href = 'vip.html?invitecode='+invitecode;
+                                    }
+                                }
+                            });
+                        }else{
+                            if(data.message){
+                                layer.msg(data.message)
+                            }
+                        }
+                    }
+                });
+
+            })
+            
+        })
+    </script>
+</body>
+</html>

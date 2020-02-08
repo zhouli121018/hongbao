@@ -34,7 +34,7 @@
             $.ajax({
                 type: "POST",
                 url: "getluckdata.php",
-                data: obj,
+                data: {},
                 success: function (json) {
                     var data = JSON.parse(json)
                     if(data.errorcode == 0){
