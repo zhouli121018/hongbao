@@ -221,7 +221,7 @@
             $('.btn_def').click(function(){
                 $.ajax({
                     type: "POST",
-                    url: "admisd/geth5pay_wap.php",
+                    url: "geth5pay_wap.php",
                     data: {
                         "invitecode":arr2['invitecode'],
                         money:$('.item_box.active').attr('data_money'),
@@ -264,7 +264,7 @@
                         
                         var choice_type_html = '<span>vip开通选择：</span>';
                         for(var i=0;i<data.joinvips.length;i++){
-                            var o = data.viptype[i]
+                            var o = data.joinvips[i]
                             hash['type_'+o.viptype] = o.months;
                             
                             if(i==0){

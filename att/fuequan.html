@@ -157,7 +157,7 @@
             $('.btn_def').click(function(){
                 $.ajax({
                     type: "POST",
-                    url: "admisd/geth5pay_wap.php",
+                    url: "geth5pay_wap.php",
                     data: {"invitecode":arr2['invitecode'],money:$('.item_box.active').attr('data_money'),type:0},
                     success: function (json) {
                         var data = JSON.parse(json)
@@ -193,7 +193,6 @@
                             html += `<div>
                                         <div class="item_box ${i==0?'active':''}" data_id="${i}" data_money="${o.money}">
                                             <div>${o.itemdesc}</div>
-                                            <div>(${o.money}元)</div>
                                         </div>
                                     </div>`
                             hash_desc[i] = o.linedesc;

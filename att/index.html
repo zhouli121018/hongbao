@@ -103,9 +103,9 @@
                     success: function (json) {
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
-                            layer.msg(data.content, {
-                                time: 0, //20s后自动关闭
-                                btn: ['返回修改', '确认并前往充值'],
+                            layer.open({
+                                content:data.content, 
+                                btn: ['确认并前往充值', '返回修改'],
                                 yes:function(){
                                     
                                 }
