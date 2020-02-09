@@ -89,9 +89,7 @@
     
     <script>
 		$(function(){
-            // layer.msg('123')
             $('.btn_def').click(function(){
-                // layer.msg($(this).html())
                 var invitecode = $('#invitecode').val()
                 var type_id = $(this).attr('data_id')
                 if(!invitecode){
@@ -109,7 +107,7 @@
                                 time: 0, //20s后自动关闭
                                 btn: ['返回修改', '确认并前往充值'],
                                 yes:function(){
-                                    // layer.msg('按钮1')
+                                    
                                 }
                                 ,btn2:function(){
                                     if(type_id==1){
@@ -119,10 +117,9 @@
                                     }
                                 }
                             });
-                        }else{
-                            if(data.message){
-                                layer.msg(data.message)
-                            }
+                        }
+                        if(data.message){
+                            layer.msg(data.message)
                         }
                     }
                 });

@@ -34,41 +34,9 @@
             color:red;
         }
         .desc{
-            padding:.2rem .4rem .1rem;
-            font-size:.32rem;
-            color:#9A9A9A;
-        }
-        .desc>div{
-            padding:.1rem 0;
-        }
-        .buy_box{
-            flex-wrap: wrap;
-            padding:0 .2rem;
-        }
-        .buy_box>div{
-            width:31.3%;
-            padding:0 1%;
-            margin-bottom:.2rem;
-        }
-        .item_box{
-            background:#fff;
-            border-radius:.5rem;
-            color:#000;
-            text-align:center;
-            padding:.1rem 0;
-            border:1px solid #E4E4E4;
-            cursor: pointer;
-        }
-        .item_box.active{
-            background:#440888;
-            border:1px solid #440888;
-            color:#fff;
-        }
-        .gray_bg{
-            background:#EEEEEE;
-            border-radius:.5rem;
-            padding:.2rem 0 .2rem .2rem;
-            color:red;
+            padding:.2rem .2rem .1rem;
+            font-size:.3rem;
+            /* color:#9A9A9A; */
         }
         .alipay_box{
             padding:.1rem 0;
@@ -85,6 +53,47 @@
             outline: none;
             font-size:.34rem;
         }
+        .table_box{
+            width:100%;
+            overflow: auto;
+            padding-top:.1rem;
+        }
+        .table_box>table{
+            width:100%;
+            border-left:1px solid #aaa;
+            border-top:1px solid #aaa;
+        }
+        .table_box>table td{
+            border-right:1px solid #aaa;
+            border-bottom:1px solid #aaa;
+            text-align: center;
+            padding:.1rem 0;
+            font-size:.24rem;
+        }
+        img{
+            vertical-align: middle;
+        }
+        .chioce_box{
+            padding:.05rem .1rem;
+            border:1px solid #eee;
+            border-radius:.1rem;
+            margin-right:.2rem;
+        }
+        .chioce_box.active{
+            border:1px solid green;
+        }
+        .month_type{
+            text-align: center;
+            line-height: .5rem;
+            border:1px solid #aaa;
+            width:.5rem;
+            height:.5rem;
+            margin:.1rem;
+        }
+        .month_type.active{
+            background:#5B32F6;
+            color:#fff;
+        }
     </style>
     <script src="js/jquery-1.11.3.js"></script>
     <script src="js/layer-v3.1.1/layer/layer.js"></script>
@@ -99,23 +108,60 @@
             会员权益说明
         </div>
         <div class="desc">
-            <div class="red">◆购复额券送金豆（按购得复额券数量x100赠送金豆）。</div>
-            <div>◆复额券可恢复当天钻石兑换体力额度</div>
-            <div>◆首充大礼包：充5元/20元送10%，充50元送15%，充100元送20%，充200元送35%。且会员首充叠加权益送。</div>
-            <div>◆平台方不对用户竞答活动结果做出任何保证或承诺，用户购买复额券则表示了解并接受可能因竞答活动胜负而导致的体力损耗结果。</div>
-            <div>◆每用户每日限最高充500元，购券不可退款。</div>
-            <div>◆提醒用户健康参与，切勿沉迷。</div>
-        </div>
-        <div class="buy_box flex">
+            <div class="flex">
+                <span>◆会员级别：金牌</span><img src="img/gold.png" alt="1" style="width:.42rem;margin:0 .2rem 0 .05rem;">
+                <span>银牌</span> <img src="img/silver.png" alt="2" style="width:.42rem;margin:0 .2rem 0 .05rem;">
+                <span>铜牌</span> <img src="img/copper.png" alt="3" style="width:.42rem;margin-left:.05rem;">
+
+            </div>
+            <div style="padding-top:.2rem;">
+                ◆竞答权益：
+            </div>
+            <div class="table_box">
+                <table class="tbl" border="0" cellspacing="0" cellpadding="0">
+                    
+                </table>
+            </div>
+            <div style="line-height: .4rem;padding-top:.2rem;border-bottom:1px solid #ddd;padding-bottom:.2rem;margin-bottom:.2rem;">
+                <div>
+                    ◆抢红包权益：
+                </div>
+                <div>
+                    签到获递增金豆奖励增至9天，无需每日连续签到；
+                </div>
+                <div>
+                    购复额券送金豆更多；
+                </div>
+                <div>
+                    邀请码首次被好友绑定（仅1次）立获5元分享金；
+                </div>
+                <div>
+                    凡会员均有抢特种红包资格（抢中奖¥1000）；
+                </div>
+                <div class="red">
+                    声明：特种红包具有随机性，不保证加入会员一定能抢中。
+                </div>
+            </div>
+            <div class="flex choice_type_box">
+                
+                
+            </div>
+            <div class="flex" style="padding-top:.2rem;">
+                <div class="flex_grow_1 flex month_box">
+                    
+                </div>
+                <div class="text_right">
+                    <div style="color:#D7873F;">限时特价 <img src="img/hot.png" style="width:.32rem;" />：<span style="color:#C51223;font-weight:bold;" id="count_money"></span>元</div>
+                    <div style="text-decoration: line-through;color:#aaa;">
+                        <span id="srcmoney"></span> 元
+                    </div>
+                </div>
+            </div>
+            
             
         </div>
+        
 
-        <div style="padding:.2rem;">
-            <div class="gray_bg flex">
-                <img src="img/gg.png" alt="1" style="width:.5rem;margin-right:.1rem;">
-                <span class="flex_grow_1 linedesc"></span>
-            </div>
-        </div>
 
         <div class="text_center">
             <img src="img/xian1.jpg" alt="" style="width:1.2rem;margin-right:.2rem">
@@ -136,7 +182,8 @@
             var search = location.search;
             var arr = search.slice(1).split('&');
             var arr2 = [];
-            var hash_desc = []
+            var hash = [];
+            var type_active = 2;
             for(var i=0;i<arr.length;i++){
                 var o = arr[i];
                 var c = o.indexOf('=')
@@ -144,18 +191,44 @@
                     arr2[o.slice(0,c)] = o.slice(c+1)
                 }
             }
-            $('.buy_box').on('click',' .item_box',function(){
-                let data_id = $(this).attr('data_id')
-                $('.item_box').removeClass('active');
-                $(this).addClass('active')
-                $('.linedesc').html(hash_desc[data_id]);
+
+            $('body').on('click',' .chioce_box',function(){
+                if($(this).hasClass('active')){
+                    return;
+                }
+                $('.chioce_box').removeClass('active');
+                $(this).addClass('active');
+                var da_type = $(this).attr('data_type');
+                var html_month = '<span>时间(月)：</span>'
+                for(var i=0;i<hash['type_'+da_type].length;i++){
+                    var ob = hash['type_'+da_type][i]
+                    html_month += `<div class="month_type ${i==0?'active':''}" data_m="${ob.money}" data_s="${ob.srcmoney}">${ob.month}</div>`
+                    if(i==0){
+                        $('#count_money').html(ob.money)
+                        $('#srcmoney').html(ob.srcmoney)
+                    }      
+                }
+                $('.month_box').html(html_month)
+
+            })
+            $('body').on('click',' .month_type',function(){
+                $('.month_type').removeClass('active');
+                $(this).addClass('active');
+                $('#count_money').html($(this).attr('data_m'))
+                $('#srcmoney').html($(this).attr('data_s'))
             })
 
             $('.btn_def').click(function(){
                 $.ajax({
                     type: "POST",
                     url: "admisd/geth5pay_wap.php",
-                    data: {"invitecode":arr2['invitecode'],money:$('.item_box.active').attr('data_money')},
+                    data: {
+                        "invitecode":arr2['invitecode'],
+                        money:$('.item_box.active').attr('data_money'),
+                        type:1,
+                        viptype:$('.chioce_box.active').attr('data_type'),
+                        days:$('.month_type.active').html()*30,
+                        },
                     success: function (json) {
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
@@ -163,10 +236,9 @@
                             div.innerHTML = data.content
                             document.body.appendChild(div);
                             document.forms.alipaysubmit.submit(); 
-                        }else{
-                            if(data.message){
-                                layer.msg(data.message)
-                            }
+                        }
+                        if(data.message){
+                            layer.msg(data.message)
                         }
                     }
                 });
@@ -176,31 +248,81 @@
 
             $.ajax({
                 type: "POST",
-                url: "getmoneydata.php",
+                url: "getvipdata.php",
                 data: {"invitecode":arr2['invitecode']},
                 success: function (json) {
                     var data = JSON.parse(json)
+                    hash = [];
                     if(data.errorcode == 0){
-                        let html = ''
-                        hash_desc = [];
-                        for(var i=0;i<data.buylist.length;i++){
-                            var o = data.buylist[i]
-                            if(i == 0){
-                                $('.linedesc').html(o.linedesc);
+                        var html = `<tr>
+                                        <td>级别</td>
+                                        <td>钻兑体力额度</td>
+                                        <td>购复额券送</td>
+                                        <td>体力初始值</td>
+                                        <td>竞答胜+钻</td>
+                                    </tr>`
+                        
+                        var choice_type_html = '<span>vip开通选择：</span>';
+                        for(var i=0;i<data.joinvips.length;i++){
+                            var o = data.viptype[i]
+                            hash['type_'+o.viptype] = o.months;
+                            
+                            if(i==0){
+                                type_active = o.viptype
+                                var html_month = '<span>时间(月)：</span>'
+                                for(var k=0;k<o.months.length;k++){
+                                    var ob = o.months[k]
+                                    html_month += `<div class="month_type ${k==0?'active':''}" data_m="${ob.money}" data_s="${ob.srcmoney}">${ob.month}</div>`
+                                    if(k==0){
+                                        $('#count_money').html(ob.money)
+                                        $('#srcmoney').html(ob.srcmoney)
+                                    }
+                                }
+                                $('.month_box').html(html_month)
                             }
-                            html += `<div>
-                                        <div class="item_box ${i==0?'active':''}" data_id="${i}" data_money="${o.money}">
-                                            <div>${o.itemdesc}</div>
-                                            <div>(${o.money}元)</div>
+                            html += '<tr>'
+                            if(o.viptype == 2){ //viptype=0;//2金牌 3银牌 4铜牌
+                                html +=`<td><img src="img/gold.png" alt="1" style="width:.36rem;"></td>`
+                                choice_type_html += `<div class="chioce_box ${i==0?'active':''}" data_type="2">
+                                    <img src="img/gold.png" alt="" style="width:.36rem;">
+                                </div>`
+                            }else if(o.viptype == 3){
+                                html +=`<td><img src="img/silver.png" alt="1" style="width:.36rem;"></td>`
+                                choice_type_html += `<div class="chioce_box ${i==0?'active':''}" data_type="3">
+                                    <img src="img/silver.png" alt="" style="width:.36rem;">
+                                </div>`
+                            }else if(o.viptype == 4){
+                                html +=`<td><img src="img/copper.png" alt="1" style="width:.36rem;"></td>`
+                                choice_type_html += `<div class="chioce_box ${i==0?'active':''}" data_type="4">
+                                    <img src="img/copper.png" alt="" style="width:.36rem;">
+                                </div>`
+                            }  
+                            html += `<td>
+                                        <div>
+                                            ${o.dtpedu}
+                                            <img src="img/diamondyellow.png" alt="" style="width:.3rem;">
                                         </div>
-                                    </div>`
-                            hash_desc[i] = o.linedesc;
+                                    </td>
+                                    <td>${o.bps}</td>
+                                    <td>
+                                        <div>
+                                            ${o.bcs}
+                                            <img src="img/shandian.png" alt="" style="width:.2rem;">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            ${o.vsd}
+                                            <img src="img/diamondyellow.png" alt="" style="width:.3rem;">
+                                        </div>
+                                    </td></tr>`
                         }
-                        $('.buy_box').html(html);
-                    }else{
-                        if(data.message){
-                            layer.msg(data.message)
-                        }
+                        
+                        $('.tbl').html(html)
+                        $('.choice_type_box').html(choice_type_html)
+                    }
+                    if(data.message){
+                        layer.msg(data.message)
                     }
                 }
             });
