@@ -94,6 +94,10 @@
             background:#5B32F6;
             color:#fff;
         }
+        #wxqq{
+            padding:0;
+            background:#F7F4F5;
+        }
     </style>
     <script src="js/jquery-1.11.3.js"></script>
     <script src="js/layer-v3.1.1/layer/layer.js"></script>
@@ -104,8 +108,9 @@
 </head>
 <body>
     <div >
-        <div class="title_desc text_center">
-            会员权益说明
+        <div class="title_desc text_center flex">
+            <button class="back_btn" type="button" style="background:#eee;border-radius:.4rem;border:none;padding:.1rem .2rem;outline:none;margin-left:.1rem;">返回</button>
+            <span class="flex_grow_1" style="padding-right:.8rem;">会员权益说明</span> 
         </div>
         <div class="desc">
             <div class="flex">
@@ -172,13 +177,27 @@
             <img src="img/alipay.png" alt="2" style="width:1.8rem;">
         </div>
         <div class="text_center" style="padding-bottom:.2rem;">
-            <button class="btn_def" type="button">前往充值</button>
+            <button class="btn_def" type="button">前往开通</button>
         </div>
         
     </div>
     
     <script>
 		$(function(){
+            //判断是否微信或qq
+            let ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger\/[0-9]/i) || ua.match(/QQ\/[0-9]/i)){
+                // this.$router.push('/home/qqOrwx');
+                var index = layer.open({
+                    content: '<img src="img/jumpborwser.png" style="width:100%;"/>',
+                    btn:[],
+                    title:'',
+                    id:'wxqq',
+                    closeBtn:0
+                });
+                layer.full(index);
+                return;
+            }
             var search = location.search;
             var arr = search.slice(1).split('&');
             var arr2 = [];
@@ -192,30 +211,8 @@
                 }
             }
 
-            $('body').on('click',' .chioce_box',function(){
-                if($(this).hasClass('active')){
-                    return;
-                }
-                $('.chioce_box').removeClass('active');
-                $(this).addClass('active');
-                var da_type = $(this).attr('data_type');
-                var html_month = '<span>时间(月)：</span>'
-                for(var i=0;i<hash['type_'+da_type].length;i++){
-                    var ob = hash['type_'+da_type][i]
-                    html_month += `<div class="month_type ${i==0?'active':''}" data_m="${ob.money}" data_s="${ob.srcmoney}">${ob.month}</div>`
-                    if(i==0){
-                        $('#count_money').html(ob.money)
-                        $('#srcmoney').html(ob.srcmoney)
-                    }      
-                }
-                $('.month_box').html(html_month)
-
-            })
-            $('body').on('click',' .month_type',function(){
-                $('.month_type').removeClass('active');
-                $(this).addClass('active');
-                $('#count_money').html($(this).attr('data_m'))
-                $('#srcmoney').html($(this).attr('data_s'))
+            $('.back_btn').click(function(){
+                location.href = 'index.html'
             })
 
             $('.btn_def').click(function(){
@@ -224,7 +221,7 @@
                     url: "geth5pay_wap.php",
                     data: {
                         "invitecode":arr2['invitecode'],
-                        money:$('.item_box.active').attr('data_money'),
+                        money:$('.month_type.active').attr('data_m'),
                         type:1,
                         viptype:$('.chioce_box.active').attr('data_type'),
                         days:$('.month_type.active').html()*30,
@@ -279,6 +276,18 @@
                                     }
                                 }
                                 $('.month_box').html(html_month)
+                                setTimeout(function(){
+                                    $('.month_type').click(function(){
+                                        if($(this).hasClass('active')){
+                                            return;
+                                        }
+                                        $('.month_type').removeClass('active');
+                                        $(this).addClass('active');
+                                        $('#count_money').html($(this).attr('data_m'))
+                                        $('#srcmoney').html($(this).attr('data_s'))
+                                    })
+                                },500)
+                                
                             }
                             html += '<tr>'
                             if(o.viptype == 2){ //viptype=0;//2金牌 3银牌 4铜牌
@@ -320,6 +329,38 @@
                         
                         $('.tbl').html(html)
                         $('.choice_type_box').html(choice_type_html)
+                        setTimeout(function(){
+                            $('.chioce_box').click(function(){
+                                if($(this).hasClass('active')){
+                                    return;
+                                }
+                                $('.chioce_box').removeClass('active');
+                                $(this).addClass('active');
+                                var da_type = $(this).attr('data_type');
+                                var html_month = '<span>时间(月)：</span>'
+                                for(var i=0;i<hash['type_'+da_type].length;i++){
+                                    var ob = hash['type_'+da_type][i]
+                                    html_month += `<div class="month_type ${i==0?'active':''}" data_m="${ob.money}" data_s="${ob.srcmoney}">${ob.month}</div>`
+                                    if(i==0){
+                                        $('#count_money').html(ob.money)
+                                        $('#srcmoney').html(ob.srcmoney)
+                                    }      
+                                }
+                                $('.month_box').html(html_month)
+                                setTimeout(function(){
+                                    $('.month_type').click(function(){
+                                        if($(this).hasClass('active')){
+                                            return;
+                                        }
+                                        $('.month_type').removeClass('active');
+                                        $(this).addClass('active');
+                                        $('#count_money').html($(this).attr('data_m'))
+                                        $('#srcmoney').html($(this).attr('data_s'))
+                                    })
+                                },500)
+                            })
+                        },500)
+                        
                     }
                     if(data.message){
                         layer.msg(data.message)

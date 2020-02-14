@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>冲榜夺金购买充值页</title>
+    <title>购买充值页</title>
     <style>
         .flex{
             display: flex;
@@ -28,7 +28,7 @@
             text-align:center;
         }
         .content_box{
-            padding:1.4rem 0 .2rem;
+            padding:.6rem 0 .2rem;
             font-size:.36rem;
         }
         .input_def{
@@ -59,6 +59,21 @@
             background:#00A2E8;
             border:1px solid #00A2E8;
         }
+        .layui-layer .layui-layer-btn .layui-layer-btn0 {
+            border: 1px solid #dedede;
+            background-color: #fff;
+            color: #333;
+        }
+        .layui-layer .layui-layer-btn .layui-layer-btn1 {
+            border-color: #1E9FFF;
+            background-color: #1E9FFF;
+            color: #fff;
+            margin-left:.4rem;
+        }
+        #wxqq{
+            padding:0;
+            background:#F7F4F5;
+        }
     </style>
     <script src="js/jquery-1.11.3.js"></script>
     <script src="js/layer-v3.1.1/layer/layer.js"></script>
@@ -69,13 +84,29 @@
 </head>
 <body>
     <div >
-        <div class="title_desc text_center">冲榜夺金购买充值页</div>
+        <div class="title_desc text_center">
+            购买充值页</div>
         <div class="text_center content_box">
-            <span>专属邀请码：</span>
-            <input id="invitecode" class="input_def" type="text" placeholder="必填">
+            <div style="padding-bottom:.4rem">
+                <img src="img/icon.png" alt="icon" style="width:2rem">
+            </div>
+            <div class="flex">
+                <div style="text-align: left;padding-left:.6rem;">
+                    <span><span style="color:red;">本号</span>专属邀请码：</span>
+                    <div style="color:red;font-size:.26rem;">（用于定位充值账号）</div>
+                </div>
+                
+                <input id="invitecode" class="input_def" type="text" placeholder="必填">
+            </div>
+            
         </div>
         <div class="desc">
-            专属邀请码用于定位充值账户，请点击位于冲榜夺金首页底部的“分享赚”查看并点击“复制”，在上方输入框粘贴即可正确输入。
+            <!-- 专属邀请码用于定位充值账户，请点击位于冲榜夺金首页底部的“分享赚”查看并点击“复制”，在上方输入框粘贴即可正确输入。 -->
+            <span style="color:red;">操作说明：</span><br>
+            1、返回冲榜APP，点击底部“分享赚”；<br>
+            2、点击<span style="color:red;">本号专属</span>“邀请码”右边的“复制”；<br>
+            3、返回本充值页在上方输入框长按粘贴；<br>
+            4、选择下方充值项进入。
         </div>
         <div class="flex btn_box">
             <div class="flex_grow_1 text_center">
@@ -89,6 +120,24 @@
     
     <script>
 		$(function(){
+            //判断是否微信或qq
+            let ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger\/[0-9]/i) || ua.match(/QQ\/[0-9]/i)){
+                // this.$router.push('/home/qqOrwx');
+                var index = layer.open({
+                    content: '<img src="img/jumpborwser.png" style="width:100%;"/>',
+                    btn:[],
+                    title:'',
+                    id:'wxqq',
+                    closeBtn:0
+                });
+                layer.full(index);
+                return;
+            }
+            
+            if(localStorage.getItem('invitecode')){
+                $('#invitecode').val(localStorage.getItem('invitecode'))
+            }
             $('.btn_def').click(function(){
                 var invitecode = $('#invitecode').val()
                 var type_id = $(this).attr('data_id')
@@ -103,16 +152,23 @@
                     success: function (json) {
                         var data = JSON.parse(json)
                         if(data.errorcode == 0){
+                            let sure_desc = '前往充值' ;
+                            if(type_id == 2){
+                                sure_desc = '前往开通'
+                            }
                             layer.open({
                                 content:data.content, 
-                                btn: ['确认并前往充值', '返回修改'],
+                                btnAlign: 'c',
+                                btn: ['关闭', sure_desc],
                                 yes:function(){
-                                    
+                                    layer.close(layer.index)
                                 }
                                 ,btn2:function(){
                                     if(type_id==1){
+                                        localStorage.setItem('invitecode',invitecode)
                                         location.href = 'fuequan.html?invitecode='+invitecode;
                                     }else if(type_id==2){
+                                        localStorage.setItem('invitecode',invitecode)
                                         location.href = 'vip.html?invitecode='+invitecode;
                                     }
                                 }

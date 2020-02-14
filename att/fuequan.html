@@ -85,6 +85,10 @@
             outline: none;
             font-size:.34rem;
         }
+        #wxqq{
+            padding:0;
+            background:#F7F4F5;
+        }
     </style>
     <script src="js/jquery-1.11.3.js"></script>
     <script src="js/layer-v3.1.1/layer/layer.js"></script>
@@ -96,9 +100,10 @@
 <body>
     <div >
         <div class="title_desc flex">
+            <button class="back_btn" type="button" style="background:#eee;border-radius:.4rem;border:none;padding:.1rem .2rem;outline:none;margin-left:.1rem;">返回</button>
             <span class="flex_grow_1 text_right">充值购买</span> 
             <img src="img/fuhuoquan.png" alt="1" style="width:1.2rem;margin:0 .05rem;">
-            <span class="flex_grow_1">须知</span>
+            <span class="flex_grow_1" style="padding-right:.8rem;">须知</span>
             
         </div>
         <div class="desc">
@@ -136,6 +141,20 @@
     
     <script>
 		$(function(){
+            //判断是否微信或qq
+            let ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger\/[0-9]/i) || ua.match(/QQ\/[0-9]/i)){
+                // this.$router.push('/home/qqOrwx');
+                var index = layer.open({
+                    content: '<img src="img/jumpborwser.png" style="width:100%;"/>',
+                    btn:[],
+                    title:'',
+                    id:'wxqq',
+                    closeBtn:0
+                });
+                layer.full(index);
+                return;
+            }
             var search = location.search;
             var arr = search.slice(1).split('&');
             var arr2 = [];
@@ -147,6 +166,9 @@
                     arr2[o.slice(0,c)] = o.slice(c+1)
                 }
             }
+            $('.back_btn').click(function(){
+                location.href = 'index.html'
+            })
             $('.buy_box').on('click',' .item_box',function(){
                 let data_id = $(this).attr('data_id')
                 $('.item_box').removeClass('active');
