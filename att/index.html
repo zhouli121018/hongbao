@@ -102,7 +102,7 @@
         </div>
         <div class="desc">
             <!-- 专属邀请码用于定位充值账户，请点击位于冲榜夺金首页底部的“分享赚”查看并点击“复制”，在上方输入框粘贴即可正确输入。 -->
-            <span>操作说明：</span><br>
+            <span style="color:red;">操作说明：</span><br>
             1、返回冲榜APP，点击底部“分享赚”；<br>
             2、点击本号专属“邀请码”右边的“复制”；<br>
             3、返回本充值页在上方输入框长按粘贴；<br>
@@ -142,7 +142,7 @@
                 var invitecode = $('#invitecode').val()
                 var type_id = $(this).attr('data_id')
                 if(!invitecode){
-                    layer.msg('请输入邀请码~')
+                    layer.msg('请按操作说明输入充值账号专属邀请码!')
                     return;
                 }
                 $.ajax({
