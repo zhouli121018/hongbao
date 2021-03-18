@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        body {
+            background: #fff;
+            padding:0;
+            margin:0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .login_image_box{
+            text-align: center;padding:1rem 0 .8rem;
+        }
+        .login_image_box>img{
+            width:1.4rem;
+        }
+        .top_title{
+            text-align: center;font-size:.43rem;letter-spacing: 0.02rem;font-weight:500;color:#333;
+        }
+        .form_box{
+            padding:1rem .6rem .6rem;
+        }
+        .inputbox{
+          background-color: #F6F6F6;
+          border-radius:.8rem;
+          padding:.28rem;
+          margin-bottom:.28rem;
+        }
+        .inputbox>.flex{
+            padding-right:.3rem;
+        }
+        .inputbox>.flex>img{
+            width: .32rem;margin:0 .3rem;
+        }
+        .inputbox input.flex_grow_1{
+            border:none;
+            outline:none;
+            background:none;
+            font-size:.36rem;
+            color:#333;
+        }
+        .loginbox{
+            padding-top:1rem;
+        }
+        .loginbox>div{
+            background-color: #4E8AFF;
+            border-radius:.8rem;
+            padding:.22rem;
+            text-align: center;
+        }
+        .loginbox .login_btn{
+            color:#fff;
+            text-decoration:none;
+            font-size:.36rem;
+            outline:none;
+            display:inline-block;
+            width:100%;
+        }
+        .qiye_name{
+            text-align: center;color:#333;font-size:.3rem;
+        }
+        .qiye_spell{
+            text-align: center;color:#C3C3C3;font-size:.24rem;padding:.1rem 0;
+        }
+        ::-webkit-input-placeholder { /* WebKit, Blink, Edge */    color:    #C3C3C3;text-align: center; }
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */   color:    #C3C3C3;text-align: center; }
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */   color:    #C3C3C3;text-align: center; }
+        :-ms-input-placeholder { /* Internet Explorer 10-11 */   color:    #C3C3C3;text-align: center; }
+    </style>
+    <script>
+            //引入该flexible.min.js
+    !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+</head>
+<body>
+    <div id="login">
+        <div class="login_image_box">
+            <img src="./image/logo.png" alt="logo">
+        </div>
+        <div class="top_title">
+            智能制造一站式解决方案
+        </div>
+        <form id="login_form">            
+            <div class="form_box">                
+                <!--帐号-->                
+                <div class="inputbox">   
+                    <div class="flex">     
+                        <img src="./image/wode.png" alt="username">  
+                        <input class="flex_grow_1" name="username" type="text" autocomplete="off" tabindex="1" placeholder="请输入用户名" > 
+                    </div>          
+                </div>                            
+                <!--密码-->                
+                <div class="inputbox">
+                    <div class="flex">     
+                        <img src="./image/mima.png" alt="password">                     
+                        <input class="flex_grow_1" name="password" type="password" autocomplete="new-password"  tabindex="2" placeholder="请输入密码" >  
+                    </div>           
+                </div>          
+                <!-- 登录按钮 -->                
+                <div class="loginbox"> 
+                    <div>
+                        <a href="#" class="login_btn" tabindex="3">登&nbsp;&nbsp;录</a>  
+                    </div>        
+                </div>                     
+            </div>        
+        </form>
+        <div class="qiye_name">深圳市欧颂科技有限公司</div>
+        <div class="qiye_spell">SHENZHENSHIOUSONGKEJIYOUXIANGONGSI</div>
+    </div>
+    
+</body>
+</html>
