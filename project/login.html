@@ -23,7 +23,8 @@
             text-align: center;padding:1rem 0 .8rem;
         }
         .login_image_box>img{
-            width:1.4rem;
+            /* width:1.4rem; */
+            height:.6rem;
         }
         .top_title{
             text-align: center;font-size:.43rem;letter-spacing: 0.02rem;font-weight:500;color:#333;
@@ -34,7 +35,7 @@
         .inputbox{
           background-color: #F6F6F6;
           border-radius:.8rem;
-          padding:.28rem;
+          padding:0 .28rem;
           margin-bottom:.28rem;
         }
         .inputbox>.flex{
@@ -49,6 +50,9 @@
             background:none;
             font-size:.36rem;
             color:#333;
+            background:#F6F6F6;
+            padding:.28rem 0;
+            /* height:100%; */
         }
         .loginbox{
             padding-top:1rem;
@@ -77,6 +81,51 @@
         :-moz-placeholder { /* Mozilla Firefox 4 to 18 */   color:    #C3C3C3;text-align: center; }
         ::-moz-placeholder { /* Mozilla Firefox 19+ */   color:    #C3C3C3;text-align: center; }
         :-ms-input-placeholder { /* Internet Explorer 10-11 */   color:    #C3C3C3;text-align: center; }
+
+        @media screen and (min-height: 780px), screen and (min-width: 800px){
+            .login_image_box{
+                padding:30px 0 20px;
+            }
+            .form_box {
+                padding: 30px 20px 18px;
+            }
+            .inputbox{
+                max-width:500px;
+                margin:10px auto;
+            }
+            .loginbox {
+                padding-top: 30px;
+            }
+            .loginbox>div{
+                max-width:500px;
+                margin:10px auto;
+                padding: 8px .28rem;
+            }
+            .inputbox input.flex_grow_1{
+                padding: 10px 0;
+                font-size:16px;
+            }
+            .inputbox>.flex>img {
+                width: 20px;
+            }
+            .qiye_name{
+               font-size:16px;
+            }
+            .qiye_spell{
+                font-size:12px;
+                padding:10px 0;
+            }
+            .top_title {
+                font-size: 24px;
+            }
+            .login_image_box>img {
+                height: 30px;
+            }
+            .loginbox .login_btn{
+                font-size:16px;
+            }
+        }
+        
     </style>
     <script>
             //引入该flexible.min.js
