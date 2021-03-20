@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name='apple-mobile-web-app-capable' content='yes' />
+    <meta name='full-screen' content='true' />
+    <meta name='x5-fullscreen' content='true' />
+    <meta name='360-fullscreen' content='true' />
+    <title>抖老板</title>
+    <style>
+        .flex{
+            display: flex;
+            align-items: center;
+        }
+        .flex_grow_1{
+            flex-grow:1;
+        }
+        body {
+            padding:0;
+            margin:0;
+        }
+        .main_bg{
+            background:#2261FE;
+        }
+        .text_center{
+            text-align:center;
+        }
+        .title_style{
+            color:#fff;
+            font-weight:bold;
+            font-size:.32rem;
+            height:1rem;
+            line-height: 1rem;
+        }
+        .main_box{
+            position: relative;
+        }
+        .menu_box{
+            background:#2261FE;
+            border-bottom:1px solid #4C81FF;
+            padding:.2rem .1rem;
+            justify-content: space-around;
+            color:#87B7FB;
+            font-size:.26rem;
+        }
+        .menu_box .active{
+            color:#fff;
+        }
+        .t_desc{
+            color:#87B7FB;
+            font-size:.24rem;
+            padding-top:.3rem;
+            padding-bottom:.3rem;
+        }
+        .t_desc .fff{
+            color:#fff;
+            font-size:.28rem;
+            padding:.1rem 0;
+            font-weight:bold;
+        }
+        .desc_title{
+            color:#9E9E9E;
+            padding:.16rem 0 .12rem;
+            font-size:.24rem;
+        }
+        .bold_black{
+            font-weight: bold;
+            font-size:.28rem;
+        }
+    </style>
+    <script src="jquery-1.11.3.js"></script>
+    <script>
+            //引入该flexible.min.js
+    !function(e,t){function n(){var n=l.getBoundingClientRect().width;t=t||540,n>t&&(n=t);var i=100*n/e;r.innerHTML="html{font-size:"+i+"px;}"}var i,d=document,o=window,l=d.documentElement,r=document.createElement("style");if(l.firstElementChild)l.firstElementChild.appendChild(r);else{var a=d.createElement("div");a.appendChild(r),d.write(a.innerHTML),a=null}n(),o.addEventListener("resize",function(){clearTimeout(i),i=setTimeout(n,300)},!1),o.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(i),i=setTimeout(n,300))},!1),"complete"===d.readyState?d.body.style.fontSize="16px":d.addEventListener("DOMContentLoaded",function(e){d.body.style.fontSize="16px"},!1)}(750,750);
+    </script>
+    <script>
+        function plusReady() {
+            // 设置系统状态栏背景为红色
+            var type = plus.os.name;
+            if(type == "iOS") {
+                plus.navigator.setStatusBarBackground("#f00");
+            } else {
+                plus.navigator.setStatusBarBackground("#f00");
+            }
+        }
+        if(window.plus) {
+            plusReady();
+        } else {
+            document.addEventListener("plusready", plusReady, false);
+        } 
+    </script>
+</head>
+<body>
+    <div class="main_box">
+        <div class="main_bg">
+            <div class="title_style">
+                <div class="text_center">抖老板</div> 
+            </div>
+            <img src="img/xcx.jpg" alt="1" style="position:absolute;width:1.6rem;top:.2rem;right:.2rem;">
+            <div class="flex menu_box text_center">
+                <div class="active flex_grow_1">今天</div>
+                <div class="flex_grow_1">昨天</div>
+                <div class="flex_grow_1">近7天</div>
+                <div class="flex_grow_1">近30天</div>
+                <div class="flex_grow_1">本月</div>
+            </div>
+            <div class="flex t_desc">
+                <div class="flex_grow_1 flex" style="padding-left: .5rem;">
+                    <div class="flex_grow_1">
+                        <div>销售额</div>
+                        <div class="fff">￥1775.40</div>
+
+                        <div style="padding-top:.2rem;">有效佣金</div>
+                        <div class="fff">￥1057.23</div>
+                    </div>
+                    <div class="flex_grow_1">
+                        <div>全部佣金</div>
+                        <div class="fff">￥1108.31</div>
+                        
+                        <div style="padding-top:.2rem;">退款佣金</div>
+                        <div class="fff">￥51.08</div>
+                    </div>
+                </div>
+                <img src="img/change.jpg" alt="1" style="align-self: start;width:.43rem;margin-right:.2rem;">
+            </div>
+        </div>
+        <div style="height:.2rem;background:#F4F8FB;"></div>
+        <div class="flex text_center" style="padding:.3rem 0;align-items: center;font-size:.24rem;color:#5F5F5F;">
+            <div class="flex_grow_1">
+                <span>阿里妈妈</span>
+                <img src="img/down.jpg" alt="1">
+            </div>
+            <div class="flex_grow_1">
+                <span>创建时间</span>
+                <img src="img/down.jpg" alt="1">
+            </div>
+            <div class="flex_grow_1">
+                <span>订单状态</span>
+                <img src="img/down.jpg" alt="1">
+            </div>
+            <div class="flex_grow_1">
+                <span>账号名称</span>
+                <img src="img/down.jpg" alt="1">
+            </div>
+        </div>
+        <div style="height:.2rem;background:#F6F7FB;"></div>
+        <div style="padding-bottom:1.4rem;">
+            <div style="padding:.2rem .2rem 0;">
+                <div class="flex">
+                    <img src="img/shop.jpg" alt="1" style="width:1.04rem;">
+                    <div class="flex_grow_1" style="padding-left:.2rem;">
+                        <div class="flex">
+                            <div class="flex_grow_1" style="text-overflow: ellipsis;white-space: nowrap;width: 5rem;overflow: hidden;font-size:.3rem;">
+                                赫恩男士洗面奶套装控油深层清洁洁面乳 
+                            </div>
+                            <img src="img/eye.jpg" alt="1" style="width:.3rem;margin:0 .2rem;">
+                        </div>
+                        <div class="flex" style="padding-top:.12rem;">
+                            <div style="background:#F5EEFD;border-radius:.2rem;color:#3257C8;font-size:.24rem;width:1rem;text-align:center;white-space:nowrap;padding:.02rem 0;">已付款</div>
+                            <div class="flex_grow_1" style="text-align:right;font-size:.24rem;color:#9E9E9E;padding-right:.5rem;">
+                                02-25 10:31:47 付款
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex" style="color:#000;border-bottom:1px solid #F1F1F1;padding-bottom:.2rem;">
+                    <div class="flex_grow_1">
+                        <div class="desc_title">付款金额</div>
+                        <div class="bold_black">￥39.90</div>
+                    </div>
+                    <div class="flex_grow_1">
+                        <div class="desc_title">提成比</div>
+                        <div class="bold_black">64%</div>
+                    </div>
+                    <div class="flex_grow_1">
+                        <div class="desc_title">付款预估收入</div>
+                        <div class="bold_black">￥25.54</div>
+                    </div>
+                    <div class="flex_grow_1">
+                        <div class="desc_title">犹豫时长</div>
+                        <div class="bold_black">39秒</div>
+                    </div>
+                </div>
+
+                <div class="flex" style="padding:.2rem 0;">
+                    <img src="img/user_img.jpg" alt="1" style="width:.45rem;">
+                    <div class="flex_grow_1" style="color:#9E9E9E;padding-left:.2rem;font-size:.24rem;">古丽波斯坦</div>
+                    <img src="img/eye.jpg" alt="1" style="width:.3rem;margin:0 .2rem;">
+                </div>
+            </div>
+
+            <div style="height:.2rem;background:#F6F7FB;"></div>
+
+            <div style="padding:.2rem .2rem 0;">
+                <div class="flex">
+                    <img src="img/shop.jpg" alt="1" style="width:1.04rem;">
+                    <div class="flex_grow_1" style="padding-left:.2rem;">
+                        <div class="flex">
+                            <div class="flex_grow_1" style="text-overflow: ellipsis;white-space: nowrap;width: 5rem;overflow: hidden;font-size:.3rem;">
+                                赫恩男士洗面奶套装控油深层清洁洁面乳 
+                            </div>
+                            <img src="img/eye.jpg" alt="1" style="width:.3rem;margin:0 .2rem;">
+                        </div>
+                        <div class="flex" style="padding-top:.12rem;">
+                            <div style="background:#F5EEFD;border-radius:.2rem;color:#3257C8;font-size:.24rem;width:1rem;text-align:center;white-space:nowrap;padding:.02rem 0;">已付款</div>
+                            <div class="flex_grow_1" style="text-align:right;font-size:.24rem;color:#9E9E9E;padding-right:.5rem;">
+                                02-25 10:22:17 付款
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex" style="border-bottom:1px solid #F1F1F1;padding-bottom:.2rem;">
+                    <div class="flex_grow_1">
+                        <div class="desc_title">付款金额</div>
+                        <div class="bold_black">￥39.90</div>
+                    </div>
+                    <div class="flex_grow_1">
+                        <div class="desc_title">提成比</div>
+                        <div class="bold_black">64%</div>
+                    </div>
+                    <div class="flex_grow_1">
+                        <div class="desc_title">付款预估收入</div>
+                        <div class="bold_black">￥25.54</div>
+                    </div>
+                    <div class="flex_grow_1">
+                        <div class="desc_title">犹豫时长</div>
+                        <div class="bold_black">2分22秒</div>
+                    </div>
+                </div>
+
+                <div class="flex" style="padding:.2rem 0;">
+                    <img src="img/user_img.jpg" alt="1" style="width:.45rem;">
+                    <div class="flex_grow_1" style="color:#9E9E9E;padding-left:.2rem;font-size:.24rem;">古丽波斯坦</div>
+                    <img src="img/eye.jpg" alt="1" style="width:.3rem;margin:0 .2rem;">
+                </div>
+
+
+            </div>
+
+            <div style="height:.2rem;background:#F6F7FB;"></div>
+
+
+        </div>
+        
+        
+        
+    </div>
+    <div class="flex text_center" style="position:fixed;bottom:0;width:100%;font-size:.24rem;background:#FAFAFA;color:#899299;padding:.2rem 0;">
+        <div class="flex_grow_1">
+            <img src="img/home.jpg" alt="1" style="width:.36rem;">
+            <div style="color:#255FFE;">首页</div>
+        </div>
+        <div class="flex_grow_1">
+            <img src="img/menu.jpg" alt="1" style="width:.36rem;">
+            <div>功能</div>
+        </div>
+        <div class="flex_grow_1">
+            <img src="img/user.jpg" alt="1" style="width:.36rem;">
+            <div>我的</div>
+        </div>
+    </div>
+    
+    <script>
+		$(function(){
+            $('.menu_box>div').click(function(){
+                if($(this).hasClass('active')){
+                    return;
+                };
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+            })
+        })
+    </script>
+</body>
+</html>

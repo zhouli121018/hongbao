@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            padding:0;
+            margin:0;
+            height:100%;
+            width:100%;
+        }
+        body{
+            background:url(./image/bg_pc.png) no-repeat ;
+            background-size:cover;
+            background-position:right bottom;
+        }
+        #login_pc{
+            position:absolute;
+            width:580px;
+            height:306.5px;
+            top:30px;
+            left:30%;
+        }
+        #login_pc::after{
+            clear: both;
+            content: "";
+            display:block;
+        }
+        #login_pc>div{
+            width:290px;
+            height:307px;
+            float:left;
+        }
+        .left_block{
+            background: linear-gradient(0deg, #00B0FF, #007AFE);
+            box-shadow: 0px 3px 10px 0px rgba(0, 122, 254, 0.3);
+            opacity: 0.9;
+            border-radius: 5px 0px 0px 5px;
+        }
+        .right_block{
+            background: #FFFFFF;
+            box-shadow: 0px 3px 10px 0px rgba(0, 122, 254, 0.3);
+            opacity: 0.95;
+            border-radius: 0px 5px 5px 0px;
+        }
+        .qr_box{
+            width: 230px;
+            height:190px;
+            background: url(./image/left_border.png) no-repeat;
+            margin-left:49px;
+            margin-top:51px;
+        }
+        .qr_img{
+            width:100px;
+            height:100px;
+            margin-left:44px;
+            margin-top:53px;
+        }
+        .left_text{
+            font-size: 9px;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #FFFFFF;
+            line-height: 24px;
+            text-align: center;
+        }
+        .mom_box{
+            padding-top:22px;
+            text-align:center;
+        }
+        .mom_box>img{
+            width:98px;
+        }
+        .zz_box{
+            padding-top:10px;
+            text-align:center;
+        }
+        .zz_box>img{
+            width: 131px;
+        }
+        #login_form{
+            width:165px;
+            margin: 0 auto;
+            padding-top:16px;
+        }
+        .inputbox{
+            padding-bottom:10px;
+        }
+        .inputbox input{
+            border:none;
+            outline:none;
+            background:none;
+            font-size:12px;
+            color:#333;
+            padding:2px 0 10px;
+            border-bottom:2px solid #BCBCBC;
+            border-radius:none;
+            width:100%;
+        }
+        .inputbox input:focus{
+            border-bottom:2px solid #F8C856;
+        }
+        .loginbox{
+            padding-top:16px;
+        }
+        .loginbox>div{
+            background-color: #007AFE;
+            border-radius:4px;
+            text-align: center;
+        }
+        .loginbox .login_btn{
+            color:#fff;
+            text-decoration:none;
+            font-size:12px;
+            outline:none;
+            display:inline-block;
+            width:100%;
+            line-height:26px;
+            height:26px;
+        }
+        .check_box{
+            padding-top:15px;
+            color:#343434;
+            font-size:10px;
+        }
+        .check_box input{
+           margin:0;
+           vertical-align: middle;
+           margin-right:4px;
+        }
+        .right_block .bottom_text{
+            color:#7E7E7E;
+            text-align:right;
+            font-size:10px;
+            padding-right:22px;
+            padding-top:26px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="login_pc">
+        <div class="left_block">
+            <div class="qr_box">
+                <img class="qr_img" src="./image/qrcode.png" alt="">
+            </div>
+            <div class="left_text">扫描二维码登录PDA客户端</div>
+        </div>
+        <div class="right_block">
+            <div class="mom_box">
+                <img src="./image/mom_pc.png" alt="">
+            </div>
+            <div class="zz_box">
+                <img src="./image/zz_pc.png" alt="">
+            </div>
+            <form id="login_form">            
+                <div class="form_box">                
+                    <!--帐号-->                
+                    <div class="inputbox">   
+                        <div class="flex">     
+                            <!-- <img src="./image/wode.png" alt="username">   -->
+                            <input class="flex_grow_1" name="username" type="text" autocomplete="off" tabindex="1" placeholder="请输入用户名" > 
+                        </div>          
+                    </div>                            
+                    <!--密码-->                
+                    <div class="inputbox">
+                        <div class="flex">     
+                            <!-- <img src="./image/mima.png" alt="password">                      -->
+                            <input class="flex_grow_1" name="password" type="password" autocomplete="new-password"  tabindex="2" placeholder="请输入密码" >  
+                        </div>           
+                    </div>          
+                    <!-- 登录按钮 -->                
+                    <div class="loginbox"> 
+                        <div>
+                            <a href="#" class="login_btn" tabindex="3">登&nbsp;&nbsp;录</a>  
+                        </div>        
+                    </div>     
+                    <div class="check_box">
+                        <label><input name="Fruit" type="checkbox" value="" />记住我 </label> 
+                    </div>                
+                </div>        
+            </form>
+            <div class="bottom_text">
+                产品版本：zTu-Trace（专业版）
+            </div>
+        </div>
+    </div>
+</body>
+</html>
